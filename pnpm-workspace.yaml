@@ -1,3 +1,6 @@
-allowBuilds:
-  '@swc/core': set this to true or false
-  msw: set this to true or false
+# Build scripts are skipped for these deps — the app works without them
+# (matches the long-standing local install). Listed here so pnpm does not
+# fail with ERR_PNPM_IGNORED_BUILDS in CI (non-interactive installs).
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - msw
