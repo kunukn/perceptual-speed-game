@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from './components/ui/button';
 import { AnswerButtons } from './AnswerButtons';
+import { Button } from './components/ui/button';
 import { LetterGrid } from './LetterGrid';
 
 export const TOTAL_ROUNDS = 10;
@@ -99,7 +99,7 @@ export default function Game() {
 
   return (
     <div
-      className="mx-auto flex h-full min-h-screen w-full max-w-2xl flex-col bg-slate-50 px-4 pt-8"
+      className="flex h-[90vh] max-h-215 w-full max-w-2xl flex-col bg-slate-50 px-4 pt-8"
       data-testid="game-root"
     >
       <header className="border-b border-slate-200 pb-4">
@@ -131,7 +131,7 @@ export default function Game() {
                 top={['a', 'b', 'c', 'd']}
                 bottom={['A', 'B', 'C', 'E']}
                 showMatches
-                className="mx-auto font-mono text-3xl"
+                className="mx-auto mb-4 font-mono text-3xl"
               />
               <AnswerButtons highlightIdx={3} />
               <p className="text-center text-sm font-medium text-emerald-700">
