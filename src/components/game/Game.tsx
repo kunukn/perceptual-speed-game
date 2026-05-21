@@ -1,13 +1,13 @@
 import { useMachine } from '@xstate/react';
 import { GameIntro } from './GameIntro';
+import { GameOptions } from './GameOptions';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { PuzzleBoard } from './PuzzleBoard';
 import { gameMachine, TOTAL_ROUNDS } from './gameMachine';
 import { useConfetti } from './useConfetti';
 
-export { TOTAL_ROUNDS } from './gameMachine';
-export { COLS } from './gameMachine';
+export { COLS, TOTAL_ROUNDS } from './gameMachine';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
@@ -15,7 +15,7 @@ function pad2(n: number): string {
 
 export default function Game() {
   const [state, send] = useMachine(gameMachine);
-  const { rounds, answers, current, correct, elapsedMs } = state.context;
+  const { rounds, answers, current, correct, elapsedMs, mode } = state.context;
   const canvasRef = useConfetti(
     state.matches('results') && correct === TOTAL_ROUNDS,
   );
@@ -24,21 +24,21 @@ export default function Game() {
 
   return (
     <div
-      className="relative flex h-[90vh] max-h-215 w-full max-w-2xl flex-col overflow-hidden bg-slate-50 px-4 pt-4"
+      className="relative flex w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 px-4 pt-4"
       data-testid="game-root"
     >
       <canvas
         ref={canvasRef}
         className="pointer-events-none absolute inset-0 h-full w-full"
       />
-      <header className="border-b border-slate-200 pb-4">
+      <header className="shrink-0 border-b border-slate-200 pb-4">
         <h1 className="text-center text-2xl font-bold text-slate-900">
           Perceptual Speed
         </h1>
         <p className="text-center text-sm text-slate-500">Prototype</p>
       </header>
 
-      <section className="flex flex-1 flex-col items-center justify-center py-4">
+      <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">
         {state.matches('intro') && (
           <GameIntro onStart={() => send({ type: 'START' })} />
         )}
@@ -49,6 +49,14 @@ export default function Game() {
             top={round.top}
             bottom={round.bottom}
             onAnswer={(n) => send({ type: 'ANSWER', value: n })}
+          />
+        )}
+
+        {state.matches('options') && (
+          <GameOptions
+            mode={mode}
+            onModeChange={(m) => send({ type: 'SET_MODE', mode: m })}
+            onBack={() => send({ type: 'BACK_TO_INTRO' })}
           />
         )}
 
@@ -71,7 +79,16 @@ export default function Game() {
         )}
       </section>
 
-      <footer className="flex min-h-15 items-center justify-center gap-2 border-t border-slate-200">
+      <footer className="flex min-h-15 shrink-0 items-center justify-center gap-2 border-t border-slate-200">
+        {state.matches('intro') && (
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => send({ type: 'OPEN_OPTIONS' })}
+          >
+            Options
+          </Button>
+        )}
         {state.matches('playing') && (
           <Button
             size="lg"

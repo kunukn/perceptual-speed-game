@@ -3,6 +3,8 @@ import { assign, setup } from 'xstate';
 export const TOTAL_ROUNDS = 10;
 export const COLS = 4;
 
+export type GameMode = 'count' | 'time';
+
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
 export type Round = {
@@ -18,6 +20,7 @@ type GameContext = {
   correct: number;
   startedAt: number;
   elapsedMs: number;
+  mode: GameMode;
 };
 
 type GameEvent =
@@ -26,7 +29,10 @@ type GameEvent =
   | { type: 'ABORT' }
   | { type: 'RESTART' }
   | { type: 'REVIEW' }
-  | { type: 'EXIT_REVIEW' };
+  | { type: 'EXIT_REVIEW' }
+  | { type: 'OPEN_OPTIONS' }
+  | { type: 'BACK_TO_INTRO' }
+  | { type: 'SET_MODE'; mode: GameMode };
 
 function randLetter(exclude?: Set<string>): string {
   while (true) {
@@ -78,6 +84,10 @@ export const gameMachine = setup({
       startedAt: Date.now(),
       elapsedMs: 0,
     })),
+    setMode: assign(({ event }) => {
+      if (event.type !== 'SET_MODE') return {};
+      return { mode: event.mode };
+    }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
       const isCorrect = event.value === context.rounds[context.current].answer;
@@ -102,11 +112,19 @@ export const gameMachine = setup({
     correct: 0,
     startedAt: 0,
     elapsedMs: 0,
+    mode: 'count' as GameMode,
   },
   states: {
     intro: {
       on: {
         START: { target: 'playing', actions: 'initGame' },
+        OPEN_OPTIONS: { target: 'options' },
+      },
+    },
+    options: {
+      on: {
+        BACK_TO_INTRO: { target: 'intro' },
+        SET_MODE: { actions: 'setMode' },
       },
     },
     playing: {
