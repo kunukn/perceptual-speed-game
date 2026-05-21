@@ -116,7 +116,10 @@ export default function Game() {
   const round = phase === 'playing' ? rounds[current] : null;
 
   return (
-    <div className="mx-auto flex h-full min-h-screen w-full max-w-2xl flex-col bg-slate-50 px-4 pt-8">
+    <div
+      className="mx-auto flex h-full min-h-screen w-full max-w-2xl flex-col bg-slate-50 px-4 pt-8"
+      data-testid="game-root"
+    >
       <header className="border-b border-slate-200 pb-4">
         <h1 className="text-center text-2xl font-bold text-slate-900">
           Perceptual Speed
