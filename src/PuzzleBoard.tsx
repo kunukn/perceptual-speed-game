@@ -9,6 +9,8 @@ type PuzzleBoardProps = {
   bottom: string[];
   /** Color matching letter columns green — intro example only. */
   showMatches?: boolean;
+  /** Down arrow above each column — intro example only. */
+  showColumnArrows?: boolean;
   /** Click handler for play mode. Omit for a static preview (intro example). */
   onAnswer?: (n: number) => void;
   /** Highlights this choice as the correct answer (green). */
@@ -22,6 +24,7 @@ export function PuzzleBoard({
   top,
   bottom,
   showMatches,
+  showColumnArrows,
   onAnswer,
   highlightIdx,
   caption,
@@ -36,6 +39,7 @@ export function PuzzleBoard({
         top={top}
         bottom={bottom}
         showMatches={showMatches}
+        showColumnArrows={showColumnArrows}
         className="font-mono text-4xl"
       />
 

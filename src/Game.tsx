@@ -114,11 +114,10 @@ export default function Game() {
             <h2 className="text-center text-lg font-semibold text-slate-900">
               How to play
             </h2>
-            <p>
+            <p className="text-sm md:text-center md:text-base">
               Two rows of {COLS} chars. One row is uppercase, the other
-              lowercase. Count how many vertical pairs are the{' '}
-              <em>same letter</em> (ignoring case). Press the button matching
-              that count.
+              lowercase. Count matching vertical letter pairs
+              (case-insensitive). Press the button matching that count.
             </p>
 
             <PuzzleBoard
@@ -126,6 +125,7 @@ export default function Game() {
               top={['a', 'b', 'c', 'd']}
               bottom={['A', 'B', 'C', 'E']}
               showMatches
+              showColumnArrows
               highlightIdx={3}
               caption="3 pairs match — the correct answer is 3"
             />

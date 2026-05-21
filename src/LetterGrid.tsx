@@ -1,9 +1,11 @@
+import { ArrowDown } from 'lucide-react';
 import { cn } from './lib/utils';
 
 type LetterGridProps = {
   top: string[];
   bottom: string[];
   showMatches?: boolean; // color columns where letters match (case-insensitive)
+  showColumnArrows?: boolean; // down arrow above each column (intro example only)
   className?: string;
 };
 
@@ -11,6 +13,7 @@ export function LetterGrid({
   top,
   bottom,
   showMatches,
+  showColumnArrows,
   className,
 }: LetterGridProps) {
   const cols = top.length;
@@ -34,6 +37,12 @@ export function LetterGrid({
       className={cn('grid w-fit gap-y-1', className)}
       style={{ gridTemplateColumns: `repeat(${cols}, 1.6em)` }}
     >
+      {showColumnArrows &&
+        top.map((_, i) => (
+          <span key={`a${i}`} className="flex justify-center">
+            <ArrowDown className="h-4 w-4 text-slate-400" />
+          </span>
+        ))}
       {top.map((ch, i) => cell(ch, i, `t${i}`))}
       {bottom.map((ch, i) => cell(ch, i, `b${i}`))}
     </div>
