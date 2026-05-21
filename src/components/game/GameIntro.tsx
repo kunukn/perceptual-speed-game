@@ -1,9 +1,9 @@
 import { COLS, TOTAL_ROUNDS } from './Game';
 import { PuzzleBoard } from './PuzzleBoard';
 
-type Props = { onStart: () => void };
+type Props = { onStart: () => void; onOpenOptions: () => void };
 
-export function GameIntro({ onStart }: Props) {
+export function GameIntro({ onStart, onOpenOptions }: Props) {
   return (
     <div className="max-w-md space-y-4 text-slate-700">
       <h2 className="text-center text-lg font-semibold text-slate-900">
@@ -24,8 +24,16 @@ export function GameIntro({ onStart }: Props) {
         highlightIdx={3}
         caption="3 pairs match — the correct answer is 3"
       />
-      <div className="flex">
-        <Button className="mx-auto w-60 max-w-full" size="lg" onClick={onStart}>
+      <div className="mx-auto flex max-w-[17rem] gap-2">
+        <Button
+          className="flex-1"
+          size="lg"
+          variant="outline"
+          onClick={onOpenOptions}
+        >
+          Options
+        </Button>
+        <Button className="flex-1" size="lg" onClick={onStart}>
           Start
         </Button>
       </div>

@@ -40,7 +40,10 @@ export default function Game() {
 
       <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">
         {state.matches('intro') && (
-          <GameIntro onStart={() => send({ type: 'START' })} />
+          <GameIntro
+            onStart={() => send({ type: 'START' })}
+            onOpenOptions={() => send({ type: 'OPEN_OPTIONS' })}
+          />
         )}
 
         {state.matches('playing') && round && (
@@ -79,17 +82,8 @@ export default function Game() {
         )}
       </section>
 
-      <footer className="flex min-h-15 shrink-0 items-center justify-center gap-2 border-t border-slate-200">
-        {state.matches('intro') && (
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => send({ type: 'OPEN_OPTIONS' })}
-          >
-            Options
-          </Button>
-        )}
-        {state.matches('playing') && (
+      {state.matches('playing') && (
+        <footer className="flex min-h-15 shrink-0 items-center justify-center gap-2 border-t border-slate-200">
           <Button
             size="lg"
             className="min-w-60"
@@ -98,8 +92,8 @@ export default function Game() {
           >
             Abort
           </Button>
-        )}
-      </footer>
+        </footer>
+      )}
     </div>
   );
 }
