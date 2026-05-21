@@ -1,8 +1,8 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useRef, useState } from 'react';
-import { PuzzleBoard } from '../PuzzleBoard';
 import { GameIntro } from './GameIntro';
 import { GameResults } from './GameResults';
+import { PuzzleBoard } from './PuzzleBoard';
 
 export const TOTAL_ROUNDS = 10;
 export const COLS = 4;

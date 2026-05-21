@@ -1,5 +1,5 @@
-import { PuzzleBoard } from '../PuzzleBoard';
 import { COLS, TOTAL_ROUNDS } from './Game';
+import { PuzzleBoard } from './PuzzleBoard';
 
 type Props = { onStart: () => void };
 
