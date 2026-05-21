@@ -12,6 +12,12 @@ export default defineConfig(({ mode }) => {
   console.debug('*** Code Inspector: ', env.VITE_CODE_INSPECTOR);
 
   return {
+    /*
+     * Local dev/preview use base `/`. The GitHub Pages deploy serves under
+     * `/perceptual-speed-game/`; the deploy workflow sets VITE_BASE_PATH to
+     * opt in so built asset URLs resolve under the subpath.
+     */
+    base: process.env.VITE_BASE_PATH ?? '/',
     plugins: [
       // Combination keys for Mac are Option + Shift; for Windows, it's Alt + Shift
       ...(['1', 'true'].includes(env.VITE_CODE_INSPECTOR)

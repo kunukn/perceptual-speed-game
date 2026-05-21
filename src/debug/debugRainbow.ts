@@ -7,7 +7,7 @@ export function initDebugRainbow(): void {
   if (!document.getElementById('rainbow-debugger')) {
     const script = document.createElement('script');
     script.id = 'rainbow-debugger';
-    script.src = '/rainbow.js';
+    script.src = import.meta.env.BASE_URL + 'rainbow.js';
     script.addEventListener('load', () => {
       console.debug('*** Rainbow CSS debugging loaded');
     });
