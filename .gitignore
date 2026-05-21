@@ -29,3 +29,5 @@ CLAUDE.local.md
 
 .temp/*
 !.temp/.gitkeep
+
+.playwright-mcp/*

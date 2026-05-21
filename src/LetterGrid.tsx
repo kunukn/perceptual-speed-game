@@ -22,7 +22,7 @@ export function LetterGrid({
       key={key}
       className={cn(
         'text-center tabular-nums',
-        isMatch(i) ? 'font-semibold text-emerald-600' : 'text-slate-700',
+        isMatch(i) ? 'text-emerald-600' : 'text-slate-700',
       )}
     >
       {ch}

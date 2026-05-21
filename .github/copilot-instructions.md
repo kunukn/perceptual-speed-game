@@ -21,6 +21,7 @@ No test runner is wired up. `vitest` and `playwright` are installed but `vitest.
 - TypeScript strict mode is on, plus `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch`. Don't leave unused symbols.
 - Prefer existing `components/ui` (shadcn/Radix) over hand-rolling new UI primitives.
 - **Auto-imports are configured** via `unplugin-auto-import` (see `auto-import.config.ts`): React hooks, `react-router` exports, and `Button` are auto-imported — don't add explicit import statements for them.
+- **Playwright/browser screenshots go in `.temp/`** — never write screenshots (or other scratch artifacts) to the repo root. The `.temp/` folder is gitignored. When using a browser MCP tool, pass an explicit filename targeting `.temp/`, e.g. `.temp/intro.png`.
 
 ## Debug toggles
 
@@ -197,3 +198,4 @@ chore!: drop support for Node 18
 - ✅ Annotate every `useMemo` / `useCallback` with its rationale
 - ✅ Use `/* */` for multiline comments, `//` for single-line only
 - ✅ Keep AI responses succinct — no filler, no pleasantries, lead with the answer
+- ✅ Save Playwright/browser screenshots to `.temp/`, never the repo root

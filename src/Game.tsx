@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { AnswerButtons } from './AnswerButtons';
 import { Button } from './components/ui/button';
-import { LetterGrid } from './LetterGrid';
+import { PuzzleBoard } from './PuzzleBoard';
 
 export const TOTAL_ROUNDS = 10;
 const COLS = 4;
@@ -125,19 +124,14 @@ export default function Game() {
               {TOTAL_ROUNDS} rounds. We track your time and how many you got
               right.
             </p>
-            <div className="space-y-3 rounded bg-slate-100 p-4">
-              <p className="text-sm font-medium text-slate-500">Example</p>
-              <LetterGrid
-                top={['a', 'b', 'c', 'd']}
-                bottom={['A', 'B', 'C', 'E']}
-                showMatches
-                className="mx-auto mb-4 font-mono text-3xl"
-              />
-              <AnswerButtons highlightIdx={3} />
-              <p className="text-center text-sm font-medium text-emerald-700">
-                3 pairs match — the correct answer is 3
-              </p>
-            </div>
+            <PuzzleBoard
+              label="Example"
+              top={['a', 'b', 'c', 'd']}
+              bottom={['A', 'B', 'C', 'E']}
+              showMatches
+              highlightIdx={3}
+              caption="3 pairs match — the correct answer is 3"
+            />
             <div className="flex">
               <Button
                 className="mx-auto w-60 max-w-full"
@@ -151,25 +145,12 @@ export default function Game() {
         )}
 
         {phase === 'playing' && round && (
-          <div className="flex w-full flex-col items-center gap-8">
-            <div className="text-sm text-slate-500 tabular-nums">
-              Round {pad2(current + 1)} / {pad2(TOTAL_ROUNDS)}
-            </div>
-
-            <hr className="w-full border-slate-200" />
-
-            <LetterGrid
-              top={round.top}
-              bottom={round.bottom}
-              className="font-mono text-4xl"
-            />
-
-            <hr className="w-full border-slate-200" />
-
-            <p className="leading-none">Answer:</p>
-
-            <AnswerButtons onAnswer={answer} />
-          </div>
+          <PuzzleBoard
+            label={`Round ${pad2(current + 1)} / ${pad2(TOTAL_ROUNDS)}`}
+            top={round.top}
+            bottom={round.bottom}
+            onAnswer={answer}
+          />
         )}
 
         {phase === 'results' && (
