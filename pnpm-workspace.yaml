@@ -1,6 +1,7 @@
-# Build scripts are skipped for these deps — the app works without them
-# (matches the long-standing local install). Listed here so pnpm does not
-# fail with ERR_PNPM_IGNORED_BUILDS in CI (non-interactive installs).
-ignoredBuiltDependencies:
-  - '@swc/core'
-  - msw
+# pnpm 11: explicit per-package decisions on dependency build scripts.
+# Both are skipped (`false`) — the app builds fine without them, matching
+# the long-standing local install. Declaring the decision here prevents
+# ERR_PNPM_IGNORED_BUILDS from failing non-interactive (CI) installs.
+allowBuilds:
+  '@swc/core': false
+  msw: false
