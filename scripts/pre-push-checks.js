@@ -8,17 +8,17 @@ const tasks = [
     name: 'TS check',
     cmd: 'npx',
     /*
-     * Use a tsgo-specific tsBuildInfoFile: tsgo and tsc have incompatible
-     * incremental cache formats. Sharing the tsconfig's default path lets a
-     * prior `tsc -b` (pnpm build) poison this run with spurious errors.
+     * Use a check-specific tsBuildInfoFile: this run is `--noEmit` while
+     * `tsc -b` (pnpm build) emits. Sharing the tsconfig's default path lets
+     * one mode's incremental state make the other skip work it still needs.
      */
     args: [
-      'tsgo',
+      'tsc',
       '--project',
       'tsconfig.app.json',
       '--noEmit',
       '--tsBuildInfoFile',
-      'node_modules/.tmp/tsgo.app.tsbuildinfo',
+      'node_modules/.tmp/tsc-check.app.tsbuildinfo',
     ],
   },
   {
