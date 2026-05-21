@@ -23,6 +23,9 @@ importers:
       '@vitejs/plugin-react-swc':
         specifier: ^4.3.1
         version: 4.3.1(vite@8.0.13(@types/node@25.9.0)(jiti@2.7.0)(yaml@2.9.0))
+      '@xstate/react':
+        specifier: ^6.1.0
+        version: 6.1.0(@types/react@19.2.14)(react@19.2.6)(xstate@5.31.1)
       canvas-confetti:
         specifier: ^1.9.4
         version: 1.9.4
@@ -1812,6 +1815,15 @@ packages:
   '@vue/shared@3.5.34':
     resolution: {integrity: sha512-24uqU4OIiX29ryC3MeWid/Xf2fa2EFRUVLb77nRhk+UrTVrh/XiGtFAFmJBAtBRbjwNdsPRP+jj/OL27Eg1NDA==}
 
+  '@xstate/react@6.1.0':
+    resolution: {integrity: sha512-ep9F0jGTI63B/jE8GHdMpUqtuz7yRebNaKv8EMUaiSi29NOglywc2X2YSOV/ygbIK+LtmgZ0q9anoEA2iBSEOw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      xstate: ^5.28.0
+    peerDependenciesMeta:
+      xstate:
+        optional: true
+
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
 
@@ -3600,6 +3612,15 @@ packages:
     peerDependencies:
       '@types/react': '*'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  use-isomorphic-layout-effect@1.2.1:
+    resolution: {integrity: sha512-tpZZ+EX0gaghDAiFR37hj5MgY6ZN55kLiPkJsKxBMZ6GZdOSPJXiOzPM984oPYZ5AnehYx5WQp1+ME8I/P/pRA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -5495,6 +5516,16 @@ snapshots:
 
   '@vue/shared@3.5.34': {}
 
+  '@xstate/react@6.1.0(@types/react@19.2.14)(react@19.2.6)(xstate@5.31.1)':
+    dependencies:
+      react: 19.2.6
+      use-isomorphic-layout-effect: 1.2.1(@types/react@19.2.14)(react@19.2.6)
+      use-sync-external-store: 1.6.0(react@19.2.6)
+    optionalDependencies:
+      xstate: 5.31.1
+    transitivePeerDependencies:
+      - '@types/react'
+
   '@yarnpkg/lockfile@1.1.0': {}
 
   accepts@2.0.0:
@@ -7222,6 +7253,12 @@ snapshots:
     dependencies:
       react: 19.2.6
       tslib: 2.8.1
+    optionalDependencies:
+      '@types/react': 19.2.14
+
+  use-isomorphic-layout-effect@1.2.1(@types/react@19.2.14)(react@19.2.6):
+    dependencies:
+      react: 19.2.6
     optionalDependencies:
       '@types/react': 19.2.14
 

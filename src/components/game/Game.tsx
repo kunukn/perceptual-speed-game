@@ -1,74 +1,26 @@
 import confetti from 'canvas-confetti';
-import { useEffect, useRef, useState } from 'react';
+import { useMachine } from '@xstate/react';
+import { useEffect, useRef } from 'react';
 import { GameIntro } from './GameIntro';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { PuzzleBoard } from './PuzzleBoard';
+import { gameMachine, TOTAL_ROUNDS } from './gameMachine';
 
-export const TOTAL_ROUNDS = 10;
-export const COLS = 4;
-const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
-
-type Phase = 'intro' | 'playing' | 'results' | 'review';
-
-type Round = {
-  top: string[];
-  bottom: string[];
-  answer: number;
-};
+export { TOTAL_ROUNDS } from './gameMachine';
+export { COLS } from './gameMachine';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-function randLetter(exclude?: Set<string>): string {
-  while (true) {
-    const c = LETTERS[Math.floor(Math.random() * LETTERS.length)];
-    if (!exclude || !exclude.has(c)) return c;
-  }
-}
-
-function generateRound(): Round {
-  const target = Math.floor(Math.random() * (COLS + 1));
-  const matchCols = new Set<number>();
-  while (matchCols.size < target) {
-    matchCols.add(Math.floor(Math.random() * COLS));
-  }
-
-  const topUpper = Math.random() < 0.5;
-  const top: string[] = [];
-  const bottom: string[] = [];
-  const used = new Set<string>();
-
-  for (let i = 0; i < COLS; i++) {
-    const a = randLetter(used);
-    used.add(a);
-    let b: string;
-    if (matchCols.has(i)) {
-      b = a;
-    } else {
-      b = randLetter(used);
-      used.add(b);
-    }
-    top.push(topUpper ? a.toUpperCase() : a);
-    bottom.push(topUpper ? b : b.toUpperCase());
-  }
-
-  return { top, bottom, answer: target };
-}
-
 export default function Game() {
-  const [phase, setPhase] = useState<Phase>('intro');
-  const [rounds, setRounds] = useState<Round[]>([]);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [current, setCurrent] = useState(0);
-  const [correct, setCorrect] = useState(0);
-  const [startedAt, setStartedAt] = useState(0);
-  const [elapsedMs, setElapsedMs] = useState(0);
+  const [state, send] = useMachine(gameMachine);
+  const { rounds, answers, current, correct, elapsedMs } = state.context;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (phase !== 'results' || correct < TOTAL_ROUNDS) return;
+    if (!state.matches('results') || correct < TOTAL_ROUNDS) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -96,51 +48,9 @@ export default function Game() {
       cancelAnimationFrame(rafId);
       fire.reset();
     };
-  }, [phase, correct]);
+  }, [state, correct]);
 
-  function start() {
-    const fresh = Array.from({ length: TOTAL_ROUNDS }, generateRound);
-    setRounds(fresh);
-    setAnswers([]);
-    setCurrent(0);
-    setCorrect(0);
-    setStartedAt(Date.now());
-    setElapsedMs(0);
-    setPhase('playing');
-  }
-
-  function answer(n: number) {
-    setAnswers((prev) => [...prev, n]);
-    const isCorrect = n === rounds[current].answer;
-    const nextCorrect = correct + (isCorrect ? 1 : 0);
-    const nextIdx = current + 1;
-    if (nextIdx >= TOTAL_ROUNDS) {
-      setCorrect(nextCorrect);
-      setElapsedMs(Date.now() - startedAt);
-      setPhase('results');
-    } else {
-      setCorrect(nextCorrect);
-      setCurrent(nextIdx);
-    }
-  }
-
-  function abort() {
-    setPhase('intro');
-  }
-
-  function restart() {
-    setPhase('intro');
-  }
-
-  function review() {
-    setPhase('review');
-  }
-
-  function exitReview() {
-    setPhase('results');
-  }
-
-  const round = phase === 'playing' ? rounds[current] : null;
+  const round = state.matches('playing') ? rounds[current] : null;
 
   return (
     <div
@@ -159,39 +69,45 @@ export default function Game() {
       </header>
 
       <section className="flex flex-1 flex-col items-center justify-center py-4">
-        {phase === 'intro' && <GameIntro onStart={start} />}
+        {state.matches('intro') && (
+          <GameIntro onStart={() => send({ type: 'START' })} />
+        )}
 
-        {phase === 'playing' && round && (
+        {state.matches('playing') && round && (
           <PuzzleBoard
             label={`Round ${pad2(current + 1)} / ${pad2(TOTAL_ROUNDS)}`}
             top={round.top}
             bottom={round.bottom}
-            onAnswer={answer}
+            onAnswer={(n) => send({ type: 'ANSWER', value: n })}
           />
         )}
 
-        {phase === 'results' && (
+        {state.matches('results') && (
           <GameResults
             correct={correct}
             total={TOTAL_ROUNDS}
             elapsedMs={elapsedMs}
-            onRestart={restart}
-            onReview={review}
+            onRestart={() => send({ type: 'RESTART' })}
+            onReview={() => send({ type: 'REVIEW' })}
           />
         )}
 
-        {phase === 'review' && (
-          <GameReview rounds={rounds} answers={answers} onExit={exitReview} />
+        {state.matches('review') && (
+          <GameReview
+            rounds={rounds}
+            answers={answers}
+            onExit={() => send({ type: 'EXIT_REVIEW' })}
+          />
         )}
       </section>
 
       <footer className="flex min-h-15 items-center justify-center gap-2 border-t border-slate-200">
-        {phase === 'playing' && (
+        {state.matches('playing') && (
           <Button
             size="lg"
             className="min-w-60"
             variant="destructive"
-            onClick={abort}
+            onClick={() => send({ type: 'ABORT' })}
           >
             Abort
           </Button>
