@@ -7,7 +7,19 @@ const tasks = [
   {
     name: 'TS check',
     cmd: 'npx',
-    args: ['tsgo', '--project', 'tsconfig.app.json', '--noEmit'],
+    /*
+     * Use a tsgo-specific tsBuildInfoFile: tsgo and tsc have incompatible
+     * incremental cache formats. Sharing the tsconfig's default path lets a
+     * prior `tsc -b` (pnpm build) poison this run with spurious errors.
+     */
+    args: [
+      'tsgo',
+      '--project',
+      'tsconfig.app.json',
+      '--noEmit',
+      '--tsBuildInfoFile',
+      'node_modules/.tmp/tsgo.app.tsbuildinfo',
+    ],
   },
   {
     name: 'Lint',
