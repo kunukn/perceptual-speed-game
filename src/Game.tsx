@@ -1,19 +1,7 @@
-import { css, keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { Button } from './components/ui/button';
+import { AnswerButtons } from './AnswerButtons';
 import { LetterGrid } from './LetterGrid';
-
-const buttonClick = keyframes`
-  0%   { transform: scale(1);    background-color: transparent; }
-  40%  { transform: scale(0.92); background-color: oklch(0.205 0 0 / 0.12); }
-  100% { transform: scale(1);    background-color: transparent; }
-`;
-
-const buttonClickStyle = css`
-  &[data-clicked='true'] {
-    animation: ${buttonClick} 180ms ease-out;
-  }
-`;
 
 export const TOTAL_ROUNDS = 10;
 const COLS = 4;
@@ -74,7 +62,6 @@ export default function Game() {
   const [correct, setCorrect] = useState(0);
   const [startedAt, setStartedAt] = useState(0);
   const [elapsedMs, setElapsedMs] = useState(0);
-  const [clickedIdx, setClickedIdx] = useState<number | null>(null);
 
   function start() {
     const fresh = Array.from({ length: TOTAL_ROUNDS }, generateRound);
@@ -98,11 +85,6 @@ export default function Game() {
       setCorrect(nextCorrect);
       setCurrent(nextIdx);
     }
-  }
-
-  function handleAnswer(n: number) {
-    setClickedIdx(n);
-    answer(n);
   }
 
   function abort() {
@@ -143,17 +125,18 @@ export default function Game() {
               {TOTAL_ROUNDS} rounds. We track your time and how many you got
               right.
             </p>
-            <div className="flex items-end gap-3 rounded bg-slate-100 p-3">
+            <div className="space-y-3 rounded bg-slate-100 p-4">
+              <p className="text-sm font-medium text-slate-500">Example</p>
               <LetterGrid
                 top={['a', 'b', 'c', 'd']}
                 bottom={['A', 'B', 'C', 'E']}
                 showMatches
-                className="font-mono text-xl"
+                className="mx-auto font-mono text-3xl"
               />
-              <span className="flex items-center gap-1 pb-0.5 text-sm text-slate-500">
-                <span className="font-mono text-lg">→</span>
-                <span> answer: 3</span>
-              </span>
+              <AnswerButtons highlightIdx={3} />
+              <p className="text-center text-sm font-medium text-emerald-700">
+                3 pairs match — the correct answer is 3
+              </p>
             </div>
             <div className="flex">
               <Button
@@ -185,24 +168,7 @@ export default function Game() {
 
             <p className="leading-none">Answer:</p>
 
-            <div className="flex w-full max-w-md justify-around gap-1">
-              {[0, 1, 2, 3, 4].map((n) => (
-                <Button
-                  key={n}
-                  variant="outline"
-                  size="xl"
-                  onClick={() => handleAnswer(n)}
-                  css={buttonClickStyle}
-                  data-clicked={clickedIdx === n ? 'true' : undefined}
-                  onAnimationEnd={() =>
-                    setClickedIdx((c) => (c === n ? null : c))
-                  }
-                  className="w-12"
-                >
-                  {n}
-                </Button>
-              ))}
-            </div>
+            <AnswerButtons onAnswer={answer} />
           </div>
         )}
 
