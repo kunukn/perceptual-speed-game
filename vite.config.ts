@@ -18,6 +18,8 @@ export default defineConfig(({ mode }) => {
      * opt in so built asset URLs resolve under the subpath.
      */
     base: process.env.VITE_BASE_PATH ?? '/',
+    // Keep Vite's pre-bundle cache under node_modules instead of the project root.
+    cacheDir: 'node_modules/.vite',
     plugins: [
       // Combination keys for Mac are Option + Shift; for Windows, it's Alt + Shift
       ...(['1', 'true'].includes(env.VITE_CODE_INSPECTOR)
