@@ -1,11 +1,10 @@
-import confetti from 'canvas-confetti';
 import { useMachine } from '@xstate/react';
-import { useEffect, useRef } from 'react';
 import { GameIntro } from './GameIntro';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { PuzzleBoard } from './PuzzleBoard';
 import { gameMachine, TOTAL_ROUNDS } from './gameMachine';
+import { useConfetti } from './useConfetti';
 
 export { TOTAL_ROUNDS } from './gameMachine';
 export { COLS } from './gameMachine';
@@ -17,38 +16,9 @@ function pad2(n: number): string {
 export default function Game() {
   const [state, send] = useMachine(gameMachine);
   const { rounds, answers, current, correct, elapsedMs } = state.context;
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    if (!state.matches('results') || correct < TOTAL_ROUNDS) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const fire = confetti.create(canvas, { resize: true, useWorker: false });
-    const end = Date.now() + 3000;
-
-    let rafId: number;
-    const frame = () => {
-      fire({
-        particleCount: 3,
-        angle: 60 + Math.random() * 60,
-        spread: 50 + Math.random() * 30,
-        origin: { x: Math.random(), y: Math.random() * 0.5 },
-        colors: ['#ff0', '#f00', '#0f0', '#00f', '#f0f', '#0ff'],
-        startVelocity: 20 + Math.random() * 15,
-      });
-      if (Date.now() < end) {
-        rafId = requestAnimationFrame(frame);
-      }
-    };
-    rafId = requestAnimationFrame(frame);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      fire.reset();
-    };
-  }, [state, correct]);
+  const canvasRef = useConfetti(
+    state.matches('results') && correct === TOTAL_ROUNDS,
+  );
 
   const round = state.matches('playing') ? rounds[current] : null;
 
