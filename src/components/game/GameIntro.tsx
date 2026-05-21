@@ -1,9 +1,14 @@
 import { COLS, TOTAL_ROUNDS } from './Game';
+import type { GameMode } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
 
-type Props = { onStart: () => void; onOpenOptions: () => void };
+type Props = {
+  mode: GameMode;
+  onStart: () => void;
+  onOpenOptions: () => void;
+};
 
-export function GameIntro({ onStart, onOpenOptions }: Props) {
+export function GameIntro({ mode, onStart, onOpenOptions }: Props) {
   return (
     <div className="max-w-md space-y-4 text-slate-700">
       <h2 className="text-center text-lg font-semibold text-slate-900">
@@ -24,7 +29,14 @@ export function GameIntro({ onStart, onOpenOptions }: Props) {
         highlightIdx={3}
         caption="3 pairs match — the correct answer is 3"
       />
-      <div className="mx-auto flex max-w-[17rem] gap-2">
+      <div className="flex justify-center">
+        {/*
+        <Badge variant="secondary">
+          Mode: {mode === 'time' ? 'Time' : 'Count'}
+        </Badge>
+        */}
+      </div>
+      <div className="mx-auto flex max-w-68 gap-2">
         <Button
           className="flex-1"
           size="lg"
@@ -38,7 +50,9 @@ export function GameIntro({ onStart, onOpenOptions }: Props) {
         </Button>
       </div>
       <p>
-        {TOTAL_ROUNDS} rounds. We track your time and how many you got right.
+        {mode === 'time'
+          ? '1 minute. We track how many you answer and how many you got right.'
+          : `${TOTAL_ROUNDS} rounds. We track your time and how many you got right.`}
       </p>
     </div>
   );

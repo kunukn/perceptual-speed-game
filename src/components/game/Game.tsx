@@ -17,7 +17,7 @@ export default function Game() {
   const [state, send] = useMachine(gameMachine);
   const { rounds, answers, current, correct, elapsedMs, mode } = state.context;
   const canvasRef = useConfetti(
-    state.matches('results') && correct === TOTAL_ROUNDS,
+    state.matches('results') && mode === 'count' && correct === TOTAL_ROUNDS,
   );
 
   const round = state.matches('playing') ? rounds[current] : null;
@@ -41,6 +41,7 @@ export default function Game() {
       <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">
         {state.matches('intro') && (
           <GameIntro
+            mode={mode}
             onStart={() => send({ type: 'START' })}
             onOpenOptions={() => send({ type: 'OPEN_OPTIONS' })}
           />
@@ -48,7 +49,11 @@ export default function Game() {
 
         {state.matches('playing') && round && (
           <PuzzleBoard
-            label={`Round ${pad2(current + 1)} / ${pad2(TOTAL_ROUNDS)}`}
+            label={
+              mode === 'time'
+                ? `Round ${pad2(current + 1)}`
+                : `Round ${pad2(current + 1)} / ${pad2(TOTAL_ROUNDS)}`
+            }
             top={round.top}
             bottom={round.bottom}
             onAnswer={(n) => send({ type: 'ANSWER', value: n })}
@@ -66,7 +71,7 @@ export default function Game() {
         {state.matches('results') && (
           <GameResults
             correct={correct}
-            total={TOTAL_ROUNDS}
+            total={mode === 'time' ? answers.length : TOTAL_ROUNDS}
             elapsedMs={elapsedMs}
             onRestart={() => send({ type: 'RESTART' })}
             onReview={() => send({ type: 'REVIEW' })}

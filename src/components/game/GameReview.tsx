@@ -1,4 +1,3 @@
-import { TOTAL_ROUNDS } from './Game';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Round = {
@@ -20,7 +19,7 @@ function pad2(n: number): string {
 export function GameReview({ rounds, answers, onExit }: Props) {
   const [index, setIndex] = useState(0);
 
-  const total = rounds.length;
+  const total = answers.length;
   const round = rounds[index];
   const userAnswer = answers[index];
   const isCorrect = userAnswer === round.answer;
@@ -36,7 +35,7 @@ export function GameReview({ rounds, answers, onExit }: Props) {
   return (
     <div className="flex w-full flex-col items-center gap-6">
       <PuzzleBoard
-        label={`Review ${pad2(index + 1)} / ${pad2(TOTAL_ROUNDS)}`}
+        label={`Review ${pad2(index + 1)} / ${pad2(total)}`}
         top={round.top}
         bottom={round.bottom}
         highlightIdx={round.answer}

@@ -43,7 +43,8 @@ export function GameOptions({ mode, onModeChange, onBack }: Props) {
             className="accent-slate-800"
           />
           <span className="text-sm">
-            <span className="font-medium">Time mode</span> — coming soon
+            <span className="font-medium">Time mode</span> — answer as many as
+            you can in 1&nbsp;minute
           </span>
         </label>
       </fieldset>

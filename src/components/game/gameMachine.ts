@@ -2,6 +2,7 @@ import { assign, setup } from 'xstate';
 
 export const TOTAL_ROUNDS = 10;
 export const COLS = 4;
+export const TIME_LIMIT_MS = 60_000;
 
 export type GameMode = 'count' | 'time';
 
@@ -91,16 +92,27 @@ export const gameMachine = setup({
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
       const isCorrect = event.value === context.rounds[context.current].answer;
+      const next = context.current + 1;
       return {
         answers: [...context.answers, event.value],
         correct: context.correct + (isCorrect ? 1 : 0),
-        current: context.current + 1,
+        current: next,
         elapsedMs: Date.now() - context.startedAt,
+        /* Time mode is endless — generate the next round lazily so play never runs out. */
+        rounds:
+          context.mode === 'time' && next >= context.rounds.length
+            ? [...context.rounds, generateRound()]
+            : context.rounds,
       };
     }),
+    finalizeTime: assign(({ context }) => ({
+      elapsedMs: Date.now() - context.startedAt,
+    })),
   },
   guards: {
-    isLastRound: ({ context }) => context.current + 1 >= TOTAL_ROUNDS,
+    isCountComplete: ({ context }) =>
+      context.mode === 'count' && context.current + 1 >= TOTAL_ROUNDS,
+    isTimeMode: ({ context }) => context.mode === 'time',
   },
 }).createMachine({
   id: 'game',
@@ -128,10 +140,22 @@ export const gameMachine = setup({
       },
     },
     playing: {
+      after: {
+        [TIME_LIMIT_MS]: {
+          guard: 'isTimeMode',
+          target: 'results',
+          actions: 'finalizeTime',
+        },
+      },
       on: {
         ANSWER: [
-          { guard: 'isLastRound', target: 'results', actions: 'recordAnswer' },
-          { target: 'playing', actions: 'recordAnswer' },
+          {
+            guard: 'isCountComplete',
+            target: 'results',
+            actions: 'recordAnswer',
+          },
+          /* Internal transition (no target) — avoids re-entering `playing` and resetting the `after` timer. */
+          { actions: 'recordAnswer' },
         ],
         ABORT: { target: 'intro' },
       },
