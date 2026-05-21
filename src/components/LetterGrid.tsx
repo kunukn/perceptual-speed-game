@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils';
 import { ArrowDown } from 'lucide-react';
-import { cn } from './lib/utils';
 
 type LetterGridProps = {
   top: string[];

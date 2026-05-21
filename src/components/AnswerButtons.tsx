@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils';
 import { css, keyframes } from '@emotion/react';
-import { cn } from './lib/utils';
 
 const buttonClick = keyframes`
   0%   { transform: scale(1);    background-color: transparent; }

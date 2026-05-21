@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { Button } from './components/ui/button';
-import { PuzzleBoard } from './PuzzleBoard';
+import confetti from 'canvas-confetti';
+import { useEffect, useRef, useState } from 'react';
+import { PuzzleBoard } from '../PuzzleBoard';
+import { GameIntro } from './GameIntro';
+import { GameResults } from './GameResults';
 
 export const TOTAL_ROUNDS = 10;
-const COLS = 4;
+export const COLS = 4;
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
 type Phase = 'intro' | 'playing' | 'results';
@@ -61,6 +63,38 @@ export default function Game() {
   const [correct, setCorrect] = useState(0);
   const [startedAt, setStartedAt] = useState(0);
   const [elapsedMs, setElapsedMs] = useState(0);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (phase !== 'results' || correct < TOTAL_ROUNDS) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const fire = confetti.create(canvas, { resize: true, useWorker: false });
+    const end = Date.now() + 3000;
+
+    let rafId: number;
+    const frame = () => {
+      fire({
+        particleCount: 3,
+        angle: 60 + Math.random() * 60,
+        spread: 50 + Math.random() * 30,
+        origin: { x: Math.random(), y: Math.random() * 0.5 },
+        colors: ['#ff0', '#f00', '#0f0', '#00f', '#f0f', '#0ff'],
+        startVelocity: 20 + Math.random() * 15,
+      });
+      if (Date.now() < end) {
+        rafId = requestAnimationFrame(frame);
+      }
+    };
+    rafId = requestAnimationFrame(frame);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      fire.reset();
+    };
+  }, [phase, correct]);
 
   function start() {
     const fresh = Array.from({ length: TOTAL_ROUNDS }, generateRound);
@@ -98,9 +132,13 @@ export default function Game() {
 
   return (
     <div
-      className="flex h-[90vh] max-h-215 w-full max-w-2xl flex-col bg-slate-50 px-4 pt-4"
+      className="relative flex h-[90vh] max-h-215 w-full max-w-2xl flex-col overflow-hidden bg-slate-50 px-4 pt-4"
       data-testid="game-root"
     >
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+      />
       <header className="border-b border-slate-200 pb-4">
         <h1 className="text-center text-2xl font-bold text-slate-900">
           Perceptual Speed
@@ -109,41 +147,7 @@ export default function Game() {
       </header>
 
       <section className="flex flex-1 flex-col items-center justify-center py-4">
-        {phase === 'intro' && (
-          <div className="max-w-md space-y-4 text-slate-700">
-            <h2 className="text-center text-lg font-semibold text-slate-900">
-              How to play
-            </h2>
-            <p className="text-sm md:text-center md:text-base">
-              Two rows of {COLS} chars. One row is uppercase, the other
-              lowercase. Count matching vertical letter pairs
-              (case-insensitive). Press the button matching that count.
-            </p>
-
-            <PuzzleBoard
-              label="Example"
-              top={['a', 'b', 'c', 'd']}
-              bottom={['A', 'B', 'C', 'E']}
-              showMatches
-              showColumnArrows
-              highlightIdx={3}
-              caption="3 pairs match — the correct answer is 3"
-            />
-            <div className="flex">
-              <Button
-                className="mx-auto w-60 max-w-full"
-                size="lg"
-                onClick={start}
-              >
-                Start
-              </Button>
-            </div>
-            <p>
-              {TOTAL_ROUNDS} rounds. We track your time and how many you got
-              right.
-            </p>
-          </div>
-        )}
+        {phase === 'intro' && <GameIntro onStart={start} />}
 
         {phase === 'playing' && round && (
           <PuzzleBoard
@@ -155,22 +159,16 @@ export default function Game() {
         )}
 
         {phase === 'results' && (
-          <div className="space-y-3 text-center text-slate-800">
-            <h2 className="text-xl font-semibold">Results</h2>
-            <p className="text-3xl font-bold">
-              {correct} / {TOTAL_ROUNDS}
-            </p>
-            <p className="mb-6 text-slate-500">
-              Time: {(elapsedMs / 1000).toFixed(1)}s
-            </p>
-            <Button size="lg" className="w-60 max-w-full" onClick={restart}>
-              Restart
-            </Button>
-          </div>
+          <GameResults
+            correct={correct}
+            total={TOTAL_ROUNDS}
+            elapsedMs={elapsedMs}
+            onRestart={restart}
+          />
         )}
       </section>
 
-      <footer className="flex min-h-[60px] items-center justify-center gap-2 border-t border-slate-200">
+      <footer className="flex min-h-15 items-center justify-center gap-2 border-t border-slate-200">
         {phase === 'playing' && (
           <Button
             size="lg"

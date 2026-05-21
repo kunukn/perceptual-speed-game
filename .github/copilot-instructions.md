@@ -143,12 +143,12 @@ Example:
 // This is a brief note about the next line
 ```
 
-### Build Verification
+### Code Verification
 
-After completing all code changes, run `pnpm build` as the final step — it runs `tsc -b` and will surface any type errors. Do not consider the task complete until the build passes. Fix any errors before finishing.
+After completing all code changes, run `pnpm check` as the final step. Do not consider the task complete until the build passes. Fix any errors before finishing.
 
 ```bash
-pnpm build
+pnpm check
 ```
 
 ### Commit Message Format
@@ -193,7 +193,7 @@ chore!: drop support for Node 18
 - ✅ Use Zustand or XState for state — don't introduce a third pattern
 - ✅ Follow Conventional Commits for commit messages
 - ✅ Run `pnpm format` after edits
-- ✅ Run `pnpm build` as the final step to verify no type errors
+- ✅ Run `pnpm check` as the final step to verify no type errors
 - ✅ Add a blank line after single-line `return` statements
 - ✅ Annotate every `useMemo` / `useCallback` with its rationale
 - ✅ Use `/* */` for multiline comments, `//` for single-line only
