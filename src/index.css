@@ -125,8 +125,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    min-height: 100%;
   }
   html {
     @apply font-sans;
+    height: 100%;
+  }
+
+  #app {
+    min-height: 100%;
   }
 }

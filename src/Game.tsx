@@ -98,7 +98,7 @@ export default function Game() {
 
   return (
     <div
-      className="flex h-[90vh] max-h-215 w-full max-w-2xl flex-col bg-slate-50 px-4 pt-8"
+      className="flex h-[90vh] max-h-215 w-full max-w-2xl flex-col bg-slate-50 px-4 pt-4"
       data-testid="game-root"
     >
       <header className="border-b border-slate-200 pb-4">
@@ -108,22 +108,19 @@ export default function Game() {
         <p className="text-center text-sm text-slate-500">Prototype</p>
       </header>
 
-      <section className="flex flex-1 flex-col items-center justify-center py-10">
+      <section className="flex flex-1 flex-col items-center justify-center py-4">
         {phase === 'intro' && (
           <div className="max-w-md space-y-4 text-slate-700">
             <h2 className="text-center text-lg font-semibold text-slate-900">
               How to play
             </h2>
             <p>
-              You'll see two rows of {COLS} letters. One row is uppercase, the
-              other lowercase. Count how many vertical pairs are the{' '}
-              <em>same letter</em> (ignoring case), then press the button
-              matching that count.
+              Two rows of {COLS} chars. One row is uppercase, the other
+              lowercase. Count how many vertical pairs are the{' '}
+              <em>same letter</em> (ignoring case). Press the button matching
+              that count.
             </p>
-            <p>
-              {TOTAL_ROUNDS} rounds. We track your time and how many you got
-              right.
-            </p>
+
             <PuzzleBoard
               label="Example"
               top={['a', 'b', 'c', 'd']}
@@ -141,6 +138,10 @@ export default function Game() {
                 Start
               </Button>
             </div>
+            <p>
+              {TOTAL_ROUNDS} rounds. We track your time and how many you got
+              right.
+            </p>
           </div>
         )}
 

@@ -2,7 +2,7 @@ import Game from './Game';
 
 export default function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="flex min-h-screen flex-col items-center md:justify-center">
       <Game />
     </div>
   );
