@@ -1,10 +1,21 @@
 import { assign, setup } from 'xstate';
 
-export const TOTAL_ROUNDS = 10;
 export const COLS = 4;
-export const TIME_LIMIT_MS = 60_000;
+export const COUNT_TARGETS = [10, 20] as const;
+export const TIME_LIMITS_MS = [30_000, 60_000] as const;
+
+const DEFAULT_COUNT_TARGET = 10;
+const DEFAULT_TIME_LIMIT_MS = 60_000;
+/* Initial round buffer for time mode — lazily extended as the player runs out. */
+const TIME_MODE_ROUND_BUFFER = 10;
 
 export type GameMode = 'count' | 'time';
+
+export function formatTimeLimit(ms: number): string {
+  if (ms === 60_000) return '1 minute';
+
+  return `${ms / 1000} seconds`;
+}
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -22,6 +33,8 @@ type GameContext = {
   startedAt: number;
   elapsedMs: number;
   mode: GameMode;
+  countTarget: number;
+  timeLimitMs: number;
 };
 
 type GameEvent =
@@ -33,7 +46,9 @@ type GameEvent =
   | { type: 'EXIT_REVIEW' }
   | { type: 'OPEN_OPTIONS' }
   | { type: 'BACK_TO_INTRO' }
-  | { type: 'SET_MODE'; mode: GameMode };
+  | { type: 'SET_MODE'; mode: GameMode }
+  | { type: 'SET_COUNT_TARGET'; value: number }
+  | { type: 'SET_TIME_LIMIT'; value: number };
 
 function randLetter(exclude?: Set<string>): string {
   while (true) {
@@ -77,8 +92,16 @@ export const gameMachine = setup({
     events: {} as GameEvent,
   },
   actions: {
-    initGame: assign(() => ({
-      rounds: Array.from({ length: TOTAL_ROUNDS }, generateRound),
+    initGame: assign(({ context }) => ({
+      rounds: Array.from(
+        {
+          length:
+            context.mode === 'count'
+              ? context.countTarget
+              : TIME_MODE_ROUND_BUFFER,
+        },
+        generateRound,
+      ),
       answers: [],
       current: 0,
       correct: 0,
@@ -87,7 +110,18 @@ export const gameMachine = setup({
     })),
     setMode: assign(({ event }) => {
       if (event.type !== 'SET_MODE') return {};
+
       return { mode: event.mode };
+    }),
+    setCountTarget: assign(({ event }) => {
+      if (event.type !== 'SET_COUNT_TARGET') return {};
+
+      return { countTarget: event.value };
+    }),
+    setTimeLimit: assign(({ event }) => {
+      if (event.type !== 'SET_TIME_LIMIT') return {};
+
+      return { timeLimitMs: event.value };
     }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
@@ -111,8 +145,11 @@ export const gameMachine = setup({
   },
   guards: {
     isCountComplete: ({ context }) =>
-      context.mode === 'count' && context.current + 1 >= TOTAL_ROUNDS,
+      context.mode === 'count' && context.current + 1 >= context.countTarget,
     isTimeMode: ({ context }) => context.mode === 'time',
+  },
+  delays: {
+    timeLimit: ({ context }) => context.timeLimitMs,
   },
 }).createMachine({
   id: 'game',
@@ -125,6 +162,8 @@ export const gameMachine = setup({
     startedAt: 0,
     elapsedMs: 0,
     mode: 'count' as GameMode,
+    countTarget: DEFAULT_COUNT_TARGET,
+    timeLimitMs: DEFAULT_TIME_LIMIT_MS,
   },
   states: {
     intro: {
@@ -137,11 +176,13 @@ export const gameMachine = setup({
       on: {
         BACK_TO_INTRO: { target: 'intro' },
         SET_MODE: { actions: 'setMode' },
+        SET_COUNT_TARGET: { actions: 'setCountTarget' },
+        SET_TIME_LIMIT: { actions: 'setTimeLimit' },
       },
     },
     playing: {
       after: {
-        [TIME_LIMIT_MS]: {
+        timeLimit: {
           guard: 'isTimeMode',
           target: 'results',
           actions: 'finalizeTime',

@@ -4,10 +4,10 @@ import { GameOptions } from './GameOptions';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { PuzzleBoard } from './PuzzleBoard';
-import { gameMachine, TOTAL_ROUNDS } from './gameMachine';
+import { gameMachine } from './gameMachine';
 import { useConfetti } from './useConfetti';
 
-export { COLS, TOTAL_ROUNDS } from './gameMachine';
+export { COLS } from './gameMachine';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
@@ -15,16 +15,25 @@ function pad2(n: number): string {
 
 export default function Game() {
   const [state, send] = useMachine(gameMachine);
-  const { rounds, answers, current, correct, elapsedMs, mode } = state.context;
+  const {
+    rounds,
+    answers,
+    current,
+    correct,
+    elapsedMs,
+    mode,
+    countTarget,
+    timeLimitMs,
+  } = state.context;
   const canvasRef = useConfetti(
-    state.matches('results') && mode === 'count' && correct === TOTAL_ROUNDS,
+    state.matches('results') && mode === 'count' && correct === countTarget,
   );
 
   const round = state.matches('playing') ? rounds[current] : null;
 
   return (
     <div
-      className="relative flex w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 px-4 pt-4"
+      className="relative flex max-h-[60rem] w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 px-4 pt-4"
       data-testid="game-root"
     >
       <canvas
@@ -42,6 +51,8 @@ export default function Game() {
         {state.matches('intro') && (
           <GameIntro
             mode={mode}
+            countTarget={countTarget}
+            timeLimitMs={timeLimitMs}
             onStart={() => send({ type: 'START' })}
             onOpenOptions={() => send({ type: 'OPEN_OPTIONS' })}
           />
@@ -52,7 +63,7 @@ export default function Game() {
             label={
               mode === 'time'
                 ? `Round ${pad2(current + 1)}`
-                : `Round ${pad2(current + 1)} / ${pad2(TOTAL_ROUNDS)}`
+                : `Round ${pad2(current + 1)} / ${pad2(countTarget)}`
             }
             top={round.top}
             bottom={round.bottom}
@@ -63,7 +74,15 @@ export default function Game() {
         {state.matches('options') && (
           <GameOptions
             mode={mode}
+            countTarget={countTarget}
+            timeLimitMs={timeLimitMs}
             onModeChange={(m) => send({ type: 'SET_MODE', mode: m })}
+            onCountTargetChange={(value) =>
+              send({ type: 'SET_COUNT_TARGET', value })
+            }
+            onTimeLimitChange={(value) =>
+              send({ type: 'SET_TIME_LIMIT', value })
+            }
             onBack={() => send({ type: 'BACK_TO_INTRO' })}
           />
         )}
@@ -71,7 +90,7 @@ export default function Game() {
         {state.matches('results') && (
           <GameResults
             correct={correct}
-            total={mode === 'time' ? answers.length : TOTAL_ROUNDS}
+            total={mode === 'time' ? answers.length : countTarget}
             elapsedMs={elapsedMs}
             onRestart={() => send({ type: 'RESTART' })}
             onReview={() => send({ type: 'REVIEW' })}

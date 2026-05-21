@@ -33,7 +33,7 @@ export function PuzzleBoard({
   caption,
 }: PuzzleBoardProps) {
   return (
-    <div className="flex w-full flex-col items-center gap-8">
+    <div className="flex w-full flex-col items-center gap-4 md:gap-8">
       <div className="text-sm text-slate-500 tabular-nums">{label}</div>
 
       <hr className="w-full border-slate-200" />

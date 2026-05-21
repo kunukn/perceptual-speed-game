@@ -28,7 +28,11 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@emotion/react/jsx-runtime": ["./node_modules/@emotion/react/jsx-runtime"],
+      "@emotion/react/jsx-dev-runtime": [
+        "./node_modules/@emotion/react/jsx-dev-runtime"
+      ]
     },
     "ignoreDeprecations": "6.0",
     "types": ["vitest/globals"]

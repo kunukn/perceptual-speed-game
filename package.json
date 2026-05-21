@@ -72,7 +72,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/testing-library__jest-dom": "^6.0.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260503.1",
+    "@typescript/native-preview": "7.0.0-dev.20260521.1",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.6",
     "env-cmd": "11.0.0",
