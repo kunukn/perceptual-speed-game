@@ -1,0 +1,37 @@
+export const autoImportConfig = [
+  {
+    react: [
+      'cacheSignal',
+      'createRef',
+      'createContext',
+      'forwardRef',
+      'Activity',
+      'Fragment',
+      'Suspense',
+      'useCallback',
+      'useContext',
+      'useDebugValue',
+      'useDeferredValue',
+      'useEffect',
+      'useEffectEvent',
+      'useId',
+      'useImperativeHandle',
+      'useInsertionEffect',
+      'useLayoutEffect',
+      'useMemo',
+      'useReducer',
+      'useRef',
+      'useState',
+      'useSyncExternalStore',
+      'useTransition',
+      'useActionState',
+      'useOptimistic',
+    ],
+  },
+  {
+    'react-router': ['useNavigate'],
+  },
+  {
+    '@/components/ui/button': ['Button'],
+  },
+];
