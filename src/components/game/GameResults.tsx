@@ -3,9 +3,16 @@ type Props = {
   total: number;
   elapsedMs: number;
   onRestart: () => void;
+  onReview: () => void;
 };
 
-export function GameResults({ correct, total, elapsedMs, onRestart }: Props) {
+export function GameResults({
+  correct,
+  total,
+  elapsedMs,
+  onRestart,
+  onReview,
+}: Props) {
   return (
     <div className="space-y-3 text-center text-slate-800">
       <h2 className="text-xl font-semibold">Results</h2>
@@ -15,9 +22,19 @@ export function GameResults({ correct, total, elapsedMs, onRestart }: Props) {
       <p className="mb-6 text-slate-500">
         Time: {(elapsedMs / 1000).toFixed(1)}s
       </p>
-      <Button size="lg" className="w-60 max-w-full" onClick={onRestart}>
-        Restart
-      </Button>
+      <div className="flex flex-col items-center gap-3">
+        <Button size="lg" className="w-60 max-w-full" onClick={onRestart}>
+          Restart
+        </Button>
+        <Button
+          size="lg"
+          variant="outline"
+          className="w-60 max-w-full"
+          onClick={onReview}
+        >
+          Review
+        </Button>
+      </div>
     </div>
   );
 }

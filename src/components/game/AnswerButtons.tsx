@@ -18,14 +18,17 @@ const CHOICES = [0, 1, 2, 3, 4];
 type AnswerButtonsProps = {
   /** Click handler for play mode. Omit for a static preview (intro example). */
   onAnswer?: (n: number) => void;
-  /** Highlights this choice as the correct answer (green). Used by the intro example. */
+  /** Highlights this choice as the correct answer (green). Used by the intro example and review. */
   highlightIdx?: number;
+  /** Highlights this choice as the wrong answer (red). Used by review mode. */
+  wrongIdx?: number;
   className?: string;
 };
 
 export function AnswerButtons({
   onAnswer,
   highlightIdx,
+  wrongIdx,
   className,
 }: AnswerButtonsProps) {
   const [clickedIdx, setClickedIdx] = useState<number | null>(null);
@@ -59,6 +62,8 @@ export function AnswerButtons({
             'w-12',
             n === highlightIdx &&
               'border-emerald-500 bg-emerald-50 font-semibold text-emerald-700',
+            n === wrongIdx &&
+              'border-red-500 bg-red-50 font-semibold text-red-700',
           )}
         >
           {n}

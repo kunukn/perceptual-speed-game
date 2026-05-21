@@ -2,13 +2,14 @@ import confetti from 'canvas-confetti';
 import { useEffect, useRef, useState } from 'react';
 import { GameIntro } from './GameIntro';
 import { GameResults } from './GameResults';
+import { GameReview } from './GameReview';
 import { PuzzleBoard } from './PuzzleBoard';
 
 export const TOTAL_ROUNDS = 10;
 export const COLS = 4;
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
-type Phase = 'intro' | 'playing' | 'results';
+type Phase = 'intro' | 'playing' | 'results' | 'review';
 
 type Round = {
   top: string[];
@@ -59,6 +60,7 @@ function generateRound(): Round {
 export default function Game() {
   const [phase, setPhase] = useState<Phase>('intro');
   const [rounds, setRounds] = useState<Round[]>([]);
+  const [answers, setAnswers] = useState<number[]>([]);
   const [current, setCurrent] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [startedAt, setStartedAt] = useState(0);
@@ -99,6 +101,7 @@ export default function Game() {
   function start() {
     const fresh = Array.from({ length: TOTAL_ROUNDS }, generateRound);
     setRounds(fresh);
+    setAnswers([]);
     setCurrent(0);
     setCorrect(0);
     setStartedAt(Date.now());
@@ -107,6 +110,7 @@ export default function Game() {
   }
 
   function answer(n: number) {
+    setAnswers((prev) => [...prev, n]);
     const isCorrect = n === rounds[current].answer;
     const nextCorrect = correct + (isCorrect ? 1 : 0);
     const nextIdx = current + 1;
@@ -126,6 +130,14 @@ export default function Game() {
 
   function restart() {
     setPhase('intro');
+  }
+
+  function review() {
+    setPhase('review');
+  }
+
+  function exitReview() {
+    setPhase('results');
   }
 
   const round = phase === 'playing' ? rounds[current] : null;
@@ -164,7 +176,12 @@ export default function Game() {
             total={TOTAL_ROUNDS}
             elapsedMs={elapsedMs}
             onRestart={restart}
+            onReview={review}
           />
+        )}
+
+        {phase === 'review' && (
+          <GameReview rounds={rounds} answers={answers} onExit={exitReview} />
         )}
       </section>
 

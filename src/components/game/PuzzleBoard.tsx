@@ -15,6 +15,8 @@ type PuzzleBoardProps = {
   onAnswer?: (n: number) => void;
   /** Highlights this choice as the correct answer (green). */
   highlightIdx?: number;
+  /** Highlights this choice as the wrong answer (red). Used by review mode. */
+  wrongIdx?: number;
   /** Caption shown below the answer buttons (intro example only). */
   caption?: ReactNode;
 };
@@ -27,6 +29,7 @@ export function PuzzleBoard({
   showColumnArrows,
   onAnswer,
   highlightIdx,
+  wrongIdx,
   caption,
 }: PuzzleBoardProps) {
   return (
@@ -48,7 +51,11 @@ export function PuzzleBoard({
       <p className="leading-none">Answer:</p>
 
       <div className="flex flex-col items-center gap-3">
-        <AnswerButtons onAnswer={onAnswer} highlightIdx={highlightIdx} />
+        <AnswerButtons
+          onAnswer={onAnswer}
+          highlightIdx={highlightIdx}
+          wrongIdx={wrongIdx}
+        />
         {caption && (
           <p className="text-center text-sm font-medium text-emerald-700">
             {caption}
