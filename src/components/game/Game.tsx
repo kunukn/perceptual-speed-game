@@ -1,11 +1,16 @@
 import { useMachine } from '@xstate/react';
+import { useLocalStorage } from 'usehooks-ts';
 import { GameIntro } from './GameIntro';
 import { GameOptions } from './GameOptions';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { GameTimer } from './GameTimer';
 import { PuzzleBoard } from './PuzzleBoard';
-import { gameMachine } from './gameMachine';
+import {
+  DEFAULT_OPTIONS,
+  gameMachine,
+  type GameOptions as GameOptionsType,
+} from './gameMachine';
 import { useConfetti } from './useConfetti';
 
 export { COLS } from './gameMachine';
@@ -15,7 +20,11 @@ function pad2(n: number): string {
 }
 
 export default function Game() {
-  const [state, send] = useMachine(gameMachine);
+  const [storedOptions, setStoredOptions] = useLocalStorage<GameOptionsType>(
+    'perceptual-speed-options',
+    DEFAULT_OPTIONS,
+  );
+  const [state, send] = useMachine(gameMachine, { input: storedOptions });
   const {
     rounds,
     answers,
@@ -28,6 +37,11 @@ export default function Game() {
     timeLimitMs,
     showTimer,
   } = state.context;
+
+  /* Mirror option changes from the machine back into localStorage. */
+  useEffect(() => {
+    setStoredOptions({ mode, countTarget, timeLimitMs, showTimer });
+  }, [mode, countTarget, timeLimitMs, showTimer, setStoredOptions]);
   const canvasRef = useConfetti(
     state.matches('results') && mode === 'count' && correct === countTarget,
   );

@@ -4,7 +4,7 @@ export const COLS = 4;
 export const COUNT_TARGETS = [5, 10, 15, 20, 30] as const;
 export const TIME_LIMITS_MS = [10_000, 30_000, 60_000, 120_000] as const;
 
-const DEFAULT_COUNT_TARGET = 10;
+const DEFAULT_COUNT_TARGET = 5;
 const DEFAULT_TIME_LIMIT_MS = 60_000;
 /* Initial round buffer for time mode — lazily extended as the player runs out. */
 const TIME_MODE_ROUND_BUFFER = 10;
@@ -43,6 +43,18 @@ type GameContext = {
   countTarget: number;
   timeLimitMs: number;
   showTimer: boolean;
+};
+
+export type GameOptions = Pick<
+  GameContext,
+  'mode' | 'countTarget' | 'timeLimitMs' | 'showTimer'
+>;
+
+export const DEFAULT_OPTIONS: GameOptions = {
+  mode: 'count',
+  countTarget: DEFAULT_COUNT_TARGET,
+  timeLimitMs: DEFAULT_TIME_LIMIT_MS,
+  showTimer: false,
 };
 
 type GameEvent =
@@ -99,6 +111,7 @@ export const gameMachine = setup({
   types: {
     context: {} as GameContext,
     events: {} as GameEvent,
+    input: {} as GameOptions,
   },
   actions: {
     initGame: assign(({ context }) => ({
@@ -168,18 +181,15 @@ export const gameMachine = setup({
 }).createMachine({
   id: 'game',
   initial: 'intro',
-  context: {
+  context: ({ input }) => ({
     rounds: [],
     answers: [],
     current: 0,
     correct: 0,
     startedAt: 0,
     elapsedMs: 0,
-    mode: 'count' as GameMode,
-    countTarget: DEFAULT_COUNT_TARGET,
-    timeLimitMs: DEFAULT_TIME_LIMIT_MS,
-    showTimer: false,
-  },
+    ...input,
+  }),
   states: {
     intro: {
       on: {
