@@ -24,12 +24,94 @@ export function formatElapsed(ms: number): string {
   return `${Math.round(ms / 1000)}s`;
 }
 
-const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+type LetterPair = readonly [string, string];
+
+export type LetterSystem =
+  | 'english'
+  | 'german'
+  | 'accented'
+  | 'greek'
+  | 'cyrillic'
+  | 'kana';
+
+/* Build case pairs from a lowercase string — partner glyph is the uppercase form. */
+function fromString(lower: string): LetterPair[] {
+  return [...lower].map((c) => [c, c.toUpperCase()] as const);
+}
+
+/* Hiragana paired with the katakana of the same syllable — kana has no case. */
+const KANA: LetterPair[] = [
+  ['あ', 'ア'],
+  ['い', 'イ'],
+  ['う', 'ウ'],
+  ['え', 'エ'],
+  ['お', 'オ'],
+  ['か', 'カ'],
+  ['き', 'キ'],
+  ['く', 'ク'],
+  ['け', 'ケ'],
+  ['こ', 'コ'],
+  ['さ', 'サ'],
+  ['し', 'シ'],
+  ['す', 'ス'],
+  ['せ', 'セ'],
+  ['そ', 'ソ'],
+  ['た', 'タ'],
+  ['ち', 'チ'],
+  ['つ', 'ツ'],
+  ['て', 'テ'],
+  ['と', 'ト'],
+  ['な', 'ナ'],
+  ['に', 'ニ'],
+  ['ぬ', 'ヌ'],
+  ['ね', 'ネ'],
+  ['の', 'ノ'],
+  ['は', 'ハ'],
+  ['ひ', 'ヒ'],
+  ['ふ', 'フ'],
+  ['へ', 'ヘ'],
+  ['ほ', 'ホ'],
+  ['ま', 'マ'],
+  ['み', 'ミ'],
+  ['む', 'ム'],
+  ['め', 'メ'],
+  ['も', 'モ'],
+  ['や', 'ヤ'],
+  ['ゆ', 'ユ'],
+  ['よ', 'ヨ'],
+  ['ら', 'ラ'],
+  ['り', 'リ'],
+  ['る', 'ル'],
+  ['れ', 'レ'],
+  ['ろ', 'ロ'],
+  ['わ', 'ワ'],
+  ['を', 'ヲ'],
+  ['ん', 'ン'],
+];
+
+const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
+  english: fromString('abcdefghijklmnopqrstuvwxyz'),
+  german: fromString('abcdefghijklmnopqrstuvwxyzäöü'),
+  accented: fromString('abcdefghijklmnopqrstuvwxyzåäöæøéèçñ'),
+  greek: fromString('αβγδεζηθικλμνξοπρστυφχψω'),
+  cyrillic: fromString('абвгдеёжзийклмнопрстуфхцчшщъыьэюя'),
+  kana: KANA,
+};
+
+export const LETTER_SYSTEM_LABELS: Record<LetterSystem, string> = {
+  english: 'English (a–z)',
+  german: 'German (+ ä ö ü)',
+  accented: 'Accented Latin (+ å ä ö æ ø é ç ñ)',
+  greek: 'Greek (α–ω)',
+  cyrillic: 'Cyrillic (а–я)',
+  kana: 'Japanese kana (hiragana ↔ katakana)',
+};
 
 export type Round = {
   top: string[];
   bottom: string[];
   answer: number;
+  matches: boolean[];
 };
 
 type GameContext = {
@@ -43,11 +125,12 @@ type GameContext = {
   countTarget: number;
   timeLimitMs: number;
   showTimer: boolean;
+  letterSystem: LetterSystem;
 };
 
 export type GameOptions = Pick<
   GameContext,
-  'mode' | 'countTarget' | 'timeLimitMs' | 'showTimer'
+  'mode' | 'countTarget' | 'timeLimitMs' | 'showTimer' | 'letterSystem'
 >;
 
 export const DEFAULT_OPTIONS: GameOptions = {
@@ -55,6 +138,7 @@ export const DEFAULT_OPTIONS: GameOptions = {
   countTarget: DEFAULT_COUNT_TARGET,
   timeLimitMs: DEFAULT_TIME_LIMIT_MS,
   showTimer: false,
+  letterSystem: 'english',
 };
 
 type GameEvent =
@@ -69,42 +153,48 @@ type GameEvent =
   | { type: 'SET_MODE'; mode: GameMode }
   | { type: 'SET_COUNT_TARGET'; value: number }
   | { type: 'SET_TIME_LIMIT'; value: number }
-  | { type: 'SET_SHOW_TIMER'; value: boolean };
+  | { type: 'SET_SHOW_TIMER'; value: boolean }
+  | { type: 'SET_LETTER_SYSTEM'; value: LetterSystem };
 
-function randLetter(exclude?: Set<string>): string {
+/* Pick a random pair index, optionally avoiding already-used pairs. */
+function randPair(pairs: LetterPair[], exclude?: Set<number>): number {
   while (true) {
-    const c = LETTERS[Math.floor(Math.random() * LETTERS.length)];
-    if (!exclude || !exclude.has(c)) return c;
+    const i = Math.floor(Math.random() * pairs.length);
+    if (!exclude || !exclude.has(i)) return i;
   }
 }
 
-function generateRound(): Round {
+function generateRound(system: LetterSystem): Round {
+  const pairs = LETTER_SYSTEMS[system];
   const target = Math.floor(Math.random() * (COLS + 1));
   const matchCols = new Set<number>();
   while (matchCols.size < target) {
     matchCols.add(Math.floor(Math.random() * COLS));
   }
 
-  const topUpper = Math.random() < 0.5;
+  const topIsFormA = Math.random() < 0.5;
   const top: string[] = [];
   const bottom: string[] = [];
-  const used = new Set<string>();
+  const matches: boolean[] = [];
+  const used = new Set<number>();
 
   for (let i = 0; i < COLS; i++) {
-    const a = randLetter(used);
+    const a = randPair(pairs, used);
     used.add(a);
-    let b: string;
+    let b: number;
     if (matchCols.has(i)) {
       b = a;
     } else {
-      b = randLetter(used);
+      b = randPair(pairs, used);
       used.add(b);
     }
-    top.push(topUpper ? a.toUpperCase() : a);
-    bottom.push(topUpper ? b : b.toUpperCase());
+    /* Same pair, opposite form = a matching column; different pairs = no match. */
+    top.push(topIsFormA ? pairs[a][0] : pairs[a][1]);
+    bottom.push(topIsFormA ? pairs[b][1] : pairs[b][0]);
+    matches.push(matchCols.has(i));
   }
 
-  return { top, bottom, answer: target };
+  return { top, bottom, answer: target, matches };
 }
 
 export const gameMachine = setup({
@@ -122,7 +212,7 @@ export const gameMachine = setup({
               ? context.countTarget
               : TIME_MODE_ROUND_BUFFER,
         },
-        generateRound,
+        () => generateRound(context.letterSystem),
       ),
       answers: [],
       current: 0,
@@ -150,6 +240,11 @@ export const gameMachine = setup({
 
       return { showTimer: event.value };
     }),
+    setLetterSystem: assign(({ event }) => {
+      if (event.type !== 'SET_LETTER_SYSTEM') return {};
+
+      return { letterSystem: event.value };
+    }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
       const isCorrect = event.value === context.rounds[context.current].answer;
@@ -162,7 +257,7 @@ export const gameMachine = setup({
         /* Time mode is endless — generate the next round lazily so play never runs out. */
         rounds:
           context.mode === 'time' && next >= context.rounds.length
-            ? [...context.rounds, generateRound()]
+            ? [...context.rounds, generateRound(context.letterSystem)]
             : context.rounds,
       };
     }),
@@ -188,6 +283,8 @@ export const gameMachine = setup({
     correct: 0,
     startedAt: 0,
     elapsedMs: 0,
+    /* Defaults first so a stale localStorage save missing newer fields still boots. */
+    ...DEFAULT_OPTIONS,
     ...input,
   }),
   states: {
@@ -204,6 +301,7 @@ export const gameMachine = setup({
         SET_COUNT_TARGET: { actions: 'setCountTarget' },
         SET_TIME_LIMIT: { actions: 'setTimeLimit' },
         SET_SHOW_TIMER: { actions: 'setShowTimer' },
+        SET_LETTER_SYSTEM: { actions: 'setLetterSystem' },
       },
     },
     playing: {

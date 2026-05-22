@@ -36,12 +36,26 @@ export default function Game() {
     countTarget,
     timeLimitMs,
     showTimer,
+    letterSystem,
   } = state.context;
 
   /* Mirror option changes from the machine back into localStorage. */
   useEffect(() => {
-    setStoredOptions({ mode, countTarget, timeLimitMs, showTimer });
-  }, [mode, countTarget, timeLimitMs, showTimer, setStoredOptions]);
+    setStoredOptions({
+      mode,
+      countTarget,
+      timeLimitMs,
+      showTimer,
+      letterSystem,
+    });
+  }, [
+    mode,
+    countTarget,
+    timeLimitMs,
+    showTimer,
+    letterSystem,
+    setStoredOptions,
+  ]);
   const canvasRef = useConfetti(
     state.matches('results') && mode === 'count' && correct === countTarget,
   );
@@ -94,6 +108,7 @@ export default function Game() {
             }
             top={round.top}
             bottom={round.bottom}
+            matches={round.matches}
             onAnswer={(n) => send({ type: 'ANSWER', value: n })}
           />
         )}
@@ -104,6 +119,7 @@ export default function Game() {
             countTarget={countTarget}
             timeLimitMs={timeLimitMs}
             showTimer={showTimer}
+            letterSystem={letterSystem}
             onModeChange={(m) => send({ type: 'SET_MODE', mode: m })}
             onCountTargetChange={(value) =>
               send({ type: 'SET_COUNT_TARGET', value })
@@ -113,6 +129,9 @@ export default function Game() {
             }
             onShowTimerChange={(value) =>
               send({ type: 'SET_SHOW_TIMER', value })
+            }
+            onLetterSystemChange={(value) =>
+              send({ type: 'SET_LETTER_SYSTEM', value })
             }
             onBack={() => send({ type: 'BACK_TO_INTRO' })}
           />

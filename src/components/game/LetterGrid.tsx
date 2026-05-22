@@ -4,7 +4,8 @@ import { ArrowDown } from 'lucide-react';
 type LetterGridProps = {
   top: string[];
   bottom: string[];
-  showMatches?: boolean; // color columns where letters match (case-insensitive)
+  matches?: boolean[]; // which columns are matching pairs; falls back to case-insensitive compare
+  showMatches?: boolean; // color columns where letters match
   showColumnArrows?: boolean; // down arrow above each column (intro example only)
   className?: string;
 };
@@ -12,13 +13,17 @@ type LetterGridProps = {
 export function LetterGrid({
   top,
   bottom,
+  matches,
   showMatches,
   showColumnArrows,
   className,
 }: LetterGridProps) {
   const cols = top.length;
   const isMatch = (i: number) =>
-    !!showMatches && top[i]?.toLowerCase() === bottom[i]?.toLowerCase();
+    !!showMatches &&
+    (matches
+      ? !!matches[i]
+      : top[i]?.toLowerCase() === bottom[i]?.toLowerCase());
 
   const cell = (ch: string, i: number, key: string) => (
     <span

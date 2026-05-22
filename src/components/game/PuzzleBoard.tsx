@@ -7,6 +7,8 @@ type PuzzleBoardProps = {
   label: ReactNode;
   top: string[];
   bottom: string[];
+  /** Which columns are matching pairs — drives the green highlight. */
+  matches?: boolean[];
   /** Color matching letter columns green — intro example only. */
   showMatches?: boolean;
   /** Down arrow above each column — intro example only. */
@@ -25,6 +27,7 @@ export function PuzzleBoard({
   label,
   top,
   bottom,
+  matches,
   showMatches,
   showColumnArrows,
   onAnswer,
@@ -41,6 +44,7 @@ export function PuzzleBoard({
       <LetterGrid
         top={top}
         bottom={bottom}
+        matches={matches}
         showMatches={showMatches}
         showColumnArrows={showColumnArrows}
         className="font-mono text-4xl"

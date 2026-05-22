@@ -1,8 +1,10 @@
 import {
   COUNT_TARGETS,
   formatTimeLimit,
+  LETTER_SYSTEM_LABELS,
   TIME_LIMITS_MS,
   type GameMode,
+  type LetterSystem,
 } from './gameMachine';
 
 type Props = {
@@ -10,10 +12,12 @@ type Props = {
   countTarget: number;
   timeLimitMs: number;
   showTimer: boolean;
+  letterSystem: LetterSystem;
   onModeChange: (mode: GameMode) => void;
   onCountTargetChange: (value: number) => void;
   onTimeLimitChange: (value: number) => void;
   onShowTimerChange: (value: boolean) => void;
+  onLetterSystemChange: (value: LetterSystem) => void;
   onBack: () => void;
 };
 
@@ -22,10 +26,12 @@ export function GameOptions({
   countTarget,
   timeLimitMs,
   showTimer,
+  letterSystem,
   onModeChange,
   onCountTargetChange,
   onTimeLimitChange,
   onShowTimerChange,
+  onLetterSystemChange,
   onBack,
 }: Props) {
   const options = [
@@ -73,6 +79,26 @@ export function GameOptions({
               className="accent-slate-800"
             />
             <span className="text-sm">{option.label}</span>
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className="space-y-3">
+        <legend className="text-sm font-medium text-slate-900">Letters</legend>
+
+        {(Object.keys(LETTER_SYSTEM_LABELS) as LetterSystem[]).map((system) => (
+          <label
+            key={system}
+            className="flex cursor-pointer items-center gap-3"
+          >
+            <input
+              type="radio"
+              name="letterSystem"
+              checked={letterSystem === system}
+              onChange={() => onLetterSystemChange(system)}
+              className="accent-slate-800"
+            />
+            <span className="text-sm">{LETTER_SYSTEM_LABELS[system]}</span>
           </label>
         ))}
       </fieldset>
