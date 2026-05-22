@@ -1,3 +1,5 @@
+import { formatElapsed } from './gameMachine';
+
 type Props = {
   correct: number;
   total: number;
@@ -19,9 +21,7 @@ export function GameResults({
       <p className="text-3xl font-bold">
         {correct} / {total}
       </p>
-      <p className="mb-6 text-slate-500">
-        Time: {(elapsedMs / 1000).toFixed(1)}s
-      </p>
+      <p className="mb-6 text-slate-500">Time: {formatElapsed(elapsedMs)}</p>
       <div className="flex flex-col items-center gap-3">
         <Button size="lg" className="w-60 max-w-full" onClick={onRestart}>
           Restart

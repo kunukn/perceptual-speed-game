@@ -3,6 +3,7 @@ import { GameIntro } from './GameIntro';
 import { GameOptions } from './GameOptions';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
+import { GameTimer } from './GameTimer';
 import { PuzzleBoard } from './PuzzleBoard';
 import { gameMachine } from './gameMachine';
 import { useConfetti } from './useConfetti';
@@ -21,9 +22,11 @@ export default function Game() {
     current,
     correct,
     elapsedMs,
+    startedAt,
     mode,
     countTarget,
     timeLimitMs,
+    showTimer,
   } = state.context;
   const canvasRef = useConfetti(
     state.matches('results') && mode === 'count' && correct === countTarget,
@@ -61,9 +64,19 @@ export default function Game() {
         {state.matches('playing') && round && (
           <PuzzleBoard
             label={
-              mode === 'time'
-                ? `Round ${pad2(current + 1)}`
-                : `Round ${pad2(current + 1)} / ${pad2(countTarget)}`
+              <span className="flex items-center justify-center gap-2">
+                <span>
+                  {mode === 'time'
+                    ? `Round ${pad2(current + 1)}`
+                    : `Round ${pad2(current + 1)} / ${pad2(countTarget)}`}
+                </span>
+                {showTimer && (
+                  <>
+                    <span aria-hidden>·</span>
+                    <GameTimer startedAt={startedAt} />
+                  </>
+                )}
+              </span>
             }
             top={round.top}
             bottom={round.bottom}
@@ -76,12 +89,16 @@ export default function Game() {
             mode={mode}
             countTarget={countTarget}
             timeLimitMs={timeLimitMs}
+            showTimer={showTimer}
             onModeChange={(m) => send({ type: 'SET_MODE', mode: m })}
             onCountTargetChange={(value) =>
               send({ type: 'SET_COUNT_TARGET', value })
             }
             onTimeLimitChange={(value) =>
               send({ type: 'SET_TIME_LIMIT', value })
+            }
+            onShowTimerChange={(value) =>
+              send({ type: 'SET_SHOW_TIMER', value })
             }
             onBack={() => send({ type: 'BACK_TO_INTRO' })}
           />

@@ -1,8 +1,8 @@
 import { assign, setup } from 'xstate';
 
 export const COLS = 4;
-export const COUNT_TARGETS = [10, 20] as const;
-export const TIME_LIMITS_MS = [30_000, 60_000] as const;
+export const COUNT_TARGETS = [5, 10, 15, 20, 30] as const;
+export const TIME_LIMITS_MS = [10_000, 30_000, 60_000, 120_000] as const;
 
 const DEFAULT_COUNT_TARGET = 10;
 const DEFAULT_TIME_LIMIT_MS = 60_000;
@@ -12,9 +12,16 @@ const TIME_MODE_ROUND_BUFFER = 10;
 export type GameMode = 'count' | 'time';
 
 export function formatTimeLimit(ms: number): string {
-  if (ms === 60_000) return '1 minute';
+  const seconds = ms / 1000;
+  if (seconds < 60) return `${seconds} seconds`;
 
-  return `${ms / 1000} seconds`;
+  const minutes = seconds / 60;
+
+  return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+}
+
+export function formatElapsed(ms: number): string {
+  return `${Math.round(ms / 1000)}s`;
 }
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
@@ -35,6 +42,7 @@ type GameContext = {
   mode: GameMode;
   countTarget: number;
   timeLimitMs: number;
+  showTimer: boolean;
 };
 
 type GameEvent =
@@ -48,7 +56,8 @@ type GameEvent =
   | { type: 'BACK_TO_INTRO' }
   | { type: 'SET_MODE'; mode: GameMode }
   | { type: 'SET_COUNT_TARGET'; value: number }
-  | { type: 'SET_TIME_LIMIT'; value: number };
+  | { type: 'SET_TIME_LIMIT'; value: number }
+  | { type: 'SET_SHOW_TIMER'; value: boolean };
 
 function randLetter(exclude?: Set<string>): string {
   while (true) {
@@ -123,6 +132,11 @@ export const gameMachine = setup({
 
       return { timeLimitMs: event.value };
     }),
+    setShowTimer: assign(({ event }) => {
+      if (event.type !== 'SET_SHOW_TIMER') return {};
+
+      return { showTimer: event.value };
+    }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
       const isCorrect = event.value === context.rounds[context.current].answer;
@@ -164,6 +178,7 @@ export const gameMachine = setup({
     mode: 'count' as GameMode,
     countTarget: DEFAULT_COUNT_TARGET,
     timeLimitMs: DEFAULT_TIME_LIMIT_MS,
+    showTimer: false,
   },
   states: {
     intro: {
@@ -178,6 +193,7 @@ export const gameMachine = setup({
         SET_MODE: { actions: 'setMode' },
         SET_COUNT_TARGET: { actions: 'setCountTarget' },
         SET_TIME_LIMIT: { actions: 'setTimeLimit' },
+        SET_SHOW_TIMER: { actions: 'setShowTimer' },
       },
     },
     playing: {
