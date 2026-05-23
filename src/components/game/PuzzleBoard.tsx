@@ -3,8 +3,8 @@ import { AnswerButtons } from './AnswerButtons';
 import { LetterGrid } from './LetterGrid';
 
 type PuzzleBoardProps = {
-  /** Header label above the grid — e.g. "Example" or "Round 03 / 10". */
-  label: ReactNode;
+  /** Optional caption above the grid — used by the intro example. Play and review screens render this in the layout header instead. */
+  label?: ReactNode;
   top: string[];
   bottom: string[];
   /** Which columns are matching pairs — drives the green highlight. */
@@ -38,9 +38,12 @@ export function PuzzleBoard({
   const { t } = useTranslation();
   return (
     <div className="flex w-full flex-col items-center gap-4 md:gap-8">
-      <div className="text-sm text-slate-500 tabular-nums">{label}</div>
-
-      <hr className="w-full border-slate-200" />
+      {label && (
+        <>
+          <div className="text-sm text-slate-500 tabular-nums">{label}</div>
+          <hr className="w-full border-slate-200" />
+        </>
+      )}
 
       <LetterGrid
         top={top}

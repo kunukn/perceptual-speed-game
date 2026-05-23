@@ -1,3 +1,4 @@
+import { Layout } from '@/components/layout/Layout';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Round = {
@@ -34,40 +35,48 @@ export function GameReview({ rounds, answers, onExit }: Props) {
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-6">
-      <PuzzleBoard
-        label={t('review.label', {
-          current: pad2(index + 1),
-          total: pad2(total),
-        })}
-        top={round.top}
-        bottom={round.bottom}
-        showMatches
-        highlightIdx={round.answer}
-        wrongIdx={isCorrect ? undefined : userAnswer}
-      />
+    <Layout
+      header={
+        <p className="text-center text-sm text-slate-500 tabular-nums">
+          {t('review.label', {
+            current: pad2(index + 1),
+            total: pad2(total),
+          })}
+        </p>
+      }
+      footer={
+        <>
+          <Button variant="outline" size="lg" onClick={goPrev}>
+            {t('common.back')}
+          </Button>
+          <Button variant="outline" size="lg" onClick={onExit}>
+            {t('review.exit')}
+          </Button>
+          <Button variant="outline" size="lg" onClick={goNext}>
+            {t('review.next')}
+          </Button>
+        </>
+      }
+    >
+      <div className="flex w-full flex-col items-center gap-6">
+        <PuzzleBoard
+          top={round.top}
+          bottom={round.bottom}
+          showMatches
+          highlightIdx={round.answer}
+          wrongIdx={isCorrect ? undefined : userAnswer}
+        />
 
-      <p
-        className={
-          isCorrect
-            ? 'text-lg font-semibold text-emerald-700'
-            : 'text-lg font-semibold text-red-700'
-        }
-      >
-        {isCorrect ? t('review.correct') : t('review.wrong')}
-      </p>
-
-      <div className="flex gap-3">
-        <Button variant="outline" size="lg" onClick={goPrev}>
-          {t('common.back')}
-        </Button>
-        <Button variant="outline" size="lg" onClick={onExit}>
-          {t('review.exit')}
-        </Button>
-        <Button variant="outline" size="lg" onClick={goNext}>
-          {t('review.next')}
-        </Button>
+        <p
+          className={
+            isCorrect
+              ? 'text-lg font-semibold text-emerald-700'
+              : 'text-lg font-semibold text-red-700'
+          }
+        >
+          {isCorrect ? t('review.correct') : t('review.wrong')}
+        </p>
       </div>
-    </div>
+    </Layout>
   );
 }

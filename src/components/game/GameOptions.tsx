@@ -1,3 +1,5 @@
+import { AppHeader } from '@/components/layout/AppHeader';
+import { Layout } from '@/components/layout/Layout';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
@@ -75,77 +77,82 @@ export function GameOptions({
   };
 
   return (
-    <div className="max-w-md space-y-6 text-slate-700">
-      <h2 className="text-center text-lg font-semibold text-slate-900">
-        {t('options.title')}
-      </h2>
-
-      <fieldset className="space-y-3">
-        <legend className="text-sm font-medium text-slate-900">
-          {t('options.gameMode')}
-        </legend>
-
-        <RadioGroup
-          value={selectedGameOption}
-          onValueChange={handleGameOptionChange}
-          className="gap-3"
-        >
-          {options.map((option) => (
-            <div key={option.key} className="flex items-center gap-3">
-              <RadioGroupItem id={option.key} value={option.key} />
-              <Label htmlFor={option.key} className="text-sm font-normal">
-                {option.label}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
-      </fieldset>
-
-      <fieldset className="space-y-3">
-        <legend className="text-sm font-medium text-slate-900">
-          {t('options.letters')}
-        </legend>
-
-        <RadioGroup
-          value={letterSystem}
-          onValueChange={(value) => onLetterSystemChange(value as LetterSystem)}
-          className="gap-3"
-        >
-          {LETTER_SYSTEMS_LIST.map((system) => (
-            <div key={system} className="flex items-center gap-3">
-              <RadioGroupItem id={`letters-${system}`} value={system} />
-              <Label
-                htmlFor={`letters-${system}`}
-                className="text-sm font-normal"
-              >
-                {t(`options.letterSystem.${system}`)}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
-      </fieldset>
-
-      <div className="flex items-center gap-3">
-        <Switch
-          id="show-timer"
-          checked={showTimer}
-          onCheckedChange={onShowTimerChange}
-        />
-        <Label htmlFor="show-timer" className="text-sm font-normal">
-          {t('options.showTimer')}
-        </Label>
-      </div>
-
-      <div className="flex">
+    <Layout
+      header={<AppHeader />}
+      footer={
         <Button
-          className="mx-auto w-60 max-w-full"
+          className="w-60 max-w-full"
           size="lg"
           variant="outline"
           onClick={onBack}
         >
           {t('common.back')}
         </Button>
+      }
+    >
+      <div className="max-w-md space-y-6 text-slate-700">
+        <h2 className="text-center text-lg font-semibold text-slate-900">
+          {t('options.title')}
+        </h2>
+
+        <fieldset className="space-y-3">
+          <legend className="text-sm font-medium text-slate-900">
+            {t('options.gameMode')}
+          </legend>
+
+          <RadioGroup
+            value={selectedGameOption}
+            onValueChange={handleGameOptionChange}
+            className="gap-3"
+          >
+            {options.map((option) => (
+              <div key={option.key} className="flex items-center gap-3">
+                <RadioGroupItem id={option.key} value={option.key} />
+                <Label htmlFor={option.key} className="text-sm font-normal">
+                  {option.label}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </fieldset>
+
+        <fieldset className="space-y-3">
+          <legend className="text-sm font-medium text-slate-900">
+            {t('options.letters')}
+          </legend>
+
+          <RadioGroup
+            value={letterSystem}
+            onValueChange={(value) =>
+              onLetterSystemChange(value as LetterSystem)
+            }
+            className="gap-3"
+          >
+            {LETTER_SYSTEMS_LIST.map((system) => (
+              <div key={system} className="flex items-center gap-3">
+                <RadioGroupItem id={`letters-${system}`} value={system} />
+                <Label
+                  htmlFor={`letters-${system}`}
+                  className="text-sm font-normal"
+                >
+                  {t(`options.letterSystem.${system}`)}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </fieldset>
+
+        <div className="flex items-center gap-3">
+          <Switch
+            id="show-timer"
+            checked={showTimer}
+            onCheckedChange={onShowTimerChange}
+          />
+          <Label htmlFor="show-timer" className="text-sm font-normal">
+            {t('options.showTimer')}
+          </Label>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

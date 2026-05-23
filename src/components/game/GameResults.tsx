@@ -1,6 +1,10 @@
-import { formatElapsed } from './gameMachine';
+import { AppHeader } from '@/components/layout/AppHeader';
+import { Layout } from '@/components/layout/Layout';
+import { formatElapsed, type GameMode } from './gameMachine';
+import { useConfetti } from './useConfetti';
 
 type Props = {
+  mode: GameMode;
   correct: number;
   total: number;
   elapsedMs: number;
@@ -9,6 +13,7 @@ type Props = {
 };
 
 export function GameResults({
+  mode,
   correct,
   total,
   elapsedMs,
@@ -16,28 +21,42 @@ export function GameResults({
   onReview,
 }: Props) {
   const { t } = useTranslation();
+  const canvasRef = useConfetti(mode === 'count' && correct === total);
+
   return (
-    <div className="space-y-3 text-center text-slate-800">
-      <h2 className="text-xl font-semibold">{t('results.title')}</h2>
-      <p className="text-3xl font-bold">
-        {correct} / {total}
-      </p>
-      <p className="mb-6 text-slate-500">
-        {t('results.time', { elapsed: formatElapsed(elapsedMs) })}
-      </p>
-      <div className="flex flex-col items-center gap-3">
-        <Button size="lg" className="w-60 max-w-full" onClick={onRestart}>
-          {t('results.restart')}
-        </Button>
-        <Button
-          size="lg"
-          variant="outline"
-          className="w-60 max-w-full"
-          onClick={onReview}
-        >
-          {t('results.review')}
-        </Button>
+    <Layout
+      header={<AppHeader />}
+      overlay={
+        <canvas
+          ref={canvasRef}
+          className="pointer-events-none absolute inset-0 h-full w-full"
+        />
+      }
+      footer={
+        <div className="flex gap-3">
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-40 max-w-full"
+            onClick={onReview}
+          >
+            {t('results.review')}
+          </Button>
+          <Button size="lg" className="w-40 max-w-full" onClick={onRestart}>
+            {t('results.restart')}
+          </Button>
+        </div>
+      }
+    >
+      <div className="space-y-3 text-center text-slate-800">
+        <h2 className="text-xl font-semibold">{t('results.title')}</h2>
+        <p className="text-3xl font-bold">
+          {correct} / {total}
+        </p>
+        <p className="text-slate-500">
+          {t('results.time', { elapsed: formatElapsed(elapsedMs) })}
+        </p>
       </div>
-    </div>
+    </Layout>
   );
 }
