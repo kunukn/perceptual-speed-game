@@ -67,7 +67,7 @@ export function LanguageSwitcher() {
               </div>
             ))}
           </RadioGroup>
-          <p className="border-t pt-2 text-xs leading-none text-slate-500">
+          <p className="border-t pt-2 text-sm leading-none text-slate-500">
             {import.meta.env.VITE_APP_VERSION}
           </p>
         </div>

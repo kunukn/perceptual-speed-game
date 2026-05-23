@@ -33,16 +33,16 @@ export function GameResults({
         />
       }
       footer={
-        <div className="flex gap-3">
+        <div className="flex w-full max-w-md gap-3">
           <Button
             size="lg"
             variant="outline"
-            className="w-40 max-w-full"
+            className="flex-1"
             onClick={onReview}
           >
             {t('results.review')}
           </Button>
-          <Button size="lg" className="w-40 max-w-full" onClick={onRestart}>
+          <Button size="lg" className="flex-1" onClick={onRestart}>
             {t('results.restart')}
           </Button>
         </div>
