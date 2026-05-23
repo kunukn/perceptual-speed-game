@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
 
   console.debug('*** Code Inspector: ', env.VITE_CODE_INSPECTOR);
 
-  const buildTime = `utc_${dayjs.utc().format('YYYY-MM-DD_HHmmss')}`;
+  const buildTime = `Y${dayjs.utc().format('YY-MM-DD_HHmm')}`;
 
   return {
     define: {

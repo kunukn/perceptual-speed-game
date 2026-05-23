@@ -1,5 +1,3 @@
-import { Settings } from 'lucide-react';
-import { useLocalStorage } from 'usehooks-ts';
 import { Label } from '@/components/ui/label';
 import {
   Popover,
@@ -7,6 +5,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Settings } from 'lucide-react';
+import { useLocalStorage } from 'usehooks-ts';
 
 type Lang = 'en' | 'da';
 
@@ -55,6 +55,9 @@ export function LanguageSwitcher() {
               </div>
             ))}
           </RadioGroup>
+          <p className="border-t pt-2 text-xs leading-none text-slate-500">
+            {import.meta.env.VITE_APP_VERSION}
+          </p>
         </div>
       </PopoverContent>
     </Popover>
