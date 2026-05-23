@@ -3,6 +3,27 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 
+const SUPPORTED = ['en', 'da'] as const;
+
+/*
+ * Pick the first browser-preferred language we support. `navigator.languages`
+ * is ordered by user preference; we match on the primary subtag so `da-DK`
+ * resolves to `da`. Falls back to English when nothing matches or in SSR/test.
+ */
+function detectInitialLanguage(): string {
+  const candidates =
+    typeof navigator !== 'undefined'
+      ? [...(navigator.languages ?? []), navigator.language].filter(Boolean)
+      : [];
+
+  for (const tag of candidates) {
+    const primary = tag.toLowerCase().split('-')[0];
+    if ((SUPPORTED as readonly string[]).includes(primary)) return primary;
+  }
+
+  return 'en';
+}
+
 /*
  * English is bundled eagerly so first paint never blocks on a network round-trip.
  * Every other language is fetched on demand via Vite's dynamic import — each JSON
@@ -23,9 +44,9 @@ void i18n
   .use(initReactI18next)
   .init({
     resources: { en: { translation: en } },
-    lng: 'en',
+    lng: detectInitialLanguage(),
     fallbackLng: 'en',
-    supportedLngs: ['en', 'da'],
+    supportedLngs: [...SUPPORTED],
     partialBundledLanguages: true,
     interpolation: { escapeValue: false },
     returnNull: false,
