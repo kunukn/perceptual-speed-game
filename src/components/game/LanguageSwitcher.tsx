@@ -8,12 +8,24 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Settings } from 'lucide-react';
 import { useLocalStorage } from 'usehooks-ts';
 
-type Lang = 'en' | 'da';
-
-const LANGUAGES: readonly { code: Lang; label: string }[] = [
+const LANGUAGES = [
   { code: 'en', label: 'English' },
   { code: 'da', label: 'Dansk' },
-];
+  { code: 'de', label: 'Deutsch' },
+  { code: 'es', label: 'Español' },
+  { code: 'fr', label: 'Français' },
+  { code: 'pt', label: 'Português' },
+  { code: 'id', label: 'Bahasa Indonesia' },
+  { code: 'ru', label: 'Русский' },
+  { code: 'zh', label: '中文' },
+  { code: 'ja', label: '日本語' },
+  { code: 'hi', label: 'हिन्दी' },
+  { code: 'bn', label: 'বাংলা' },
+  { code: 'ar', label: 'العربية' },
+  { code: 'ur', label: 'اردو' },
+] as const;
+
+type Lang = (typeof LANGUAGES)[number]['code'];
 
 export function LanguageSwitcher() {
   const { t, i18n } = useTranslation();

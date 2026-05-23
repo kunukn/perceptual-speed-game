@@ -3,7 +3,28 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 
-const SUPPORTED = ['en', 'da'] as const;
+const SUPPORTED = [
+  'en',
+  'da',
+  'de',
+  'es',
+  'fr',
+  'pt',
+  'id',
+  'ru',
+  'zh',
+  'ja',
+  'hi',
+  'bn',
+  'ar',
+  'ur',
+] as const;
+
+const RTL = new Set<string>(['ar', 'ur']);
+
+export function isRtl(lng: string): boolean {
+  return RTL.has(lng.toLowerCase().split('-')[0]);
+}
 
 /*
  * Pick the first browser-preferred language we support. `navigator.languages`

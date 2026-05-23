@@ -8,7 +8,7 @@ export function AppHeader() {
         {t('game.title')}
       </h1>
       <p className="text-center text-sm text-slate-500">{t('game.subtitle')}</p>
-      <div className="absolute top-0 right-0">
+      <div className="absolute inset-e-0 top-0">
         <LanguageSwitcher />
       </div>
     </>
