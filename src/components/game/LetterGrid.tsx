@@ -44,7 +44,7 @@ export function LetterGrid({
   return (
     <div
       className={cn(
-        'flex min-h-22.5 w-fit min-w-62.5 items-center justify-center gap-1',
+        'font-hyperlegible flex min-h-22.5 w-fit min-w-62.5 items-center justify-center gap-1',
         className,
       )}
     >
