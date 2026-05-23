@@ -1,7 +1,8 @@
 import { useMachine } from '@xstate/react';
 import type { ReactNode } from 'react';
-import { useHighScores } from '@/store/highScores';
-import { gameMachine } from './gameMachine';
+import { paths } from '@/app/paths';
+import { gameMachine } from './machine';
+import { useHighScores } from './store/high-scores';
 
 type MachineReturn = ReturnType<typeof useMachine<typeof gameMachine>>;
 type GameMachineValue = {
@@ -68,7 +69,7 @@ export function GameMachineProvider({ children }: Props) {
   /* When the machine transitions to `finished` (count-mode last answer or time-mode expiry), route the user to /results regardless of the current route. */
   useEffect(() => {
     if (state.matches('finished')) {
-      navigate('/results', { replace: true });
+      navigate(paths.results, { replace: true });
     }
   }, [state, navigate]);
 

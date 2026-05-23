@@ -1,15 +1,16 @@
 import { Navigate } from 'react-router';
+import { paths } from '@/app/paths';
 import { Layout } from '@/components/layout/Layout';
-import { useGameOptions } from '@/store/gameOptions';
-import { useGameMachine } from './GameMachineContext';
-import { GameTimer } from './GameTimer';
-import { PuzzleBoard } from './PuzzleBoard';
+import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
+import { Timer } from '@/features/game/components/Timer';
+import { useGameMachine } from '@/features/game/machine-context';
+import { useGameOptions } from '@/features/game/store/options';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GamePlay() {
+export function Play() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state, send } = useGameMachine();
@@ -19,16 +20,18 @@ export function GamePlay() {
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
 
-  if (!state.matches('playing')) return <Navigate to="/" replace />;
+  if (state.matches('finished')) return <Navigate to={paths.results} replace />;
+
+  if (!state.matches('playing')) return <Navigate to={paths.home} replace />;
 
   const { rounds, current, startedAt } = state.context;
   const round = rounds[current];
 
-  if (!round) return <Navigate to="/" replace />;
+  if (!round) return <Navigate to={paths.home} replace />;
 
   const handleAbort = () => {
     send({ type: 'ABORT' });
-    navigate('/');
+    navigate(paths.home);
   };
 
   return (
@@ -46,7 +49,7 @@ export function GamePlay() {
           {showTimer && (
             <>
               <span aria-hidden>·</span>
-              <GameTimer startedAt={startedAt} />
+              <Timer startedAt={startedAt} />
             </>
           )}
         </span>

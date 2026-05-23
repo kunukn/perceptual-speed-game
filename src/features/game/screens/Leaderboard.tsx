@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import {
@@ -11,10 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useHighScores, type HighScore } from '@/store/highScores';
-import { formatElapsed } from './gameMachine';
+import { formatElapsed } from '@/features/game/machine';
+import {
+  useHighScores,
+  type HighScore,
+} from '@/features/game/store/high-scores';
 
-export function GameLeaderboard() {
+export function Leaderboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const scoresMap = useHighScores((s) => s.scores);
@@ -64,7 +68,11 @@ export function GameLeaderboard() {
       header={<AppHeader />}
       footer={
         <div className="flex w-full max-w-md gap-3">
-          <Button size="lg" className="flex-1" onClick={() => navigate('/')}>
+          <Button
+            size="lg"
+            className="flex-1"
+            onClick={() => navigate(paths.home)}
+          >
             {t('common.back')}
           </Button>
           <Dialog>

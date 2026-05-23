@@ -1,12 +1,13 @@
 import { Navigate } from 'react-router';
+import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
-import { useGameOptions } from '@/store/gameOptions';
-import { formatElapsed } from './gameMachine';
-import { useGameMachine } from './GameMachineContext';
-import { useConfetti } from './useConfetti';
+import { useConfetti } from '@/features/game/components/useConfetti';
+import { formatElapsed } from '@/features/game/machine';
+import { useGameMachine } from '@/features/game/machine-context';
+import { useGameOptions } from '@/features/game/store/options';
 
-export function GameResults() {
+export function Results() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state, send } = useGameMachine();
@@ -21,11 +22,13 @@ export function GameResults() {
     isFinished && mode === 'count' && correct === total,
   );
 
-  if (!isFinished) return <Navigate to="/" replace />;
+  if (state.matches('playing')) return <Navigate to={paths.play} replace />;
+
+  if (!isFinished) return <Navigate to={paths.home} replace />;
 
   const handleRestart = () => {
     send({ type: 'RESTART' });
-    navigate('/');
+    navigate(paths.home);
   };
 
   return (
@@ -43,7 +46,7 @@ export function GameResults() {
             size="lg"
             variant="outline"
             className="flex-1"
-            onClick={() => navigate('/review')}
+            onClick={() => navigate(paths.review)}
           >
             {t('results.review')}
           </Button>
@@ -54,7 +57,7 @@ export function GameResults() {
             size="lg"
             variant="outline"
             className="flex-1"
-            onClick={() => navigate('/leaderboard')}
+            onClick={() => navigate(paths.leaderboard)}
           >
             {t('leaderboard.open')}
           </Button>

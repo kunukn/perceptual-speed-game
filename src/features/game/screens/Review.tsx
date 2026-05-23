@@ -1,14 +1,15 @@
 import { Navigate } from 'react-router';
+import { paths } from '@/app/paths';
 import { Layout } from '@/components/layout/Layout';
-import { useGameOptions } from '@/store/gameOptions';
-import { useGameMachine } from './GameMachineContext';
-import { PuzzleBoard } from './PuzzleBoard';
+import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
+import { useGameMachine } from '@/features/game/machine-context';
+import { useGameOptions } from '@/features/game/store/options';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GameReview() {
+export function Review() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useGameMachine();
@@ -16,7 +17,9 @@ export function GameReview() {
   const mirrorY = useGameOptions((s) => s.mirrorY);
   const [index, setIndex] = useState(0);
 
-  if (!state.matches('finished')) return <Navigate to="/" replace />;
+  if (state.matches('playing')) return <Navigate to={paths.play} replace />;
+
+  if (!state.matches('finished')) return <Navigate to={paths.home} replace />;
 
   const { rounds, answers } = state.context;
   const total = answers.length;
@@ -56,7 +59,7 @@ export function GameReview() {
             className="flex-1"
             variant="outline"
             size="lg"
-            onClick={() => navigate('/results')}
+            onClick={() => navigate(paths.results)}
           >
             {t('review.exit')}
           </Button>

@@ -1,11 +1,12 @@
+import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
-import { useGameOptions } from '@/store/gameOptions';
-import { useGameMachine } from './GameMachineContext';
-import { COLS } from './gameMachine';
-import { PuzzleBoard } from './PuzzleBoard';
+import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
+import { useGameMachine } from '@/features/game/machine-context';
+import { COLS } from '@/features/game/machine';
+import { useGameOptions } from '@/features/game/store/options';
 
-export function GameIntro() {
+export function Intro() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { send } = useGameMachine();
@@ -18,7 +19,7 @@ export function GameIntro() {
 
   const handleStart = () => {
     send({ type: 'START', options: useGameOptions.getState() });
-    navigate('/play');
+    navigate(paths.play);
   };
 
   const formatTimeLimit = (ms: number): string => {
@@ -56,7 +57,7 @@ export function GameIntro() {
               className="flex-1"
               size="lg"
               variant="outline"
-              onClick={() => navigate('/options')}
+              onClick={() => navigate(paths.options)}
             >
               {t('common.options')}
             </Button>
@@ -67,7 +68,7 @@ export function GameIntro() {
           <Button
             size="lg"
             variant="outline"
-            onClick={() => navigate('/leaderboard')}
+            onClick={() => navigate(paths.leaderboard)}
           >
             {t('leaderboard.open')}
           </Button>

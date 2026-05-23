@@ -1,4 +1,4 @@
-import { LanguageSwitcher } from '@/components/game/LanguageSwitcher';
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 
 export function AppHeader() {
   const { t } = useTranslation();

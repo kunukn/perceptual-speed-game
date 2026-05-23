@@ -1,8 +1,8 @@
-import { formatElapsed } from './gameMachine';
+import { formatElapsed } from '@/features/game/machine';
 
 type Props = { startedAt: number };
 
-export function GameTimer({ startedAt }: Props) {
+export function Timer({ startedAt }: Props) {
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {

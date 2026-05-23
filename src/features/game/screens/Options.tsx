@@ -1,18 +1,18 @@
+import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
-import { useGameOptions } from '@/store/gameOptions';
-
 import {
   COUNT_TARGETS,
   LETTER_SYSTEMS_LIST,
   TIME_LIMITS_MS,
   type LetterSystem,
-} from './gameMachine';
+} from '@/features/game/machine';
+import { useGameOptions } from '@/features/game/store/options';
 
-export function GameOptions() {
+export function Options() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
@@ -75,7 +75,7 @@ export function GameOptions() {
           className="w-60 max-w-full"
           size="lg"
           variant="outline"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(paths.home)}
         >
           {t('common.back')}
         </Button>

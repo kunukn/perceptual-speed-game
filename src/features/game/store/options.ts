@@ -5,7 +5,7 @@ import {
   type GameMode,
   type GameOptions,
   type LetterSystem,
-} from '@/components/game/gameMachine';
+} from '@/features/game/machine';
 
 type GameOptionsStore = GameOptions & {
   setMode: (mode: GameMode) => void;

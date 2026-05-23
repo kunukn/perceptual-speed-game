@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { GameMode, LetterSystem } from '@/components/game/gameMachine';
+import type { GameMode, LetterSystem } from '@/features/game/machine';
 
 export type HighScore = {
   key: string;

@@ -1,3 +1,4 @@
+import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 
@@ -12,7 +13,7 @@ export function NotFound() {
           size="lg"
           variant="outline"
           className="w-60 max-w-full"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(paths.home)}
         >
           Home
         </Button>
