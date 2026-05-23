@@ -1,3 +1,7 @@
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Switch } from '@/components/ui/switch';
+
 import {
   COUNT_TARGETS,
   formatTimeLimit,
@@ -55,6 +59,13 @@ export function GameOptions({
     })),
   ];
 
+  const selectedGameOption = options.find((option) => option.checked)?.key;
+
+  const handleGameOptionChange = (value: string) => {
+    const next = options.find((option) => option.key === value);
+    next?.select();
+  };
+
   return (
     <div className="max-w-md space-y-6 text-slate-700">
       <h2 className="text-center text-lg font-semibold text-slate-900">
@@ -66,52 +77,56 @@ export function GameOptions({
           Game mode
         </legend>
 
-        {options.map((option) => (
-          <label
-            key={option.key}
-            className="flex cursor-pointer items-center gap-3"
-          >
-            <input
-              type="radio"
-              name="gameOption"
-              checked={option.checked}
-              onChange={option.select}
-              className="accent-slate-800"
-            />
-            <span className="text-sm">{option.label}</span>
-          </label>
-        ))}
+        <RadioGroup
+          value={selectedGameOption}
+          onValueChange={handleGameOptionChange}
+          className="gap-3"
+        >
+          {options.map((option) => (
+            <div key={option.key} className="flex items-center gap-3">
+              <RadioGroupItem id={option.key} value={option.key} />
+              <Label htmlFor={option.key} className="text-sm font-normal">
+                {option.label}
+              </Label>
+            </div>
+          ))}
+        </RadioGroup>
       </fieldset>
 
       <fieldset className="space-y-3">
         <legend className="text-sm font-medium text-slate-900">Letters</legend>
 
-        {(Object.keys(LETTER_SYSTEM_LABELS) as LetterSystem[]).map((system) => (
-          <label
-            key={system}
-            className="flex cursor-pointer items-center gap-3"
-          >
-            <input
-              type="radio"
-              name="letterSystem"
-              checked={letterSystem === system}
-              onChange={() => onLetterSystemChange(system)}
-              className="accent-slate-800"
-            />
-            <span className="text-sm">{LETTER_SYSTEM_LABELS[system]}</span>
-          </label>
-        ))}
+        <RadioGroup
+          value={letterSystem}
+          onValueChange={(value) => onLetterSystemChange(value as LetterSystem)}
+          className="gap-3"
+        >
+          {(Object.keys(LETTER_SYSTEM_LABELS) as LetterSystem[]).map(
+            (system) => (
+              <div key={system} className="flex items-center gap-3">
+                <RadioGroupItem id={`letters-${system}`} value={system} />
+                <Label
+                  htmlFor={`letters-${system}`}
+                  className="text-sm font-normal"
+                >
+                  {LETTER_SYSTEM_LABELS[system]}
+                </Label>
+              </div>
+            ),
+          )}
+        </RadioGroup>
       </fieldset>
 
-      <label className="flex cursor-pointer items-center gap-3">
-        <input
-          type="checkbox"
+      <div className="flex items-center gap-3">
+        <Switch
+          id="show-timer"
           checked={showTimer}
-          onChange={(e) => onShowTimerChange(e.target.checked)}
-          className="accent-slate-800"
+          onCheckedChange={onShowTimerChange}
         />
-        <span className="text-sm">Show time spent during play</span>
-      </label>
+        <Label htmlFor="show-timer" className="text-sm font-normal">
+          Show time spent during play
+        </Label>
+      </div>
 
       <div className="flex">
         <Button
