@@ -36,7 +36,6 @@
   "homepage": "https://github.com/kunukn/perceptual-speed-game#readme",
   "dependencies": {
     "@emotion/react": "^11.14.0",
-    "@fontsource-variable/geist": "^5.2.9",
     "@playwright/test": "^1.60.0",
     "@swc/plugin-emotion": "^14.9.0",
     "@vitejs/plugin-react-swc": "^4.3.1",

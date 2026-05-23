@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import type { ReactNode } from 'react';
 
 type Props = {
   header: ReactNode;
@@ -20,7 +20,7 @@ export function Layout({
   return (
     <div
       className={cn(
-        'relative flex max-h-240 w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 px-4 pt-4',
+        'relative flex max-h-240 w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 px-6 pt-4',
         className,
       )}
       data-testid="layout-root"

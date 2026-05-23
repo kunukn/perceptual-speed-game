@@ -23,7 +23,7 @@ and time.
 
 ## Demo
 
-**Live:** https://kunukn.github.io/perceptual-speed-game/
+**Live:** <https://kunukn.github.io/perceptual-speed-game/>
 
 Scan to play on your phone:
 
