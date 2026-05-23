@@ -62,6 +62,7 @@
     "correct": "Верно",
     "wrong": "Неверно",
     "exit": "Выход",
+    "previous": "Назад",
     "next": "Дальше"
   },
   "leaderboard": {

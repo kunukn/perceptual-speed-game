@@ -53,7 +53,7 @@ export function Review() {
             size="lg"
             onClick={goPrev}
           >
-            {t('common.back')}
+            {t('review.previous')}
           </Button>
           <Button
             className="flex-1"
