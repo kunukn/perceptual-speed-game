@@ -37,7 +37,7 @@ export function LanguageSwitcher() {
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-48">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <p className="text-sm font-medium text-slate-900">
             {t('common.language')}
           </p>

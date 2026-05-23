@@ -106,7 +106,7 @@ export function GameOptions({
           </Label>
         </div>
 
-        <fieldset className="space-y-3">
+        <fieldset className="space-y-4">
           <legend className="text-sm font-medium text-slate-900">
             {t('options.gameMode')}
           </legend>
@@ -127,7 +127,7 @@ export function GameOptions({
           </RadioGroup>
         </fieldset>
 
-        <fieldset className="space-y-3">
+        <fieldset className="space-y-4">
           <legend className="text-sm font-medium text-slate-900">
             {t('options.letters')}
           </legend>

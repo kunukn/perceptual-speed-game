@@ -48,7 +48,7 @@ export function GameResults({
         </div>
       }
     >
-      <div className="space-y-3 text-center text-slate-800">
+      <div className="space-y-4 text-center text-slate-800">
         <h2 className="text-xl font-semibold">{t('results.title')}</h2>
         <p className="text-3xl font-bold">
           {correct} / {total}

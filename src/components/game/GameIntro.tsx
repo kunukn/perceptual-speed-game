@@ -30,7 +30,7 @@ export function GameIntro({
 
   return (
     <Layout header={<AppHeader />}>
-      <div className="max-w-md space-y-3 text-slate-700 md:space-y-4">
+      <div className="max-w-md space-y-4 text-slate-700 md:space-y-4">
         <h2 className="text-center text-lg font-semibold text-slate-900">
           {t('intro.howToPlay')}
         </h2>
