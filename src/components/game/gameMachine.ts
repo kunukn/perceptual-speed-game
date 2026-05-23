@@ -146,13 +146,7 @@ type GameEvent =
   | { type: 'START'; options: GameOptions }
   | { type: 'ANSWER'; value: number }
   | { type: 'ABORT' }
-  | { type: 'RESTART' }
-  | { type: 'REVIEW' }
-  | { type: 'EXIT_REVIEW' }
-  | { type: 'OPEN_OPTIONS' }
-  | { type: 'BACK_TO_INTRO' }
-  | { type: 'OPEN_LEADERBOARD' }
-  | { type: 'CLOSE_LEADERBOARD' };
+  | { type: 'RESTART' };
 
 /* Pick a random pair index, optionally avoiding already-used pairs. */
 function randPair(pairs: LetterPair[], exclude?: Set<number>): number {
@@ -254,7 +248,7 @@ export const gameMachine = setup({
   },
 }).createMachine({
   id: 'game',
-  initial: 'intro',
+  initial: 'idle',
   context: {
     rounds: [],
     answers: [],
@@ -266,23 +260,16 @@ export const gameMachine = setup({
     ...DEFAULT_OPTIONS,
   },
   states: {
-    intro: {
+    idle: {
       on: {
         START: { target: 'playing', actions: 'initGame' },
-        OPEN_OPTIONS: { target: 'options' },
-        OPEN_LEADERBOARD: { target: 'leaderboard' },
-      },
-    },
-    options: {
-      on: {
-        BACK_TO_INTRO: { target: 'intro' },
       },
     },
     playing: {
       after: {
         timeLimit: {
           guard: 'isTimeMode',
-          target: 'results',
+          target: 'finished',
           actions: 'finalizeTime',
         },
       },
@@ -290,30 +277,18 @@ export const gameMachine = setup({
         ANSWER: [
           {
             guard: 'isCountComplete',
-            target: 'results',
+            target: 'finished',
             actions: 'recordAnswer',
           },
           /* Internal transition (no target) — avoids re-entering `playing` and resetting the `after` timer. */
           { actions: 'recordAnswer' },
         ],
-        ABORT: { target: 'intro' },
+        ABORT: { target: 'idle' },
       },
     },
-    results: {
+    finished: {
       on: {
-        RESTART: { target: 'intro' },
-        REVIEW: { target: 'review' },
-        OPEN_LEADERBOARD: { target: 'leaderboard' },
-      },
-    },
-    review: {
-      on: {
-        EXIT_REVIEW: { target: 'results' },
-      },
-    },
-    leaderboard: {
-      on: {
-        CLOSE_LEADERBOARD: { target: 'intro' },
+        RESTART: { target: 'idle' },
       },
     },
   },

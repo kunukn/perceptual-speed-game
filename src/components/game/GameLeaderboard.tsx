@@ -14,12 +14,9 @@ import {
 import { useHighScores, type HighScore } from '@/store/highScores';
 import { formatElapsed } from './gameMachine';
 
-type Props = {
-  onBack: () => void;
-};
-
-export function GameLeaderboard({ onBack }: Props) {
+export function GameLeaderboard() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const scoresMap = useHighScores((s) => s.scores);
   const hasScores = Object.keys(scoresMap).length > 0;
 
@@ -67,7 +64,7 @@ export function GameLeaderboard({ onBack }: Props) {
       header={<AppHeader />}
       footer={
         <div className="flex w-full max-w-md gap-3">
-          <Button size="lg" className="flex-1" onClick={onBack}>
+          <Button size="lg" className="flex-1" onClick={() => navigate('/')}>
             {t('common.back')}
           </Button>
           <Dialog>

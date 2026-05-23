@@ -1,31 +1,32 @@
+import { Navigate } from 'react-router';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import { useGameOptions } from '@/store/gameOptions';
 import { formatElapsed } from './gameMachine';
+import { useGameMachine } from './GameMachineContext';
 import { useConfetti } from './useConfetti';
 
-type Props = {
-  correct: number;
-  answered: number;
-  elapsedMs: number;
-  onRestart: () => void;
-  onReview: () => void;
-  onOpenLeaderboard: () => void;
-};
-
-export function GameResults({
-  correct,
-  answered,
-  elapsedMs,
-  onRestart,
-  onReview,
-  onOpenLeaderboard,
-}: Props) {
+export function GameResults() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { state, send } = useGameMachine();
   const mode = useGameOptions((s) => s.mode);
   const countTarget = useGameOptions((s) => s.countTarget);
+
+  const isFinished = state.matches('finished');
+  const { correct, answers, elapsedMs } = state.context;
+  const answered = answers.length;
   const total = mode === 'time' ? answered : countTarget;
-  const canvasRef = useConfetti(mode === 'count' && correct === total);
+  const canvasRef = useConfetti(
+    isFinished && mode === 'count' && correct === total,
+  );
+
+  if (!isFinished) return <Navigate to="/" replace />;
+
+  const handleRestart = () => {
+    send({ type: 'RESTART' });
+    navigate('/');
+  };
 
   return (
     <Layout
@@ -42,18 +43,18 @@ export function GameResults({
             size="lg"
             variant="outline"
             className="flex-1"
-            onClick={onReview}
+            onClick={() => navigate('/review')}
           >
             {t('results.review')}
           </Button>
-          <Button size="lg" className="flex-1" onClick={onRestart}>
+          <Button size="lg" className="flex-1" onClick={handleRestart}>
             {t('results.restart')}
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="flex-1"
-            onClick={onOpenLeaderboard}
+            onClick={() => navigate('/leaderboard')}
           >
             {t('leaderboard.open')}
           </Button>

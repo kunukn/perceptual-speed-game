@@ -1,27 +1,25 @@
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import { useGameOptions } from '@/store/gameOptions';
-import { COLS } from './Game';
+import { useGameMachine } from './GameMachineContext';
+import { COLS } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
 
-type Props = {
-  onStart: () => void;
-  onOpenOptions: () => void;
-  onOpenLeaderboard: () => void;
-};
-
-export function GameIntro({
-  onStart,
-  onOpenOptions,
-  onOpenLeaderboard,
-}: Props) {
+export function GameIntro() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { send } = useGameMachine();
   /* Selector form — Intro re-renders only when these fields change, not on every store update. */
   const mode = useGameOptions((s) => s.mode);
   const countTarget = useGameOptions((s) => s.countTarget);
   const timeLimitMs = useGameOptions((s) => s.timeLimitMs);
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
+
+  const handleStart = () => {
+    send({ type: 'START', options: useGameOptions.getState() });
+    navigate('/play');
+  };
 
   const formatTimeLimit = (ms: number): string => {
     const seconds = ms / 1000;
@@ -58,15 +56,19 @@ export function GameIntro({
               className="flex-1"
               size="lg"
               variant="outline"
-              onClick={onOpenOptions}
+              onClick={() => navigate('/options')}
             >
               {t('common.options')}
             </Button>
-            <Button className="flex-1" size="lg" onClick={onStart}>
+            <Button className="flex-1" size="lg" onClick={handleStart}>
               {t('intro.start')}
             </Button>
           </div>
-          <Button size="lg" variant="outline" onClick={onOpenLeaderboard}>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => navigate('/leaderboard')}
+          >
             {t('leaderboard.open')}
           </Button>
         </div>

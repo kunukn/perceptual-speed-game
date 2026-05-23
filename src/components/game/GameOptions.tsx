@@ -12,12 +12,9 @@ import {
   type LetterSystem,
 } from './gameMachine';
 
-type Props = {
-  onBack: () => void;
-};
-
-export function GameOptions({ onBack }: Props) {
+export function GameOptions() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const {
     mode,
     countTarget,
@@ -78,7 +75,7 @@ export function GameOptions({ onBack }: Props) {
           className="w-60 max-w-full"
           size="lg"
           variant="outline"
-          onClick={onBack}
+          onClick={() => navigate('/')}
         >
           {t('common.back')}
         </Button>

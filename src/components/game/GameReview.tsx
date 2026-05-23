@@ -1,29 +1,24 @@
+import { Navigate } from 'react-router';
 import { Layout } from '@/components/layout/Layout';
 import { useGameOptions } from '@/store/gameOptions';
+import { useGameMachine } from './GameMachineContext';
 import { PuzzleBoard } from './PuzzleBoard';
-
-type Round = {
-  top: string[];
-  bottom: string[];
-  answer: number;
-};
-
-type Props = {
-  rounds: Round[];
-  answers: number[];
-  onExit: () => void;
-};
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GameReview({ rounds, answers, onExit }: Props) {
+export function GameReview() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { state } = useGameMachine();
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
   const [index, setIndex] = useState(0);
 
+  if (!state.matches('finished')) return <Navigate to="/" replace />;
+
+  const { rounds, answers } = state.context;
   const total = answers.length;
   const round = rounds[index];
   const userAnswer = answers[index];
@@ -61,7 +56,7 @@ export function GameReview({ rounds, answers, onExit }: Props) {
             className="flex-1"
             variant="outline"
             size="lg"
-            onClick={onExit}
+            onClick={() => navigate('/results')}
           >
             {t('review.exit')}
           </Button>

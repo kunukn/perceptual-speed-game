@@ -1,34 +1,35 @@
+import { Navigate } from 'react-router';
 import { Layout } from '@/components/layout/Layout';
 import { useGameOptions } from '@/store/gameOptions';
+import { useGameMachine } from './GameMachineContext';
 import { GameTimer } from './GameTimer';
-import { type Round } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
-
-type Props = {
-  round: Round;
-  current: number;
-  startedAt: number;
-  onAnswer: (value: number) => void;
-  onAbort: () => void;
-};
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GamePlay({
-  round,
-  current,
-  startedAt,
-  onAnswer,
-  onAbort,
-}: Props) {
+export function GamePlay() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { state, send } = useGameMachine();
   const mode = useGameOptions((s) => s.mode);
   const countTarget = useGameOptions((s) => s.countTarget);
   const showTimer = useGameOptions((s) => s.showTimer);
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
+
+  if (!state.matches('playing')) return <Navigate to="/" replace />;
+
+  const { rounds, current, startedAt } = state.context;
+  const round = rounds[current];
+
+  if (!round) return <Navigate to="/" replace />;
+
+  const handleAbort = () => {
+    send({ type: 'ABORT' });
+    navigate('/');
+  };
 
   return (
     <Layout
@@ -55,7 +56,7 @@ export function GamePlay({
           size="lg"
           className="min-w-60"
           variant="destructive"
-          onClick={onAbort}
+          onClick={handleAbort}
         >
           {t('game.abort')}
         </Button>
@@ -67,7 +68,7 @@ export function GamePlay({
         matches={round.matches}
         mirrorX={mirrorX}
         mirrorY={mirrorY}
-        onAnswer={onAnswer}
+        onAnswer={(value) => send({ type: 'ANSWER', value })}
       />
     </Layout>
   );

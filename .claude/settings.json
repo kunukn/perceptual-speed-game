@@ -1,6 +1,8 @@
 {
   "permissions": {
     "verbose": true,
+    "showThinkingSummaries": true,
+    "thinkingDisplay": "summarized",
     "allow": [
       "Bash(pnpm build *)",
       "mcp__playwright__browser_resize",
