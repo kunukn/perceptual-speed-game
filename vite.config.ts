@@ -6,7 +6,9 @@ import utc from 'dayjs/plugin/utc';
 import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig, loadEnv } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import { autoImportConfig } from './auto-import.config';
+import { pwaConfig } from './pwa.config';
 
 dayjs.extend(utc);
 
@@ -52,6 +54,7 @@ export default defineConfig(({ mode }) => {
         ? [CodeInspectorPlugin({ bundler: 'vite' })]
         : []),
       injectBuildTime(buildTime),
+      VitePWA(pwaConfig),
       tailwindcss(),
       pluginReact({
         devTarget: 'es2024',
