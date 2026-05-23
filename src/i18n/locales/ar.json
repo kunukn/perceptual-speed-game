@@ -3,7 +3,9 @@
     "back": "رجوع",
     "options": "خيارات",
     "settings": "إعدادات",
-    "language": "اللغة"
+    "language": "اللغة",
+    "cancel": "إلغاء",
+    "delete": "حذف"
   },
   "game": {
     "title": "السرعة الإدراكية",
@@ -70,6 +72,7 @@
     "empty": "No scores yet — play a round to set your first record.",
     "clear": "Clear",
     "clearConfirm": "Delete all saved scores?",
+    "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"

@@ -1,6 +1,16 @@
 import dayjs from 'dayjs';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { useHighScores, type HighScore } from '@/store/highScores';
 import { formatElapsed } from './gameMachine';
 
@@ -11,13 +21,17 @@ type Props = {
 export function GameLeaderboard({ onBack }: Props) {
   const { t } = useTranslation();
   const scoresMap = useHighScores((s) => s.scores);
-  const clear = useHighScores((s) => s.clear);
+  const hasScores = Object.keys(scoresMap).length > 0;
 
   /* Sort by recency so the run the player just completed bubbles to the top. */
   const scores = useMemo(
     () => Object.values(scoresMap).sort((a, b) => b.achievedAt - a.achievedAt),
     [scoresMap],
   );
+
+  const handleClearScores = () => {
+    useHighScores.getState().clear();
+  };
 
   const formatDate = (ts: number): string =>
     dayjs(ts).format('YYYY-MM-DD HH:mm:ss');
@@ -48,29 +62,44 @@ export function GameLeaderboard({ onBack }: Props) {
     return correct;
   };
 
-  const handleClear = () => {
-    if (scores.length === 0) return;
-
-    if (window.confirm(t('leaderboard.clearConfirm'))) clear();
-  };
-
   return (
     <Layout
       header={<AppHeader />}
       footer={
         <div className="flex w-full max-w-md gap-3">
-          <Button
-            size="lg"
-            variant="outline"
-            className="flex-1"
-            onClick={handleClear}
-            disabled={scores.length === 0}
-          >
-            {t('leaderboard.clear')}
-          </Button>
           <Button size="lg" className="flex-1" onClick={onBack}>
             {t('common.back')}
           </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                size="lg"
+                variant="destructive"
+                className="flex-1"
+                disabled={!hasScores}
+              >
+                {t('leaderboard.clear')}
+              </Button>
+            </DialogTrigger>
+            <DialogContent showCloseButton={false}>
+              <DialogHeader>
+                <DialogTitle>{t('leaderboard.clearConfirm')}</DialogTitle>
+                <DialogDescription>
+                  {t('leaderboard.clearConfirmDescription')}
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">{t('common.cancel')}</Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button variant="destructive" onClick={handleClearScores}>
+                    {t('common.delete')}
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       }
     >

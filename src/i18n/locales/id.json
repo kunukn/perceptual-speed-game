@@ -3,7 +3,9 @@
     "back": "Kembali",
     "options": "Pilihan",
     "settings": "Pengaturan",
-    "language": "Bahasa"
+    "language": "Bahasa",
+    "cancel": "Batal",
+    "delete": "Hapus"
   },
   "game": {
     "title": "Kecepatan Persepsi",
@@ -65,6 +67,7 @@
     "empty": "No scores yet — play a round to set your first record.",
     "clear": "Clear",
     "clearConfirm": "Delete all saved scores?",
+    "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"

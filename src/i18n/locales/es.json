@@ -3,7 +3,9 @@
     "back": "Atrás",
     "options": "Opciones",
     "settings": "Ajustes",
-    "language": "Idioma"
+    "language": "Idioma",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
   },
   "game": {
     "title": "Velocidad perceptiva",
@@ -66,6 +68,7 @@
     "empty": "No scores yet — play a round to set your first record.",
     "clear": "Clear",
     "clearConfirm": "Delete all saved scores?",
+    "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"

@@ -3,7 +3,9 @@
     "back": "返回",
     "options": "选项",
     "settings": "设置",
-    "language": "语言"
+    "language": "语言",
+    "cancel": "取消",
+    "delete": "删除"
   },
   "game": {
     "title": "感知速度",
@@ -65,6 +67,7 @@
     "empty": "No scores yet — play a round to set your first record.",
     "clear": "Clear",
     "clearConfirm": "Delete all saved scores?",
+    "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"

@@ -3,7 +3,9 @@
     "back": "戻る",
     "options": "オプション",
     "settings": "設定",
-    "language": "言語"
+    "language": "言語",
+    "cancel": "キャンセル",
+    "delete": "削除"
   },
   "game": {
     "title": "知覚スピード",
@@ -65,6 +67,7 @@
     "empty": "No scores yet — play a round to set your first record.",
     "clear": "Clear",
     "clearConfirm": "Delete all saved scores?",
+    "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
