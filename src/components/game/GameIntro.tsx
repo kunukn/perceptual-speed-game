@@ -23,9 +23,8 @@ export function GameIntro({
         How to play
       </h2>
       <p className="text-sm md:text-center md:text-base">
-        Two rows of {COLS} chars. One row is uppercase, the other lowercase.
-        Count matching vertical letter pairs (case-insensitive). Press the
-        button matching that count.
+        Two rows of {COLS} letters — one uppercase, one lowercase. Count the
+        columns where the letters match, then tap that number.
       </p>
 
       <PuzzleBoard
