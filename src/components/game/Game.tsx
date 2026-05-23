@@ -65,6 +65,8 @@ export default function Game() {
         mode={mode}
         countTarget={countTarget}
         timeLimitMs={timeLimitMs}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         onStart={() => send({ type: 'START' })}
         onOpenOptions={() => send({ type: 'OPEN_OPTIONS' })}
       />

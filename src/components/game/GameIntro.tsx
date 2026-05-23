@@ -8,6 +8,8 @@ type Props = {
   mode: GameMode;
   countTarget: number;
   timeLimitMs: number;
+  mirrorX: boolean;
+  mirrorY: boolean;
   onStart: () => void;
   onOpenOptions: () => void;
 };
@@ -16,6 +18,8 @@ export function GameIntro({
   mode,
   countTarget,
   timeLimitMs,
+  mirrorX,
+  mirrorY,
   onStart,
   onOpenOptions,
 }: Props) {
@@ -44,6 +48,8 @@ export function GameIntro({
           bottom={['A', 'B', 'C', 'E']}
           showMatches
           showColumnOutlines
+          mirrorX={mirrorX}
+          mirrorY={mirrorY}
           highlightIdx={3}
           caption={t('intro.exampleCaption')}
         />
