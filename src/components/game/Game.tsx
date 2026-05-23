@@ -134,6 +134,8 @@ export default function Game() {
       <GameReview
         rounds={rounds}
         answers={answers}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         onExit={() => send({ type: 'EXIT_REVIEW' })}
       />
     );

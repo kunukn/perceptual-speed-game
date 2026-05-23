@@ -10,6 +10,8 @@ type Round = {
 type Props = {
   rounds: Round[];
   answers: number[];
+  mirrorX: boolean;
+  mirrorY: boolean;
   onExit: () => void;
 };
 
@@ -17,7 +19,13 @@ function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GameReview({ rounds, answers, onExit }: Props) {
+export function GameReview({
+  rounds,
+  answers,
+  mirrorX,
+  mirrorY,
+  onExit,
+}: Props) {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
 
@@ -77,6 +85,8 @@ export function GameReview({ rounds, answers, onExit }: Props) {
         <PuzzleBoard
           top={round.top}
           bottom={round.bottom}
+          mirrorX={mirrorX}
+          mirrorY={mirrorY}
           showMatches
           highlightIdx={round.answer}
           wrongIdx={isCorrect ? undefined : userAnswer}
