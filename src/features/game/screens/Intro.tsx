@@ -2,8 +2,8 @@ import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
-import { useGameMachine } from '@/features/game/machine-context';
 import { COLS } from '@/features/game/machine';
+import { useGameMachine } from '@/features/game/machine-context';
 import { useGameOptions } from '@/features/game/store/options';
 
 export function Intro() {
@@ -31,7 +31,7 @@ export function Intro() {
 
   return (
     <Layout header={<AppHeader />}>
-      <div className="max-w-md space-y-4 text-slate-700 md:space-y-4">
+      <div className="max-w-md space-y-4 text-slate-700">
         <h2 className="text-center text-lg font-semibold text-slate-900">
           {t('intro.howToPlay')}
         </h2>

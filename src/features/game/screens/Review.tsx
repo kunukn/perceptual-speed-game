@@ -1,9 +1,9 @@
-import { Navigate } from 'react-router';
 import { paths } from '@/app/paths';
 import { Layout } from '@/components/layout/Layout';
 import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
 import { useGameMachine } from '@/features/game/machine-context';
 import { useGameOptions } from '@/features/game/store/options';
+import { Navigate } from 'react-router';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
@@ -46,7 +46,7 @@ export function Review() {
         </p>
       }
       footer={
-        <div className="mx-auto flex w-auto min-w-62.5 gap-2">
+        <div className="mx-auto flex w-full min-w-62.5 gap-2">
           <Button
             className="flex-1"
             variant="outline"
