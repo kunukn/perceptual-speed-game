@@ -30,7 +30,12 @@ export function LetterGrid({
     );
 
   return (
-    <div className={cn('flex w-fit gap-1', className)}>
+    <div
+      className={cn(
+        'flex min-h-22.5 w-fit min-w-62.5 items-center justify-center gap-1',
+        className,
+      )}
+    >
       {top.map((_, i) => (
         <div
           key={i}

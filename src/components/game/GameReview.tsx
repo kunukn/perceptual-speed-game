@@ -45,17 +45,32 @@ export function GameReview({ rounds, answers, onExit }: Props) {
         </p>
       }
       footer={
-        <>
-          <Button variant="outline" size="lg" onClick={goPrev}>
+        <div className="mx-auto flex w-auto min-w-62.5 gap-2">
+          <Button
+            className="flex-1"
+            variant="outline"
+            size="lg"
+            onClick={goPrev}
+          >
             {t('common.back')}
           </Button>
-          <Button variant="outline" size="lg" onClick={onExit}>
+          <Button
+            className="flex-1"
+            variant="outline"
+            size="lg"
+            onClick={onExit}
+          >
             {t('review.exit')}
           </Button>
-          <Button variant="outline" size="lg" onClick={goNext}>
+          <Button
+            className="flex-1"
+            variant="outline"
+            size="lg"
+            onClick={goNext}
+          >
             {t('review.next')}
           </Button>
-        </>
+        </div>
       }
     >
       <div className="flex w-full flex-col items-center gap-6">

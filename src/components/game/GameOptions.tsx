@@ -95,6 +95,17 @@ export function GameOptions({
           {t('options.title')}
         </h2>
 
+        <div className="flex items-center gap-3">
+          <Switch
+            id="show-timer"
+            checked={showTimer}
+            onCheckedChange={onShowTimerChange}
+          />
+          <Label htmlFor="show-timer" className="text-sm font-normal">
+            {t('options.showTimer')}
+          </Label>
+        </div>
+
         <fieldset className="space-y-3">
           <legend className="text-sm font-medium text-slate-900">
             {t('options.gameMode')}
@@ -141,17 +152,6 @@ export function GameOptions({
             ))}
           </RadioGroup>
         </fieldset>
-
-        <div className="flex items-center gap-3">
-          <Switch
-            id="show-timer"
-            checked={showTimer}
-            onCheckedChange={onShowTimerChange}
-          />
-          <Label htmlFor="show-timer" className="text-sm font-normal">
-            {t('options.showTimer')}
-          </Label>
-        </div>
       </div>
     </Layout>
   );
