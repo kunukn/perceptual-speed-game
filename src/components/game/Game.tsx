@@ -5,6 +5,7 @@ import { GameOptions } from './GameOptions';
 import { GameResults } from './GameResults';
 import { GameReview } from './GameReview';
 import { GameTimer } from './GameTimer';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { PuzzleBoard } from './PuzzleBoard';
 import {
   DEFAULT_OPTIONS,
@@ -72,13 +73,16 @@ export default function Game() {
         ref={canvasRef}
         className="pointer-events-none absolute inset-0 h-full w-full"
       />
-      <header className="shrink-0 border-b border-slate-200 pb-4">
+      <header className="relative shrink-0 border-b border-slate-200 pb-4">
         <h1 className="text-center text-2xl font-bold text-slate-900">
           {t('game.title')}
         </h1>
         <p className="text-center text-sm text-slate-500">
           {t('game.subtitle')}
         </p>
+        <div className="absolute top-0 right-0">
+          <LanguageSwitcher />
+        </div>
       </header>
 
       <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">

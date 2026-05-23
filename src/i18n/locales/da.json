@@ -1,0 +1,60 @@
+{
+  "common": {
+    "back": "Tilbage",
+    "options": "Indstillinger",
+    "settings": "Indstillinger",
+    "language": "Sprog"
+  },
+  "game": {
+    "title": "Perceptual Speed",
+    "subtitle": "Prototype",
+    "abort": "Afbryd",
+    "roundLabel": "Runde {{current}}",
+    "roundLabelOfTotal": "Runde {{current}} / {{total}}"
+  },
+  "intro": {
+    "howToPlay": "Sådan spiller du",
+    "rules": "To rækker med {{cols}} bogstaver — én med store og én med små. Tæl de kolonner hvor bogstaverne matcher, og tryk på tallet.",
+    "example": "Eksempel",
+    "exampleCaption": "3 par matcher — det rigtige svar er 3",
+    "start": "Start",
+    "summaryTime": "{{time}}. Vi måler hvor mange du svarer og hvor mange du får rigtigt.",
+    "summaryCount": "{{count}} runder. Vi måler din tid og hvor mange du får rigtigt."
+  },
+  "options": {
+    "title": "Indstillinger",
+    "gameMode": "Spilletilstand",
+    "letters": "Bogstaver",
+    "questionsCount": "{{count}} spørgsmål",
+    "showTimer": "Vis tid under spillet",
+    "letterSystem": {
+      "english": "Engelsk (a–z)",
+      "german": "Tysk (+ ä ö ü)",
+      "accented": "Latinsk med accenter (+ å ä ö æ ø é ç ñ)",
+      "greek": "Græsk (α–ω)",
+      "cyrillic": "Kyrillisk (а–я)",
+      "kana": "Japansk kana (hiragana ↔ katakana)"
+    },
+    "timeLimit": {
+      "seconds": "{{count}} sekunder",
+      "minute_one": "{{count}} minut",
+      "minute_other": "{{count}} minutter"
+    }
+  },
+  "puzzle": {
+    "answer": "Svar:"
+  },
+  "results": {
+    "title": "Resultat",
+    "time": "Tid: {{elapsed}}",
+    "restart": "Spil igen",
+    "review": "Gennemse"
+  },
+  "review": {
+    "label": "Gennemse {{current}} / {{total}}",
+    "correct": "Rigtigt",
+    "wrong": "Forkert",
+    "exit": "Afslut",
+    "next": "Næste"
+  }
+}

@@ -1,7 +1,9 @@
 {
   "common": {
     "back": "Back",
-    "options": "Options"
+    "options": "Options",
+    "settings": "Settings",
+    "language": "Language"
   },
   "game": {
     "title": "Perceptual Speed",
