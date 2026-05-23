@@ -64,3 +64,7 @@ React 19 · TypeScript · Vite · Tailwind CSS 4 · Emotion · shadcn/Radix UI �
 
 Pushing to `main` auto-deploys to GitHub Pages via GitHub Actions
 (`.github/workflows/deploy.yml`). `VITE_BASE_PATH` sets the project subpath at build time.
+
+## License
+
+This project is open source under the [0BSD License](LICENSE). _do what you want, but don't blame me._

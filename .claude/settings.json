@@ -1,5 +1,6 @@
 {
   "permissions": {
+    "verbose": true,
     "env": {
       "CLAUDE_CODE_EXTRA_BODY": "{\"thinking\":{\"type\":\"adaptive\",\"display\":\"summarized\"}}"
     },
