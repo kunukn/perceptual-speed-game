@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useLocation } from 'react-router';
 import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
@@ -21,8 +22,18 @@ import {
 export function Leaderboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const scoresMap = useHighScores((s) => s.scores);
   const hasScores = Object.keys(scoresMap).length > 0;
+
+  const handleBack = () => {
+    if (location.key !== 'default') {
+      navigate(-1);
+      return;
+    }
+
+    navigate(paths.home);
+  };
 
   /* Sort by recency so the run the player just completed bubbles to the top. */
   const scores = useMemo(
@@ -68,11 +79,7 @@ export function Leaderboard() {
       header={<AppHeader />}
       footer={
         <div className="flex w-full max-w-md gap-3">
-          <Button
-            size="lg"
-            className="flex-1"
-            onClick={() => navigate(paths.home)}
-          >
+          <Button size="lg" className="flex-1" onClick={handleBack}>
             {t('common.back')}
           </Button>
           <Dialog>
