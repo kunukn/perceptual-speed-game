@@ -38,6 +38,7 @@ export function GameReview({ rounds, answers, onExit }: Props) {
         label={`Review ${pad2(index + 1)} / ${pad2(total)}`}
         top={round.top}
         bottom={round.bottom}
+        showMatches
         highlightIdx={round.answer}
         wrongIdx={isCorrect ? undefined : userAnswer}
       />
