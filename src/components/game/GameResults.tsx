@@ -37,21 +37,24 @@ export function GameResults({
         />
       }
       footer={
-        <div className="flex w-full max-w-md flex-col gap-2">
-          <div className="flex gap-3">
-            <Button
-              size="lg"
-              variant="outline"
-              className="flex-1"
-              onClick={onReview}
-            >
-              {t('results.review')}
-            </Button>
-            <Button size="lg" className="flex-1" onClick={onRestart}>
-              {t('results.restart')}
-            </Button>
-          </div>
-          <Button size="lg" variant="outline" onClick={onOpenLeaderboard}>
+        <div className="flex w-full justify-center gap-2 overflow-x-auto">
+          <Button
+            size="lg"
+            variant="outline"
+            className="flex-1"
+            onClick={onReview}
+          >
+            {t('results.review')}
+          </Button>
+          <Button size="lg" className="flex-1" onClick={onRestart}>
+            {t('results.restart')}
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="flex-1"
+            onClick={onOpenLeaderboard}
+          >
             {t('leaderboard.open')}
           </Button>
         </div>
