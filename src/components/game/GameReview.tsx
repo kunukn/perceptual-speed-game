@@ -48,9 +48,9 @@ export function GameReview({ rounds, answers, onExit }: Props) {
         </p>
       }
       footer={
-        <div className="mx-auto flex w-auto min-w-62.5 gap-2">
+        <div className="flex w-full justify-center gap-2 overflow-x-auto">
           <Button
-            className="flex-1"
+            className="w-auto shrink-0"
             variant="outline"
             size="lg"
             onClick={goPrev}
@@ -58,7 +58,7 @@ export function GameReview({ rounds, answers, onExit }: Props) {
             {t('common.back')}
           </Button>
           <Button
-            className="flex-1"
+            className="w-auto shrink-0"
             variant="outline"
             size="lg"
             onClick={onExit}
@@ -66,7 +66,7 @@ export function GameReview({ rounds, answers, onExit }: Props) {
             {t('review.exit')}
           </Button>
           <Button
-            className="flex-1"
+            className="w-auto shrink-0"
             variant="outline"
             size="lg"
             onClick={goNext}
