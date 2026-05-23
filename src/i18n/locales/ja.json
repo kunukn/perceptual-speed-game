@@ -1,60 +1,59 @@
 {
   "common": {
-    "back": "Back",
-    "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "戻る",
+    "options": "オプション",
+    "settings": "設定",
+    "language": "言語"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "やめる",
+    "roundLabel": "ラウンド {{current}}",
+    "roundLabelOfTotal": "ラウンド {{current}} / {{total}}"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "あそびかた",
+    "rules": "{{cols}} 文字ずつの 2 列 — 1 列は大文字、もう 1 列は小文字。文字が一致する列の数を数えて、その数字をタップしてね。",
+    "example": "例",
+    "exampleCaption": "3 ペアが一致 — 正解は 3",
+    "start": "スタート",
+    "summaryTime": "{{time}}。何問答えて何問正解したかを記録するよ。",
+    "summaryCount": "{{count}} ラウンド。タイムと正解数を記録するよ。"
   },
   "options": {
-    "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
-    "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "title": "オプション",
+    "gameMode": "ゲームモード",
+    "letters": "文字",
+    "questionsCount": "{{count}} 問",
+    "showTimer": "プレイ中に時間を表示する",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "英語 (a–z)",
+      "german": "ドイツ語 (+ ä ö ü)",
+      "accented": "アクセント付きラテン (+ å ä ö æ ø é ç ñ)",
+      "greek": "ギリシャ語 (α–ω)",
+      "cyrillic": "キリル文字 (а–я)",
+      "kana": "日本語かな (ひらがな ↔ カタカナ)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
-      "minute_one": "{{count}} minute",
-      "minute_other": "{{count}} minutes"
+      "seconds": "{{count}} 秒",
+      "minute_other": "{{count}} 分"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "答え："
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "結果",
+    "time": "タイム: {{elapsed}}",
+    "restart": "もう一回",
+    "review": "見直す"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "見直し {{current}} / {{total}}",
+    "correct": "正解",
+    "wrong": "不正解",
+    "exit": "終了",
+    "next": "次へ"
   }
 }

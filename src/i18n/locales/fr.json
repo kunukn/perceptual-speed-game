@@ -1,60 +1,60 @@
 {
   "common": {
-    "back": "Back",
+    "back": "Retour",
     "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "settings": "Réglages",
+    "language": "Langue"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "Abandonner",
+    "roundLabel": "Manche {{current}}",
+    "roundLabelOfTotal": "Manche {{current}} / {{total}}"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "Comment jouer",
+    "rules": "Deux rangées de {{cols}} lettres — une en majuscules, une en minuscules. Compte les colonnes où les lettres correspondent, puis tape ce nombre.",
+    "example": "Exemple",
+    "exampleCaption": "3 paires correspondent — la bonne réponse est 3",
+    "start": "Commencer",
+    "summaryTime": "{{time}}. On compte combien tu réponds et combien tu réussis.",
+    "summaryCount": "{{count}} manches. On compte ton temps et combien tu réussis."
   },
   "options": {
     "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
+    "gameMode": "Mode de jeu",
+    "letters": "Lettres",
     "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "showTimer": "Afficher le temps pendant le jeu",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "Anglais (a–z)",
+      "german": "Allemand (+ ä ö ü)",
+      "accented": "Latin accentué (+ å ä ö æ ø é ç ñ)",
+      "greek": "Grec (α–ω)",
+      "cyrillic": "Cyrillique (а–я)",
+      "kana": "Kana japonais (hiragana ↔ katakana)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
+      "seconds": "{{count}} secondes",
       "minute_one": "{{count}} minute",
       "minute_other": "{{count}} minutes"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "Réponse :"
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "Résultats",
+    "time": "Temps : {{elapsed}}",
+    "restart": "Recommencer",
+    "review": "Revoir"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "Revoir {{current}} / {{total}}",
+    "correct": "Bon",
+    "wrong": "Faux",
+    "exit": "Quitter",
+    "next": "Suivant"
   }
 }

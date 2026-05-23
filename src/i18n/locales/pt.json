@@ -1,60 +1,60 @@
 {
   "common": {
-    "back": "Back",
-    "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Voltar",
+    "options": "Opções",
+    "settings": "Ajustes",
+    "language": "Idioma"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "Sair",
+    "roundLabel": "Rodada {{current}}",
+    "roundLabelOfTotal": "Rodada {{current}} / {{total}}"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "Como jogar",
+    "rules": "Duas linhas com {{cols}} letras — uma em maiúsculas e outra em minúsculas. Conte as colunas onde as letras combinam e toque nesse número.",
+    "example": "Exemplo",
+    "exampleCaption": "3 pares combinam — a resposta certa é 3",
+    "start": "Começar",
+    "summaryTime": "{{time}}. A gente conta quantas você responde e quantas acerta.",
+    "summaryCount": "{{count}} rodadas. A gente conta o seu tempo e quantas você acerta."
   },
   "options": {
-    "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
-    "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "title": "Opções",
+    "gameMode": "Modo de jogo",
+    "letters": "Letras",
+    "questionsCount": "{{count}} perguntas",
+    "showTimer": "Mostrar o tempo durante o jogo",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "Inglês (a–z)",
+      "german": "Alemão (+ ä ö ü)",
+      "accented": "Latim com acentos (+ å ä ö æ ø é ç ñ)",
+      "greek": "Grego (α–ω)",
+      "cyrillic": "Cirílico (а–я)",
+      "kana": "Kana japonês (hiragana ↔ katakana)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
-      "minute_one": "{{count}} minute",
-      "minute_other": "{{count}} minutes"
+      "seconds": "{{count}} segundos",
+      "minute_one": "{{count}} minuto",
+      "minute_other": "{{count}} minutos"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "Resposta:"
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "Resultado",
+    "time": "Tempo: {{elapsed}}",
+    "restart": "Recomeçar",
+    "review": "Revisar"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "Revisão {{current}} / {{total}}",
+    "correct": "Certo",
+    "wrong": "Errado",
+    "exit": "Sair",
+    "next": "Próximo"
   }
 }

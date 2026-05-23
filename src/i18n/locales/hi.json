@@ -1,60 +1,60 @@
 {
   "common": {
-    "back": "Back",
-    "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "वापस",
+    "options": "विकल्प",
+    "settings": "सेटिंग",
+    "language": "भाषा"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "बंद करो",
+    "roundLabel": "राउंड {{current}}",
+    "roundLabelOfTotal": "राउंड {{current}} / {{total}}"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "खेलना कैसे है",
+    "rules": "{{cols}} अक्षरों की दो लाइनें — एक बड़े अक्षर, एक छोटे। जिन कॉलमों में अक्षर मिलते हैं उन्हें गिनो और वो नंबर दबाओ।",
+    "example": "उदाहरण",
+    "exampleCaption": "3 जोड़े मिलते हैं — सही जवाब 3 है",
+    "start": "शुरू",
+    "summaryTime": "{{time}}। हम गिनते हैं कि तुमने कितने जवाब दिए और कितने सही हुए।",
+    "summaryCount": "{{count}} राउंड। हम तुम्हारा समय और सही जवाब गिनते हैं।"
   },
   "options": {
-    "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
-    "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "title": "विकल्प",
+    "gameMode": "गेम मोड",
+    "letters": "अक्षर",
+    "questionsCount": "{{count}} सवाल",
+    "showTimer": "खेलते वक्त समय दिखाओ",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "अंग्रेज़ी (a–z)",
+      "german": "जर्मन (+ ä ö ü)",
+      "accented": "उच्चारण चिह्न वाली लातिनी (+ å ä ö æ ø é ç ñ)",
+      "greek": "यूनानी (α–ω)",
+      "cyrillic": "सिरिलिक (а–я)",
+      "kana": "जापानी काना (हिरागाना ↔ काताकाना)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
-      "minute_one": "{{count}} minute",
-      "minute_other": "{{count}} minutes"
+      "seconds": "{{count}} सेकंड",
+      "minute_one": "{{count}} मिनट",
+      "minute_other": "{{count}} मिनट"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "जवाब:"
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "नतीजा",
+    "time": "समय: {{elapsed}}",
+    "restart": "फिर से",
+    "review": "देखो"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "देखो {{current}} / {{total}}",
+    "correct": "सही",
+    "wrong": "गलत",
+    "exit": "बाहर",
+    "next": "अगला"
   }
 }

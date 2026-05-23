@@ -1,60 +1,62 @@
 {
   "common": {
-    "back": "Back",
-    "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Назад",
+    "options": "Опции",
+    "settings": "Настройки",
+    "language": "Язык"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "Прервать",
+    "roundLabel": "Раунд {{current}}",
+    "roundLabelOfTotal": "Раунд {{current}} / {{total}}"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "Как играть",
+    "rules": "Два ряда по {{cols}} букв — один заглавными, другой строчными. Посчитай столбцы, где буквы совпадают, и нажми это число.",
+    "example": "Пример",
+    "exampleCaption": "Совпадают 3 пары — правильный ответ 3",
+    "start": "Начать",
+    "summaryTime": "{{time}}. Мы считаем, сколько ты ответил и сколько верно.",
+    "summaryCount": "{{count}} раундов. Мы считаем твоё время и сколько верно."
   },
   "options": {
-    "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
-    "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "title": "Опции",
+    "gameMode": "Режим игры",
+    "letters": "Буквы",
+    "questionsCount": "{{count}} вопросов",
+    "showTimer": "Показывать время во время игры",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "Английский (a–z)",
+      "german": "Немецкий (+ ä ö ü)",
+      "accented": "Латиница с диакритикой (+ å ä ö æ ø é ç ñ)",
+      "greek": "Греческий (α–ω)",
+      "cyrillic": "Кириллица (а–я)",
+      "kana": "Японская кана (хирагана ↔ катакана)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
-      "minute_one": "{{count}} minute",
-      "minute_other": "{{count}} minutes"
+      "seconds": "{{count}} секунд",
+      "minute_one": "{{count}} минута",
+      "minute_few": "{{count}} минуты",
+      "minute_many": "{{count}} минут",
+      "minute_other": "{{count}} минуты"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "Ответ:"
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "Результат",
+    "time": "Время: {{elapsed}}",
+    "restart": "Заново",
+    "review": "Просмотр"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "Просмотр {{current}} / {{total}}",
+    "correct": "Верно",
+    "wrong": "Неверно",
+    "exit": "Выход",
+    "next": "Дальше"
   }
 }

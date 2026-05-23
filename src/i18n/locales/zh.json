@@ -1,60 +1,59 @@
 {
   "common": {
-    "back": "Back",
-    "options": "Options",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "返回",
+    "options": "选项",
+    "settings": "设置",
+    "language": "语言"
   },
   "game": {
     "title": "Perceptual Speed",
     "subtitle": "Prototype",
-    "abort": "Abort",
-    "roundLabel": "Round {{current}}",
-    "roundLabelOfTotal": "Round {{current}} / {{total}}"
+    "abort": "放弃",
+    "roundLabel": "第 {{current}} 轮",
+    "roundLabelOfTotal": "第 {{current}} / {{total}} 轮"
   },
   "intro": {
-    "howToPlay": "How to play",
-    "rules": "Two rows of {{cols}} letters — one uppercase, one lowercase. Count the columns where the letters match, then tap that number.",
-    "example": "Example",
-    "exampleCaption": "3 pairs match — the correct answer is 3",
-    "start": "Start",
-    "summaryTime": "{{time}}. We track how many you answer and how many you got right.",
-    "summaryCount": "{{count}} rounds. We track your time and how many you got right."
+    "howToPlay": "怎么玩",
+    "rules": "两行各 {{cols}} 个字母 — 一行大写、一行小写。数出字母相同的列数，然后点那个数字。",
+    "example": "例子",
+    "exampleCaption": "3 对相同 — 正确答案是 3",
+    "start": "开始",
+    "summaryTime": "{{time}}。我们记录你答了多少、答对多少。",
+    "summaryCount": "{{count}} 轮。我们记录你用了多少时间、答对多少。"
   },
   "options": {
-    "title": "Options",
-    "gameMode": "Game mode",
-    "letters": "Letters",
-    "questionsCount": "{{count}} questions",
-    "showTimer": "Show time spent during play",
+    "title": "选项",
+    "gameMode": "游戏模式",
+    "letters": "字母",
+    "questionsCount": "{{count}} 题",
+    "showTimer": "游戏时显示用时",
     "letterSystem": {
-      "english": "English (a–z)",
-      "german": "German (+ ä ö ü)",
-      "accented": "Accented Latin (+ å ä ö æ ø é ç ñ)",
-      "greek": "Greek (α–ω)",
-      "cyrillic": "Cyrillic (а–я)",
-      "kana": "Japanese kana (hiragana ↔ katakana)"
+      "english": "英文 (a–z)",
+      "german": "德文 (+ ä ö ü)",
+      "accented": "带变音符的拉丁字母 (+ å ä ö æ ø é ç ñ)",
+      "greek": "希腊文 (α–ω)",
+      "cyrillic": "西里尔文 (а–я)",
+      "kana": "日文假名 (平假名 ↔ 片假名)"
     },
     "timeLimit": {
-      "seconds": "{{count}} seconds",
-      "minute_one": "{{count}} minute",
-      "minute_other": "{{count}} minutes"
+      "seconds": "{{count}} 秒",
+      "minute_other": "{{count}} 分钟"
     }
   },
   "puzzle": {
-    "answer": "Answer:"
+    "answer": "答案："
   },
   "results": {
-    "title": "Results",
-    "time": "Time: {{elapsed}}",
-    "restart": "Restart",
-    "review": "Review"
+    "title": "结果",
+    "time": "用时：{{elapsed}}",
+    "restart": "重玩",
+    "review": "回看"
   },
   "review": {
-    "label": "Review {{current}} / {{total}}",
-    "correct": "Correct",
-    "wrong": "Wrong",
-    "exit": "Exit",
-    "next": "Next"
+    "label": "回看 {{current}} / {{total}}",
+    "correct": "对",
+    "wrong": "错",
+    "exit": "退出",
+    "next": "下一题"
   }
 }
