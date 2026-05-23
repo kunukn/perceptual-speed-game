@@ -6,8 +6,8 @@
     "language": "Idioma"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "Velocidade perceptiva",
+    "subtitle": "Protótipo",
     "abort": "Sair",
     "roundLabel": "Rodada {{current}}",
     "roundLabelOfTotal": "Rodada {{current}} / {{total}}"

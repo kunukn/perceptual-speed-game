@@ -6,8 +6,8 @@
     "language": "اللغة"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "السرعة الإدراكية",
+    "subtitle": "نموذج أولي",
     "abort": "إيقاف",
     "roundLabel": "جولة {{current}}",
     "roundLabelOfTotal": "جولة {{current}} / {{total}}"

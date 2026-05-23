@@ -6,8 +6,8 @@
     "language": "زبان"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "ادراکی رفتار",
+    "subtitle": "پروٹوٹائپ",
     "abort": "بند کرو",
     "roundLabel": "راؤنڈ {{current}}",
     "roundLabelOfTotal": "راؤنڈ {{current}} / {{total}}"

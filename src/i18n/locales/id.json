@@ -6,8 +6,8 @@
     "language": "Bahasa"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "Kecepatan Persepsi",
+    "subtitle": "Prototipe",
     "abort": "Berhenti",
     "roundLabel": "Ronde {{current}}",
     "roundLabelOfTotal": "Ronde {{current}} / {{total}}"

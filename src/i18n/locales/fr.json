@@ -6,7 +6,7 @@
     "language": "Langue"
   },
   "game": {
-    "title": "Perceptual Speed",
+    "title": "Vitesse perceptive",
     "subtitle": "Prototype",
     "abort": "Abandonner",
     "roundLabel": "Manche {{current}}",

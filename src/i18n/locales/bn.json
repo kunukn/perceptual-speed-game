@@ -6,8 +6,8 @@
     "language": "ভাষা"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "উপলব্ধির গতি",
+    "subtitle": "প্রোটোটাইপ",
     "abort": "বন্ধ করো",
     "roundLabel": "রাউন্ড {{current}}",
     "roundLabelOfTotal": "রাউন্ড {{current}} / {{total}}"

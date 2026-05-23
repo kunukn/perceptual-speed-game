@@ -6,8 +6,8 @@
     "language": "语言"
   },
   "game": {
-    "title": "Perceptual Speed",
-    "subtitle": "Prototype",
+    "title": "感知速度",
+    "subtitle": "原型",
     "abort": "放弃",
     "roundLabel": "第 {{current}} 轮",
     "roundLabelOfTotal": "第 {{current}} / {{total}} 轮"

@@ -6,7 +6,7 @@
     "language": "Sprog"
   },
   "game": {
-    "title": "Perceptual Speed",
+    "title": "Perceptuel hastighed",
     "subtitle": "Prototype",
     "abort": "Afbryd",
     "roundLabel": "Runde {{current}}",
