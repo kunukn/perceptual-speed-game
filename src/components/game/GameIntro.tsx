@@ -33,7 +33,7 @@ export function GameIntro({
         top={['a', 'b', 'c', 'd']}
         bottom={['A', 'B', 'C', 'E']}
         showMatches
-        showColumnArrows
+        showColumnOutlines
         highlightIdx={3}
         caption="3 pairs match — the correct answer is 3"
       />

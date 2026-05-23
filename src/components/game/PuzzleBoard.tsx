@@ -11,8 +11,8 @@ type PuzzleBoardProps = {
   matches?: boolean[];
   /** Color matching letter columns green — intro example only. */
   showMatches?: boolean;
-  /** Down arrow above each column — intro example only. */
-  showColumnArrows?: boolean;
+  /** Thin outline around each column — intro + review. */
+  showColumnOutlines?: boolean;
   /** Click handler for play mode. Omit for a static preview (intro example). */
   onAnswer?: (n: number) => void;
   /** Highlights this choice as the correct answer (green). */
@@ -29,7 +29,7 @@ export function PuzzleBoard({
   bottom,
   matches,
   showMatches,
-  showColumnArrows,
+  showColumnOutlines,
   onAnswer,
   highlightIdx,
   wrongIdx,
@@ -46,7 +46,7 @@ export function PuzzleBoard({
         bottom={bottom}
         matches={matches}
         showMatches={showMatches}
-        showColumnArrows={showColumnArrows}
+        showColumnOutlines={showColumnOutlines}
         className="font-mono text-4xl"
       />
 

@@ -1,12 +1,11 @@
 import { cn } from '@/lib/utils';
-import { ArrowDown } from 'lucide-react';
 
 type LetterGridProps = {
   top: string[];
   bottom: string[];
   matches?: boolean[]; // which columns are matching pairs; falls back to case-insensitive compare
   showMatches?: boolean; // color columns where letters match
-  showColumnArrows?: boolean; // down arrow above each column (intro example only)
+  showColumnOutlines?: boolean; // thin outline around each column (intro + review)
   className?: string;
 };
 
@@ -15,41 +14,36 @@ export function LetterGrid({
   bottom,
   matches,
   showMatches,
-  showColumnArrows,
+  showColumnOutlines,
   className,
 }: LetterGridProps) {
-  const cols = top.length;
   const isMatch = (i: number) =>
     !!showMatches &&
     (matches
       ? !!matches[i]
       : top[i]?.toLowerCase() === bottom[i]?.toLowerCase());
 
-  const cell = (ch: string, i: number, key: string) => (
-    <span
-      key={key}
-      className={cn(
-        'text-center tabular-nums',
-        isMatch(i) ? 'text-emerald-600' : 'text-slate-700',
-      )}
-    >
-      {ch}
-    </span>
-  );
+  const cellCls = (i: number) =>
+    cn(
+      'text-center tabular-nums',
+      isMatch(i) ? 'text-emerald-600' : 'text-slate-700',
+    );
 
   return (
-    <div
-      className={cn('grid w-fit gap-y-1', className)}
-      style={{ gridTemplateColumns: `repeat(${cols}, 1.6em)` }}
-    >
-      {showColumnArrows &&
-        top.map((_, i) => (
-          <span key={`a${i}`} className="flex justify-center">
-            <ArrowDown className="h-4 w-4 text-slate-400" />
-          </span>
-        ))}
-      {top.map((ch, i) => cell(ch, i, `t${i}`))}
-      {bottom.map((ch, i) => cell(ch, i, `b${i}`))}
+    <div className={cn('flex w-fit gap-1', className)}>
+      {top.map((_, i) => (
+        <div
+          key={i}
+          className={cn(
+            'flex flex-col items-center gap-y-1 rounded-sm border py-[0.05em]',
+            showColumnOutlines ? 'border-slate-200' : 'border-transparent',
+          )}
+          style={{ width: '1.6em' }}
+        >
+          <span className={cellCls(i)}>{top[i]}</span>
+          <span className={cellCls(i)}>{bottom[i]}</span>
+        </div>
+      ))}
     </div>
   );
 }
