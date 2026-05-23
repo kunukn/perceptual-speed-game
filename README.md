@@ -18,8 +18,10 @@ and time.
   Romance), Greek, Cyrillic, and Japanese Kana.
 - **Review** — after a game, step through each round to see the correct answer
   and your pick side by side.
-- **Localized** — UI translated into 14 languages with right-to-left support for
-  Arabic and Urdu. Your settings are saved between sessions.
+- **Localized** — UI available in 14 languages: English, Danish, German,
+  Spanish, French, Portuguese, Indonesian, Russian, Chinese, Japanese, Hindi,
+  Bengali, Arabic (RTL), and Urdu (RTL). Your settings are saved between
+  sessions.
 
 ## Demo
 
