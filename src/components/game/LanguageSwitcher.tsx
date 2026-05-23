@@ -25,7 +25,12 @@ export function LanguageSwitcher() {
   }, [lang, i18n]);
 
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(open) => {
+        /* Warm the cache for every supported language while the user is deciding. */
+        if (open) void i18n.loadLanguages(LANGUAGES.map((l) => l.code));
+      }}
+    >
       <PopoverTrigger asChild>
         <Button size="icon" variant="ghost" aria-label={t('common.settings')}>
           <Settings className="size-5" />
