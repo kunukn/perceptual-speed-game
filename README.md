@@ -1,6 +1,25 @@
 # Perceptual Speed Game
 
-A prototype web game that measures how fast and accurately you spot matching letter pairs.
+## About
+
+A web game that measures **perceptual speed** — the cognitive skill of rapidly
+comparing visual symbols under time pressure.
+
+Each round shows two short rows of glyphs (uppercase vs. lowercase, or hiragana
+vs. katakana). You count how many vertical positions hold the **same letter**
+(case-insensitive) and pick a number from 0 to 4. The game tracks both accuracy
+and time.
+
+- **Count mode** — play a fixed number of rounds (5 / 10 / 15 / 20 / 30) and get
+  scored on correct answers plus total time.
+- **Time mode** — answer as many rounds as you can within a time limit
+  (10s / 30s / 60s / 120s); rounds keep generating until the clock runs out.
+- **Letter systems** — English, German (with umlauts), Accented (Nordic /
+  Romance), Greek, Cyrillic, and Japanese Kana.
+- **Review** — after a game, step through each round to see the correct answer
+  and your pick side by side.
+- **Localized** — UI translated into 14 languages with right-to-left support for
+  Arabic and Urdu. Your settings are saved between sessions.
 
 ## Demo
 

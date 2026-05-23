@@ -2,6 +2,28 @@
 
 This file provides guidance to AI coding assistants when working with code in this repository.
 
+## About this app
+
+Perceptual Speed Game — a web game that measures the cognitive skill of rapidly
+comparing visual symbols. Each round renders two rows of 4 glyphs (uppercase +
+lowercase, or hiragana + katakana for Kana) and asks the player to count how
+many vertical pairs are the **same letter**, case-insensitive (0–4).
+
+- **Modes:** `count` (fixed number of rounds, scored on correct answers + total
+  time) and `time` (play as many rounds as possible within a time limit; rounds
+  are generated lazily).
+- **Letter systems:** English, German, Accented, Greek, Cyrillic, Japanese Kana.
+- **Post-game review** lets the player step through each round to see the
+  correct answer and any wrong pick.
+- **i18n:** UI translated into 14 locales with RTL support for Arabic and Urdu.
+- **Persistence:** user settings (mode, limits, letter system, language) are
+  saved in `localStorage`.
+
+The XState machine in [`src/components/game/gameMachine.ts`](../src/components/game/gameMachine.ts)
+is the source of truth for game rules and flow: `intro → options → playing →
+results ↔ review`. Game-state changes should go through the machine; UI
+components stay thin renderers.
+
 ## Stack
 
 React 19 + TypeScript + Vite. Styling: Tailwind CSS 4 + Emotion + shadcn/Radix UI components. State: Zustand (stores) and XState (state machines) — both are actively used; pick whichever fits the situation rather than introducing a third pattern.
