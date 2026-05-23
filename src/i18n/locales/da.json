@@ -27,6 +27,7 @@
     "letters": "Bogstaver",
     "questionsCount": "{{count}} spørgsmål",
     "showTimer": "Vis tid under spillet",
+    "mirror": "Spejling",
     "mirrorX": "Spejlvend vandret",
     "mirrorY": "Spejlvend lodret",
     "letterSystem": {

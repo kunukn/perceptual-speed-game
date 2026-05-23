@@ -114,28 +114,6 @@ export function GameOptions({
           </Label>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Switch
-            id="mirror-x"
-            checked={mirrorX}
-            onCheckedChange={onMirrorXChange}
-          />
-          <Label htmlFor="mirror-x" className="text-sm font-normal">
-            {t('options.mirrorX')}
-          </Label>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Switch
-            id="mirror-y"
-            checked={mirrorY}
-            onCheckedChange={onMirrorYChange}
-          />
-          <Label htmlFor="mirror-y" className="text-sm font-normal">
-            {t('options.mirrorY')}
-          </Label>
-        </div>
-
         <fieldset className="space-y-4">
           <legend className="text-sm font-medium text-slate-900">
             {t('options.gameMode')}
@@ -181,6 +159,34 @@ export function GameOptions({
               </div>
             ))}
           </RadioGroup>
+        </fieldset>
+
+        <fieldset className="space-y-4">
+          <legend className="text-sm font-medium text-slate-900">
+            {t('options.mirror')}
+          </legend>
+
+          <div className="flex items-center gap-3">
+            <Switch
+              id="mirror-x"
+              checked={mirrorX}
+              onCheckedChange={onMirrorXChange}
+            />
+            <Label htmlFor="mirror-x" className="text-sm font-normal">
+              {t('options.mirrorX')}
+            </Label>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Switch
+              id="mirror-y"
+              checked={mirrorY}
+              onCheckedChange={onMirrorYChange}
+            />
+            <Label htmlFor="mirror-y" className="text-sm font-normal">
+              {t('options.mirrorY')}
+            </Label>
+          </div>
         </fieldset>
       </div>
     </Layout>

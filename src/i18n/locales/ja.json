@@ -27,6 +27,7 @@
     "letters": "文字",
     "questionsCount": "{{count}} 問",
     "showTimer": "プレイ中に時間を表示する",
+    "mirror": "反転",
     "mirrorX": "左右反転",
     "mirrorY": "上下反転",
     "letterSystem": {

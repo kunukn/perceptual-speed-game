@@ -27,6 +27,7 @@
     "letters": "Буквы",
     "questionsCount": "{{count}} вопросов",
     "showTimer": "Показывать время во время игры",
+    "mirror": "Отражение",
     "mirrorX": "Отразить по горизонтали",
     "mirrorY": "Отразить по вертикали",
     "letterSystem": {

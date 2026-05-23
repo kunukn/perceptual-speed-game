@@ -27,6 +27,7 @@
     "letters": "Letras",
     "questionsCount": "{{count}} preguntas",
     "showTimer": "Mostrar el tiempo durante el juego",
+    "mirror": "Espejo",
     "mirrorX": "Reflejar horizontalmente",
     "mirrorY": "Reflejar verticalmente",
     "letterSystem": {
