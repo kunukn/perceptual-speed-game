@@ -58,5 +58,15 @@
     "wrong": "Salah",
     "exit": "Keluar",
     "next": "Berikutnya"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "open": "Leaderboard",
+    "empty": "No scores yet — play a round to set your first record.",
+    "clear": "Clear",
+    "clearConfirm": "Delete all saved scores?",
+    "correct": "{{count}} correct",
+    "mirrorX": "MirrorX",
+    "mirrorY": "MirrorY"
   }
 }

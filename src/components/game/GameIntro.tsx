@@ -7,9 +7,14 @@ import { PuzzleBoard } from './PuzzleBoard';
 type Props = {
   onStart: () => void;
   onOpenOptions: () => void;
+  onOpenLeaderboard: () => void;
 };
 
-export function GameIntro({ onStart, onOpenOptions }: Props) {
+export function GameIntro({
+  onStart,
+  onOpenOptions,
+  onOpenLeaderboard,
+}: Props) {
   const { t } = useTranslation();
   /* Selector form — Intro re-renders only when these fields change, not on every store update. */
   const mode = useGameOptions((s) => s.mode);
@@ -47,17 +52,22 @@ export function GameIntro({ onStart, onOpenOptions }: Props) {
           caption={t('intro.exampleCaption')}
         />
 
-        <div className="mx-auto flex max-w-68 gap-2 pt-4">
-          <Button
-            className="flex-1"
-            size="lg"
-            variant="outline"
-            onClick={onOpenOptions}
-          >
-            {t('common.options')}
-          </Button>
-          <Button className="flex-1" size="lg" onClick={onStart}>
-            {t('intro.start')}
+        <div className="mx-auto flex max-w-68 flex-col gap-2 pt-4">
+          <div className="flex gap-2">
+            <Button
+              className="flex-1"
+              size="lg"
+              variant="outline"
+              onClick={onOpenOptions}
+            >
+              {t('common.options')}
+            </Button>
+            <Button className="flex-1" size="lg" onClick={onStart}>
+              {t('intro.start')}
+            </Button>
+          </div>
+          <Button size="lg" variant="outline" onClick={onOpenLeaderboard}>
+            {t('leaderboard.open')}
           </Button>
         </div>
         <p className="text-sm text-slate-500 tabular-nums md:text-base">

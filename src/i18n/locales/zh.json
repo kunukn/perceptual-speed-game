@@ -58,5 +58,15 @@
     "wrong": "错",
     "exit": "退出",
     "next": "下一题"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "open": "Leaderboard",
+    "empty": "No scores yet — play a round to set your first record.",
+    "clear": "Clear",
+    "clearConfirm": "Delete all saved scores?",
+    "correct": "{{count}} correct",
+    "mirrorX": "MirrorX",
+    "mirrorY": "MirrorY"
   }
 }

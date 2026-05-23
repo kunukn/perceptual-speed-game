@@ -150,7 +150,9 @@ type GameEvent =
   | { type: 'REVIEW' }
   | { type: 'EXIT_REVIEW' }
   | { type: 'OPEN_OPTIONS' }
-  | { type: 'BACK_TO_INTRO' };
+  | { type: 'BACK_TO_INTRO' }
+  | { type: 'OPEN_LEADERBOARD' }
+  | { type: 'CLOSE_LEADERBOARD' };
 
 /* Pick a random pair index, optionally avoiding already-used pairs. */
 function randPair(pairs: LetterPair[], exclude?: Set<number>): number {
@@ -268,6 +270,7 @@ export const gameMachine = setup({
       on: {
         START: { target: 'playing', actions: 'initGame' },
         OPEN_OPTIONS: { target: 'options' },
+        OPEN_LEADERBOARD: { target: 'leaderboard' },
       },
     },
     options: {
@@ -300,11 +303,17 @@ export const gameMachine = setup({
       on: {
         RESTART: { target: 'intro' },
         REVIEW: { target: 'review' },
+        OPEN_LEADERBOARD: { target: 'leaderboard' },
       },
     },
     review: {
       on: {
         EXIT_REVIEW: { target: 'results' },
+      },
+    },
+    leaderboard: {
+      on: {
+        CLOSE_LEADERBOARD: { target: 'intro' },
       },
     },
   },

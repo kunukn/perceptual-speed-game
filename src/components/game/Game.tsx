@@ -1,6 +1,8 @@
 import { useMachine } from '@xstate/react';
 import { useGameOptions } from '@/store/gameOptions';
+import { useHighScores } from '@/store/highScores';
 import { GameIntro } from './GameIntro';
+import { GameLeaderboard } from './GameLeaderboard';
 import { GameOptions } from './GameOptions';
 import { GamePlay } from './GamePlay';
 import { GameResults } from './GameResults';
@@ -11,10 +13,55 @@ export { COLS } from './gameMachine';
 
 export default function Game() {
   const [state, send] = useMachine(gameMachine);
-  const { rounds, answers, current, correct, elapsedMs, startedAt } =
-    state.context;
+  const {
+    rounds,
+    answers,
+    current,
+    correct,
+    elapsedMs,
+    startedAt,
+    mode,
+    countTarget,
+    timeLimitMs,
+    letterSystem,
+    mirrorX,
+    mirrorY,
+  } = state.context;
 
   const round = state.matches('playing') ? rounds[current] : null;
+
+  /* Persist one record per unique option permutation when a run finishes. `startedAt` is unique per run, so the effect fires exactly once per completed game. */
+  const recordedRunRef = useRef(0);
+  useEffect(() => {
+    if (!state.matches('results')) return;
+
+    if (startedAt === 0 || recordedRunRef.current === startedAt) return;
+
+    recordedRunRef.current = startedAt;
+    useHighScores.getState().recordScore({
+      mode,
+      countTarget,
+      timeLimitMs,
+      letterSystem,
+      mirrorX,
+      mirrorY,
+      correct,
+      answered: answers.length,
+      elapsedMs,
+    });
+  }, [
+    state,
+    startedAt,
+    mode,
+    countTarget,
+    timeLimitMs,
+    letterSystem,
+    mirrorX,
+    mirrorY,
+    correct,
+    answers.length,
+    elapsedMs,
+  ]);
 
   if (state.matches('intro')) {
     return (
@@ -23,6 +70,7 @@ export default function Game() {
           send({ type: 'START', options: useGameOptions.getState() })
         }
         onOpenOptions={() => send({ type: 'OPEN_OPTIONS' })}
+        onOpenLeaderboard={() => send({ type: 'OPEN_LEADERBOARD' })}
       />
     );
   }
@@ -51,6 +99,7 @@ export default function Game() {
         elapsedMs={elapsedMs}
         onRestart={() => send({ type: 'RESTART' })}
         onReview={() => send({ type: 'REVIEW' })}
+        onOpenLeaderboard={() => send({ type: 'OPEN_LEADERBOARD' })}
       />
     );
   }
@@ -62,6 +111,12 @@ export default function Game() {
         answers={answers}
         onExit={() => send({ type: 'EXIT_REVIEW' })}
       />
+    );
+  }
+
+  if (state.matches('leaderboard')) {
+    return (
+      <GameLeaderboard onBack={() => send({ type: 'CLOSE_LEADERBOARD' })} />
     );
   }
 

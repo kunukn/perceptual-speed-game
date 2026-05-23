@@ -10,6 +10,7 @@ type Props = {
   elapsedMs: number;
   onRestart: () => void;
   onReview: () => void;
+  onOpenLeaderboard: () => void;
 };
 
 export function GameResults({
@@ -18,6 +19,7 @@ export function GameResults({
   elapsedMs,
   onRestart,
   onReview,
+  onOpenLeaderboard,
 }: Props) {
   const { t } = useTranslation();
   const mode = useGameOptions((s) => s.mode);
@@ -35,17 +37,22 @@ export function GameResults({
         />
       }
       footer={
-        <div className="flex w-full max-w-md gap-3">
-          <Button
-            size="lg"
-            variant="outline"
-            className="flex-1"
-            onClick={onReview}
-          >
-            {t('results.review')}
-          </Button>
-          <Button size="lg" className="flex-1" onClick={onRestart}>
-            {t('results.restart')}
+        <div className="flex w-full max-w-md flex-col gap-2">
+          <div className="flex gap-3">
+            <Button
+              size="lg"
+              variant="outline"
+              className="flex-1"
+              onClick={onReview}
+            >
+              {t('results.review')}
+            </Button>
+            <Button size="lg" className="flex-1" onClick={onRestart}>
+              {t('results.restart')}
+            </Button>
+          </div>
+          <Button size="lg" variant="outline" onClick={onOpenLeaderboard}>
+            {t('leaderboard.open')}
           </Button>
         </div>
       }
