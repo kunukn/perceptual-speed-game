@@ -1,16 +1,12 @@
 import { Layout } from '@/components/layout/Layout';
+import { useGameOptions } from '@/store/gameOptions';
 import { GameTimer } from './GameTimer';
-import { type GameMode, type Round } from './gameMachine';
+import { type Round } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Props = {
   round: Round;
   current: number;
-  countTarget: number;
-  mode: GameMode;
-  showTimer: boolean;
-  mirrorX: boolean;
-  mirrorY: boolean;
   startedAt: number;
   onAnswer: (value: number) => void;
   onAbort: () => void;
@@ -23,16 +19,16 @@ function pad2(n: number): string {
 export function GamePlay({
   round,
   current,
-  countTarget,
-  mode,
-  showTimer,
-  mirrorX,
-  mirrorY,
   startedAt,
   onAnswer,
   onAbort,
 }: Props) {
   const { t } = useTranslation();
+  const mode = useGameOptions((s) => s.mode);
+  const countTarget = useGameOptions((s) => s.countTarget);
+  const showTimer = useGameOptions((s) => s.showTimer);
+  const mirrorX = useGameOptions((s) => s.mirrorX);
+  const mirrorY = useGameOptions((s) => s.mirrorY);
 
   return (
     <Layout

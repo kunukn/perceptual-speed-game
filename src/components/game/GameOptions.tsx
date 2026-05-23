@@ -3,51 +3,37 @@ import { Layout } from '@/components/layout/Layout';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
+import { useGameOptions } from '@/store/gameOptions';
 
 import {
   COUNT_TARGETS,
   LETTER_SYSTEMS_LIST,
   TIME_LIMITS_MS,
-  type GameMode,
   type LetterSystem,
 } from './gameMachine';
 
 type Props = {
-  mode: GameMode;
-  countTarget: number;
-  timeLimitMs: number;
-  showTimer: boolean;
-  mirrorX: boolean;
-  mirrorY: boolean;
-  letterSystem: LetterSystem;
-  onModeChange: (mode: GameMode) => void;
-  onCountTargetChange: (value: number) => void;
-  onTimeLimitChange: (value: number) => void;
-  onShowTimerChange: (value: boolean) => void;
-  onMirrorXChange: (value: boolean) => void;
-  onMirrorYChange: (value: boolean) => void;
-  onLetterSystemChange: (value: LetterSystem) => void;
   onBack: () => void;
 };
 
-export function GameOptions({
-  mode,
-  countTarget,
-  timeLimitMs,
-  showTimer,
-  mirrorX,
-  mirrorY,
-  letterSystem,
-  onModeChange,
-  onCountTargetChange,
-  onTimeLimitChange,
-  onShowTimerChange,
-  onMirrorXChange,
-  onMirrorYChange,
-  onLetterSystemChange,
-  onBack,
-}: Props) {
+export function GameOptions({ onBack }: Props) {
   const { t } = useTranslation();
+  const {
+    mode,
+    countTarget,
+    timeLimitMs,
+    showTimer,
+    mirrorX,
+    mirrorY,
+    letterSystem,
+    setMode,
+    setCountTarget,
+    setTimeLimit,
+    setShowTimer,
+    setMirrorX,
+    setMirrorY,
+    setLetterSystem,
+  } = useGameOptions();
 
   const formatTimeLimit = (ms: number): string => {
     const seconds = ms / 1000;
@@ -62,8 +48,8 @@ export function GameOptions({
       label: formatTimeLimit(ms),
       checked: mode === 'time' && timeLimitMs === ms,
       select: () => {
-        onModeChange('time');
-        onTimeLimitChange(ms);
+        setMode('time');
+        setTimeLimit(ms);
       },
     })),
     ...COUNT_TARGETS.map((count) => ({
@@ -71,8 +57,8 @@ export function GameOptions({
       label: t('options.questionsCount', { count }),
       checked: mode === 'count' && countTarget === count,
       select: () => {
-        onModeChange('count');
-        onCountTargetChange(count);
+        setMode('count');
+        setCountTarget(count);
       },
     })),
   ];
@@ -107,7 +93,7 @@ export function GameOptions({
           <Switch
             id="show-timer"
             checked={showTimer}
-            onCheckedChange={onShowTimerChange}
+            onCheckedChange={setShowTimer}
           />
           <Label htmlFor="show-timer" className="text-sm font-normal">
             {t('options.showTimer')}
@@ -142,9 +128,7 @@ export function GameOptions({
 
           <RadioGroup
             value={letterSystem}
-            onValueChange={(value) =>
-              onLetterSystemChange(value as LetterSystem)
-            }
+            onValueChange={(value) => setLetterSystem(value as LetterSystem)}
             className="gap-3"
           >
             {LETTER_SYSTEMS_LIST.map((system) => (
@@ -170,7 +154,7 @@ export function GameOptions({
             <Switch
               id="mirror-x"
               checked={mirrorX}
-              onCheckedChange={onMirrorXChange}
+              onCheckedChange={setMirrorX}
             />
             <Label htmlFor="mirror-x" className="text-sm font-normal">
               {t('options.mirrorX')}
@@ -181,7 +165,7 @@ export function GameOptions({
             <Switch
               id="mirror-y"
               checked={mirrorY}
-              onCheckedChange={onMirrorYChange}
+              onCheckedChange={setMirrorY}
             />
             <Label htmlFor="mirror-y" className="text-sm font-normal">
               {t('options.mirrorY')}

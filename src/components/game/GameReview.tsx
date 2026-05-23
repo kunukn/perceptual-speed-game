@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout/Layout';
+import { useGameOptions } from '@/store/gameOptions';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Round = {
@@ -10,8 +11,6 @@ type Round = {
 type Props = {
   rounds: Round[];
   answers: number[];
-  mirrorX: boolean;
-  mirrorY: boolean;
   onExit: () => void;
 };
 
@@ -19,14 +18,10 @@ function pad2(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-export function GameReview({
-  rounds,
-  answers,
-  mirrorX,
-  mirrorY,
-  onExit,
-}: Props) {
+export function GameReview({ rounds, answers, onExit }: Props) {
   const { t } = useTranslation();
+  const mirrorX = useGameOptions((s) => s.mirrorX);
+  const mirrorY = useGameOptions((s) => s.mirrorY);
   const [index, setIndex] = useState(0);
 
   const total = answers.length;

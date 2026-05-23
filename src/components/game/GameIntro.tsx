@@ -1,29 +1,22 @@
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
+import { useGameOptions } from '@/store/gameOptions';
 import { COLS } from './Game';
-import { type GameMode } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Props = {
-  mode: GameMode;
-  countTarget: number;
-  timeLimitMs: number;
-  mirrorX: boolean;
-  mirrorY: boolean;
   onStart: () => void;
   onOpenOptions: () => void;
 };
 
-export function GameIntro({
-  mode,
-  countTarget,
-  timeLimitMs,
-  mirrorX,
-  mirrorY,
-  onStart,
-  onOpenOptions,
-}: Props) {
+export function GameIntro({ onStart, onOpenOptions }: Props) {
   const { t } = useTranslation();
+  /* Selector form — Intro re-renders only when these fields change, not on every store update. */
+  const mode = useGameOptions((s) => s.mode);
+  const countTarget = useGameOptions((s) => s.countTarget);
+  const timeLimitMs = useGameOptions((s) => s.timeLimitMs);
+  const mirrorX = useGameOptions((s) => s.mirrorX);
+  const mirrorY = useGameOptions((s) => s.mirrorY);
 
   const formatTimeLimit = (ms: number): string => {
     const seconds = ms / 1000;

@@ -143,21 +143,14 @@ export const DEFAULT_OPTIONS: GameOptions = {
 };
 
 type GameEvent =
-  | { type: 'START' }
+  | { type: 'START'; options: GameOptions }
   | { type: 'ANSWER'; value: number }
   | { type: 'ABORT' }
   | { type: 'RESTART' }
   | { type: 'REVIEW' }
   | { type: 'EXIT_REVIEW' }
   | { type: 'OPEN_OPTIONS' }
-  | { type: 'BACK_TO_INTRO' }
-  | { type: 'SET_MODE'; mode: GameMode }
-  | { type: 'SET_COUNT_TARGET'; value: number }
-  | { type: 'SET_TIME_LIMIT'; value: number }
-  | { type: 'SET_SHOW_TIMER'; value: boolean }
-  | { type: 'SET_MIRROR_X'; value: boolean }
-  | { type: 'SET_MIRROR_Y'; value: boolean }
-  | { type: 'SET_LETTER_SYSTEM'; value: LetterSystem };
+  | { type: 'BACK_TO_INTRO' };
 
 /* Pick a random pair index, optionally avoiding already-used pairs. */
 function randPair(pairs: LetterPair[], exclude?: Set<number>): number {
@@ -204,59 +197,30 @@ export const gameMachine = setup({
   types: {
     context: {} as GameContext,
     events: {} as GameEvent,
-    input: {} as GameOptions,
   },
   actions: {
-    initGame: assign(({ context }) => ({
-      rounds: Array.from(
-        {
-          length:
-            context.mode === 'count'
-              ? context.countTarget
-              : TIME_MODE_ROUND_BUFFER,
-        },
-        () => generateRound(context.letterSystem),
-      ),
-      answers: [],
-      current: 0,
-      correct: 0,
-      startedAt: Date.now(),
-      elapsedMs: 0,
-    })),
-    setMode: assign(({ event }) => {
-      if (event.type !== 'SET_MODE') return {};
+    /* Snapshot options off the START event so mid-game store changes don't affect the running session. */
+    initGame: assign(({ event }) => {
+      if (event.type !== 'START') return {};
+      const { options } = event;
 
-      return { mode: event.mode };
-    }),
-    setCountTarget: assign(({ event }) => {
-      if (event.type !== 'SET_COUNT_TARGET') return {};
-
-      return { countTarget: event.value };
-    }),
-    setTimeLimit: assign(({ event }) => {
-      if (event.type !== 'SET_TIME_LIMIT') return {};
-
-      return { timeLimitMs: event.value };
-    }),
-    setShowTimer: assign(({ event }) => {
-      if (event.type !== 'SET_SHOW_TIMER') return {};
-
-      return { showTimer: event.value };
-    }),
-    setMirrorX: assign(({ event }) => {
-      if (event.type !== 'SET_MIRROR_X') return {};
-
-      return { mirrorX: event.value };
-    }),
-    setMirrorY: assign(({ event }) => {
-      if (event.type !== 'SET_MIRROR_Y') return {};
-
-      return { mirrorY: event.value };
-    }),
-    setLetterSystem: assign(({ event }) => {
-      if (event.type !== 'SET_LETTER_SYSTEM') return {};
-
-      return { letterSystem: event.value };
+      return {
+        ...options,
+        rounds: Array.from(
+          {
+            length:
+              options.mode === 'count'
+                ? options.countTarget
+                : TIME_MODE_ROUND_BUFFER,
+          },
+          () => generateRound(options.letterSystem),
+        ),
+        answers: [],
+        current: 0,
+        correct: 0,
+        startedAt: Date.now(),
+        elapsedMs: 0,
+      };
     }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
@@ -289,17 +253,16 @@ export const gameMachine = setup({
 }).createMachine({
   id: 'game',
   initial: 'intro',
-  context: ({ input }) => ({
+  context: {
     rounds: [],
     answers: [],
     current: 0,
     correct: 0,
     startedAt: 0,
     elapsedMs: 0,
-    /* Defaults first so a stale localStorage save missing newer fields still boots. */
+    /* Placeholder snapshot — overwritten by initGame on START. */
     ...DEFAULT_OPTIONS,
-    ...input,
-  }),
+  },
   states: {
     intro: {
       on: {
@@ -310,13 +273,6 @@ export const gameMachine = setup({
     options: {
       on: {
         BACK_TO_INTRO: { target: 'intro' },
-        SET_MODE: { actions: 'setMode' },
-        SET_COUNT_TARGET: { actions: 'setCountTarget' },
-        SET_TIME_LIMIT: { actions: 'setTimeLimit' },
-        SET_SHOW_TIMER: { actions: 'setShowTimer' },
-        SET_MIRROR_X: { actions: 'setMirrorX' },
-        SET_MIRROR_Y: { actions: 'setMirrorY' },
-        SET_LETTER_SYSTEM: { actions: 'setLetterSystem' },
       },
     },
     playing: {

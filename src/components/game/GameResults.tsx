@@ -1,26 +1,28 @@
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
-import { formatElapsed, type GameMode } from './gameMachine';
+import { useGameOptions } from '@/store/gameOptions';
+import { formatElapsed } from './gameMachine';
 import { useConfetti } from './useConfetti';
 
 type Props = {
-  mode: GameMode;
   correct: number;
-  total: number;
+  answered: number;
   elapsedMs: number;
   onRestart: () => void;
   onReview: () => void;
 };
 
 export function GameResults({
-  mode,
   correct,
-  total,
+  answered,
   elapsedMs,
   onRestart,
   onReview,
 }: Props) {
   const { t } = useTranslation();
+  const mode = useGameOptions((s) => s.mode);
+  const countTarget = useGameOptions((s) => s.countTarget);
+  const total = mode === 'time' ? answered : countTarget;
   const canvasRef = useConfetti(mode === 'count' && correct === total);
 
   return (
