@@ -34,7 +34,7 @@ export function highScoreKey(o: HighScoreVariant): string {
 }
 
 /* Returns true if `candidate` is strictly better than `current`. */
-function isBetter(candidate: HighScore, current: HighScore): boolean {
+export function isBetter(candidate: HighScore, current: HighScore): boolean {
   if (candidate.correct !== current.correct)
     return candidate.correct > current.correct;
 

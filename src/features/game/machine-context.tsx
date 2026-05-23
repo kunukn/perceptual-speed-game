@@ -1,13 +1,20 @@
 import { useMachine } from '@xstate/react';
 import type { ReactNode } from 'react';
 import { paths } from '@/app/paths';
+import type { ConfettiTier } from './components/useConfetti';
 import { gameMachine } from './machine';
-import { useHighScores } from './store/high-scores';
+import {
+  highScoreKey,
+  isBetter,
+  useHighScores,
+  type HighScore,
+} from './store/high-scores';
 
 type MachineReturn = ReturnType<typeof useMachine<typeof gameMachine>>;
 type GameMachineValue = {
   state: MachineReturn[0];
   send: MachineReturn[1];
+  lastResultTier: ConfettiTier;
 };
 
 const GameMachineContext = createContext<GameMachineValue | null>(null);
@@ -33,7 +40,9 @@ export function GameMachineProvider({ children }: Props) {
     mirrorY,
   } = state.context;
 
-  /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. */
+  const [lastResultTier, setLastResultTier] = useState<ConfettiTier>('none');
+
+  /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh leaderboard entry — by the time Results mounts, the store is already updated. */
   const recordedRunRef = useRef(0);
   useEffect(() => {
     if (!state.matches('finished')) return;
@@ -41,7 +50,8 @@ export function GameMachineProvider({ children }: Props) {
     if (startedAt === 0 || recordedRunRef.current === startedAt) return;
 
     recordedRunRef.current = startedAt;
-    useHighScores.getState().recordScore({
+
+    const input = {
       mode,
       countTarget,
       timeLimitMs,
@@ -51,7 +61,21 @@ export function GameMachineProvider({ children }: Props) {
       correct,
       answered: answers.length,
       elapsedMs,
-    });
+    };
+    const key = highScoreKey(input);
+    const prior = useHighScores.getState().scores[key];
+    const candidate: HighScore = { ...input, key, achievedAt: Date.now() };
+    const isEntry = !prior || isBetter(candidate, prior);
+
+    setLastResultTier(
+      !isEntry
+        ? 'none'
+        : mode === 'count' && correct === countTarget
+          ? 'perfect'
+          : 'entry',
+    );
+
+    useHighScores.getState().recordScore(input);
   }, [
     state,
     startedAt,
@@ -75,8 +99,8 @@ export function GameMachineProvider({ children }: Props) {
 
   /* Stable context value — prevents consumers from re-rendering on every provider render when machine state is unchanged. */
   const value = useMemo<GameMachineValue>(
-    () => ({ state, send }),
-    [state, send],
+    () => ({ state, send, lastResultTier }),
+    [state, send, lastResultTier],
   );
 
   return (

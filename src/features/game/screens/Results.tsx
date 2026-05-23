@@ -10,7 +10,7 @@ import { useGameOptions } from '@/features/game/store/options';
 export function Results() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state, send } = useGameMachine();
+  const { state, send, lastResultTier } = useGameMachine();
   const mode = useGameOptions((s) => s.mode);
   const countTarget = useGameOptions((s) => s.countTarget);
 
@@ -18,9 +18,7 @@ export function Results() {
   const { correct, answers, elapsedMs } = state.context;
   const answered = answers.length;
   const total = mode === 'time' ? answered : countTarget;
-  const canvasRef = useConfetti(
-    isFinished && mode === 'count' && correct === total,
-  );
+  const canvasRef = useConfetti(lastResultTier);
 
   if (state.matches('playing')) return <Navigate to={paths.play} replace />;
 
