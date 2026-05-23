@@ -27,6 +27,8 @@
     "letters": "Huruf",
     "questionsCount": "{{count}} pertanyaan",
     "showTimer": "Tampilkan waktu saat bermain",
+    "mirrorX": "Cermin horizontal",
+    "mirrorY": "Cermin vertikal",
     "letterSystem": {
       "english": "Inggris (a–z)",
       "german": "Jerman (+ ä ö ü)",

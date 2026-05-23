@@ -30,6 +30,8 @@ export default function Game() {
     countTarget,
     timeLimitMs,
     showTimer,
+    mirrorX,
+    mirrorY,
     letterSystem,
   } = state.context;
 
@@ -40,6 +42,8 @@ export default function Game() {
       countTarget,
       timeLimitMs,
       showTimer,
+      mirrorX,
+      mirrorY,
       letterSystem,
     });
   }, [
@@ -47,6 +51,8 @@ export default function Game() {
     countTarget,
     timeLimitMs,
     showTimer,
+    mirrorX,
+    mirrorY,
     letterSystem,
     setStoredOptions,
   ]);
@@ -73,6 +79,8 @@ export default function Game() {
         countTarget={countTarget}
         mode={mode}
         showTimer={showTimer}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         startedAt={startedAt}
         onAnswer={(n) => send({ type: 'ANSWER', value: n })}
         onAbort={() => send({ type: 'ABORT' })}
@@ -87,6 +95,8 @@ export default function Game() {
         countTarget={countTarget}
         timeLimitMs={timeLimitMs}
         showTimer={showTimer}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         letterSystem={letterSystem}
         onModeChange={(m) => send({ type: 'SET_MODE', mode: m })}
         onCountTargetChange={(value) =>
@@ -94,6 +104,8 @@ export default function Game() {
         }
         onTimeLimitChange={(value) => send({ type: 'SET_TIME_LIMIT', value })}
         onShowTimerChange={(value) => send({ type: 'SET_SHOW_TIMER', value })}
+        onMirrorXChange={(value) => send({ type: 'SET_MIRROR_X', value })}
+        onMirrorYChange={(value) => send({ type: 'SET_MIRROR_Y', value })}
         onLetterSystemChange={(value) =>
           send({ type: 'SET_LETTER_SYSTEM', value })
         }

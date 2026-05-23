@@ -27,6 +27,8 @@
     "letters": "अक्षर",
     "questionsCount": "{{count}} सवाल",
     "showTimer": "खेलते वक्त समय दिखाओ",
+    "mirrorX": "क्षैतिज रूप से मिरर करें",
+    "mirrorY": "ऊर्ध्वाधर रूप से मिरर करें",
     "letterSystem": {
       "english": "अंग्रेज़ी (a–z)",
       "german": "जर्मन (+ ä ö ü)",

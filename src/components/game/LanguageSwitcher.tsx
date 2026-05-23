@@ -112,7 +112,8 @@ export function LanguageSwitcher() {
       }}
     >
       <PopoverTrigger asChild>
-        <Button size="icon" variant="ghost" aria-label={t('common.settings')}>
+        <Button variant="ghost" aria-label={t('common.settings')}>
+          <span className="hidden lg:inline">{t('common.settings')}</span>
           <Settings className="size-5" />
         </Button>
       </PopoverTrigger>

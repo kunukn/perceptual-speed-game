@@ -116,12 +116,20 @@ type GameContext = {
   countTarget: number;
   timeLimitMs: number;
   showTimer: boolean;
+  mirrorX: boolean;
+  mirrorY: boolean;
   letterSystem: LetterSystem;
 };
 
 export type GameOptions = Pick<
   GameContext,
-  'mode' | 'countTarget' | 'timeLimitMs' | 'showTimer' | 'letterSystem'
+  | 'mode'
+  | 'countTarget'
+  | 'timeLimitMs'
+  | 'showTimer'
+  | 'mirrorX'
+  | 'mirrorY'
+  | 'letterSystem'
 >;
 
 export const DEFAULT_OPTIONS: GameOptions = {
@@ -129,6 +137,8 @@ export const DEFAULT_OPTIONS: GameOptions = {
   countTarget: DEFAULT_COUNT_TARGET,
   timeLimitMs: DEFAULT_TIME_LIMIT_MS,
   showTimer: false,
+  mirrorX: false,
+  mirrorY: false,
   letterSystem: 'english',
 };
 
@@ -145,6 +155,8 @@ type GameEvent =
   | { type: 'SET_COUNT_TARGET'; value: number }
   | { type: 'SET_TIME_LIMIT'; value: number }
   | { type: 'SET_SHOW_TIMER'; value: boolean }
+  | { type: 'SET_MIRROR_X'; value: boolean }
+  | { type: 'SET_MIRROR_Y'; value: boolean }
   | { type: 'SET_LETTER_SYSTEM'; value: LetterSystem };
 
 /* Pick a random pair index, optionally avoiding already-used pairs. */
@@ -231,6 +243,16 @@ export const gameMachine = setup({
 
       return { showTimer: event.value };
     }),
+    setMirrorX: assign(({ event }) => {
+      if (event.type !== 'SET_MIRROR_X') return {};
+
+      return { mirrorX: event.value };
+    }),
+    setMirrorY: assign(({ event }) => {
+      if (event.type !== 'SET_MIRROR_Y') return {};
+
+      return { mirrorY: event.value };
+    }),
     setLetterSystem: assign(({ event }) => {
       if (event.type !== 'SET_LETTER_SYSTEM') return {};
 
@@ -292,6 +314,8 @@ export const gameMachine = setup({
         SET_COUNT_TARGET: { actions: 'setCountTarget' },
         SET_TIME_LIMIT: { actions: 'setTimeLimit' },
         SET_SHOW_TIMER: { actions: 'setShowTimer' },
+        SET_MIRROR_X: { actions: 'setMirrorX' },
+        SET_MIRROR_Y: { actions: 'setMirrorY' },
         SET_LETTER_SYSTEM: { actions: 'setLetterSystem' },
       },
     },

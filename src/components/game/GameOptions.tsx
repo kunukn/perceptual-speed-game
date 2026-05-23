@@ -17,11 +17,15 @@ type Props = {
   countTarget: number;
   timeLimitMs: number;
   showTimer: boolean;
+  mirrorX: boolean;
+  mirrorY: boolean;
   letterSystem: LetterSystem;
   onModeChange: (mode: GameMode) => void;
   onCountTargetChange: (value: number) => void;
   onTimeLimitChange: (value: number) => void;
   onShowTimerChange: (value: boolean) => void;
+  onMirrorXChange: (value: boolean) => void;
+  onMirrorYChange: (value: boolean) => void;
   onLetterSystemChange: (value: LetterSystem) => void;
   onBack: () => void;
 };
@@ -31,11 +35,15 @@ export function GameOptions({
   countTarget,
   timeLimitMs,
   showTimer,
+  mirrorX,
+  mirrorY,
   letterSystem,
   onModeChange,
   onCountTargetChange,
   onTimeLimitChange,
   onShowTimerChange,
+  onMirrorXChange,
+  onMirrorYChange,
   onLetterSystemChange,
   onBack,
 }: Props) {
@@ -103,6 +111,28 @@ export function GameOptions({
           />
           <Label htmlFor="show-timer" className="text-sm font-normal">
             {t('options.showTimer')}
+          </Label>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Switch
+            id="mirror-x"
+            checked={mirrorX}
+            onCheckedChange={onMirrorXChange}
+          />
+          <Label htmlFor="mirror-x" className="text-sm font-normal">
+            {t('options.mirrorX')}
+          </Label>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Switch
+            id="mirror-y"
+            checked={mirrorY}
+            onCheckedChange={onMirrorYChange}
+          />
+          <Label htmlFor="mirror-y" className="text-sm font-normal">
+            {t('options.mirrorY')}
           </Label>
         </div>
 

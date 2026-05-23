@@ -27,6 +27,8 @@
     "letters": "অক্ষর",
     "questionsCount": "{{count}}টি প্রশ্ন",
     "showTimer": "খেলার সময় সময় দেখাও",
+    "mirrorX": "অনুভূমিকভাবে মিরর করুন",
+    "mirrorY": "উল্লম্বভাবে মিরর করুন",
     "letterSystem": {
       "english": "ইংরেজি (a–z)",
       "german": "জার্মান (+ ä ö ü)",

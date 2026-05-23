@@ -9,6 +9,8 @@ type Props = {
   countTarget: number;
   mode: GameMode;
   showTimer: boolean;
+  mirrorX: boolean;
+  mirrorY: boolean;
   startedAt: number;
   onAnswer: (value: number) => void;
   onAbort: () => void;
@@ -24,6 +26,8 @@ export function GamePlay({
   countTarget,
   mode,
   showTimer,
+  mirrorX,
+  mirrorY,
   startedAt,
   onAnswer,
   onAbort,
@@ -65,6 +69,8 @@ export function GamePlay({
         top={round.top}
         bottom={round.bottom}
         matches={round.matches}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         onAnswer={onAnswer}
       />
     </Layout>

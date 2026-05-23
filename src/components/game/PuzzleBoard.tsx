@@ -13,6 +13,10 @@ type PuzzleBoardProps = {
   showMatches?: boolean;
   /** Thin outline around each column — intro + review. */
   showColumnOutlines?: boolean;
+  /** Flip glyphs horizontally (play screen only). */
+  mirrorX?: boolean;
+  /** Flip glyphs vertically (play screen only). */
+  mirrorY?: boolean;
   /** Click handler for play mode. Omit for a static preview (intro example). */
   onAnswer?: (n: number) => void;
   /** Highlights this choice as the correct answer (green). */
@@ -30,6 +34,8 @@ export function PuzzleBoard({
   matches,
   showMatches,
   showColumnOutlines,
+  mirrorX,
+  mirrorY,
   onAnswer,
   highlightIdx,
   wrongIdx,
@@ -51,6 +57,8 @@ export function PuzzleBoard({
         matches={matches}
         showMatches={showMatches}
         showColumnOutlines={showColumnOutlines}
+        mirrorX={mirrorX}
+        mirrorY={mirrorY}
         className="font-mono text-4xl"
       />
 

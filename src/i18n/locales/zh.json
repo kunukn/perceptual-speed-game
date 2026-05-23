@@ -27,6 +27,8 @@
     "letters": "字母",
     "questionsCount": "{{count}} 题",
     "showTimer": "游戏时显示用时",
+    "mirrorX": "水平镜像",
+    "mirrorY": "垂直镜像",
     "letterSystem": {
       "english": "英文 (a–z)",
       "german": "德文 (+ ä ö ü)",

@@ -27,6 +27,8 @@
     "letters": "حروف",
     "questionsCount": "{{count}} سوال",
     "showTimer": "کھیلتے وقت وقت دکھاؤ",
+    "mirrorX": "افقی طور پر آئینہ کریں",
+    "mirrorY": "عمودی طور پر آئینہ کریں",
     "letterSystem": {
       "english": "انگریزی (a–z)",
       "german": "جرمن (+ ä ö ü)",

@@ -27,6 +27,8 @@
     "letters": "Buchstaben",
     "questionsCount": "{{count}} Fragen",
     "showTimer": "Zeit beim Spielen anzeigen",
+    "mirrorX": "Horizontal spiegeln",
+    "mirrorY": "Vertikal spiegeln",
     "letterSystem": {
       "english": "Englisch (a–z)",
       "german": "Deutsch (+ ä ö ü)",

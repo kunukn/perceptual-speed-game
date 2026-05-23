@@ -27,6 +27,8 @@
     "letters": "الحروف",
     "questionsCount": "{{count}} أسئلة",
     "showTimer": "إظهار الوقت أثناء اللعب",
+    "mirrorX": "عكس أفقي",
+    "mirrorY": "عكس رأسي",
     "letterSystem": {
       "english": "الإنجليزية (a–z)",
       "german": "الألمانية (+ ä ö ü)",
