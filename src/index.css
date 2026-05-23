@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@import './styles/noto-fonts.css';
 
 /*
  * Self-hosted Atkinson Hyperlegible — chosen because its uppercase I has serifs
@@ -56,8 +57,17 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
+  /*
+   * Noto Sans family first so every supported locale renders in the same
+   * coordinated sans-serif. Each script name is listed because @font-face
+   * unicode-range matching is per-family — the browser picks whichever family
+   * declares a matching range. System fallbacks remain for any codepoint no
+   * Noto subset covers (and as a no-flash fallback while woff2 loads).
+   */
   --font-sans:
-    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Devanagari',
+    'Noto Sans Bengali', 'Noto Sans JP', 'Noto Sans SC', ui-sans-serif,
+    system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-hyperlegible:
     'Atkinson Hyperlegible', ui-sans-serif, system-ui, sans-serif;
@@ -185,5 +195,17 @@
 
   #app {
     min-height: 100%;
+  }
+
+  /*
+   * Urdu readers expect Nastaliq style, not Naskh. Both Noto Nastaliq Urdu
+   * and Noto Sans Arabic declare overlapping Arabic unicode-ranges, and the
+   * browser picks the first matching family — so we reorder the stack only
+   * for :lang(ur) to put Nastaliq ahead.
+   */
+  :lang(ur) {
+    --font-sans:
+      'Noto Nastaliq Urdu', 'Noto Sans Arabic', 'Noto Sans', ui-sans-serif,
+      system-ui, sans-serif;
   }
 }

@@ -54,7 +54,7 @@ export function GameIntro({
           caption={t('intro.exampleCaption')}
         />
 
-        <div className="mx-auto flex max-w-68 gap-2">
+        <div className="mx-auto flex max-w-68 gap-2 pt-4">
           <Button
             className="flex-1"
             size="lg"
