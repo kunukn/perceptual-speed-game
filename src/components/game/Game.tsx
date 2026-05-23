@@ -20,6 +20,7 @@ function pad2(n: number): string {
 }
 
 export default function Game() {
+  const { t } = useTranslation();
   const [storedOptions, setStoredOptions] = useLocalStorage<GameOptionsType>(
     'perceptual-speed-options',
     DEFAULT_OPTIONS,
@@ -73,9 +74,11 @@ export default function Game() {
       />
       <header className="shrink-0 border-b border-slate-200 pb-4">
         <h1 className="text-center text-2xl font-bold text-slate-900">
-          Perceptual Speed
+          {t('game.title')}
         </h1>
-        <p className="text-center text-sm text-slate-500">Prototype</p>
+        <p className="text-center text-sm text-slate-500">
+          {t('game.subtitle')}
+        </p>
       </header>
 
       <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">
@@ -95,8 +98,11 @@ export default function Game() {
               <span className="flex items-center justify-center gap-2">
                 <span>
                   {mode === 'time'
-                    ? `Round ${pad2(current + 1)}`
-                    : `Round ${pad2(current + 1)} / ${pad2(countTarget)}`}
+                    ? t('game.roundLabel', { current: pad2(current + 1) })
+                    : t('game.roundLabelOfTotal', {
+                        current: pad2(current + 1),
+                        total: pad2(countTarget),
+                      })}
                 </span>
                 {showTimer && (
                   <>
@@ -164,7 +170,7 @@ export default function Game() {
             variant="destructive"
             onClick={() => send({ type: 'ABORT' })}
           >
-            Abort
+            {t('game.abort')}
           </Button>
         </footer>
       )}

@@ -4,8 +4,7 @@ import { Switch } from '@/components/ui/switch';
 
 import {
   COUNT_TARGETS,
-  formatTimeLimit,
-  LETTER_SYSTEM_LABELS,
+  LETTER_SYSTEMS_LIST,
   TIME_LIMITS_MS,
   type GameMode,
   type LetterSystem,
@@ -38,6 +37,15 @@ export function GameOptions({
   onLetterSystemChange,
   onBack,
 }: Props) {
+  const { t } = useTranslation();
+
+  const formatTimeLimit = (ms: number): string => {
+    const seconds = ms / 1000;
+    if (seconds < 60) return t('options.timeLimit.seconds', { count: seconds });
+
+    return t('options.timeLimit.minute', { count: seconds / 60 });
+  };
+
   const options = [
     ...TIME_LIMITS_MS.map((ms) => ({
       key: `time-${ms}`,
@@ -50,7 +58,7 @@ export function GameOptions({
     })),
     ...COUNT_TARGETS.map((count) => ({
       key: `count-${count}`,
-      label: `${count} questions`,
+      label: t('options.questionsCount', { count }),
       checked: mode === 'count' && countTarget === count,
       select: () => {
         onModeChange('count');
@@ -69,12 +77,12 @@ export function GameOptions({
   return (
     <div className="max-w-md space-y-6 text-slate-700">
       <h2 className="text-center text-lg font-semibold text-slate-900">
-        Options
+        {t('options.title')}
       </h2>
 
       <fieldset className="space-y-3">
         <legend className="text-sm font-medium text-slate-900">
-          Game mode
+          {t('options.gameMode')}
         </legend>
 
         <RadioGroup
@@ -94,26 +102,26 @@ export function GameOptions({
       </fieldset>
 
       <fieldset className="space-y-3">
-        <legend className="text-sm font-medium text-slate-900">Letters</legend>
+        <legend className="text-sm font-medium text-slate-900">
+          {t('options.letters')}
+        </legend>
 
         <RadioGroup
           value={letterSystem}
           onValueChange={(value) => onLetterSystemChange(value as LetterSystem)}
           className="gap-3"
         >
-          {(Object.keys(LETTER_SYSTEM_LABELS) as LetterSystem[]).map(
-            (system) => (
-              <div key={system} className="flex items-center gap-3">
-                <RadioGroupItem id={`letters-${system}`} value={system} />
-                <Label
-                  htmlFor={`letters-${system}`}
-                  className="text-sm font-normal"
-                >
-                  {LETTER_SYSTEM_LABELS[system]}
-                </Label>
-              </div>
-            ),
-          )}
+          {LETTER_SYSTEMS_LIST.map((system) => (
+            <div key={system} className="flex items-center gap-3">
+              <RadioGroupItem id={`letters-${system}`} value={system} />
+              <Label
+                htmlFor={`letters-${system}`}
+                className="text-sm font-normal"
+              >
+                {t(`options.letterSystem.${system}`)}
+              </Label>
+            </div>
+          ))}
         </RadioGroup>
       </fieldset>
 
@@ -124,7 +132,7 @@ export function GameOptions({
           onCheckedChange={onShowTimerChange}
         />
         <Label htmlFor="show-timer" className="text-sm font-normal">
-          Show time spent during play
+          {t('options.showTimer')}
         </Label>
       </div>
 
@@ -135,7 +143,7 @@ export function GameOptions({
           variant="outline"
           onClick={onBack}
         >
-          Back
+          {t('common.back')}
         </Button>
       </div>
     </div>

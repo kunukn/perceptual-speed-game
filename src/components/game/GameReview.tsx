@@ -17,6 +17,7 @@ function pad2(n: number): string {
 }
 
 export function GameReview({ rounds, answers, onExit }: Props) {
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
 
   const total = answers.length;
@@ -35,7 +36,10 @@ export function GameReview({ rounds, answers, onExit }: Props) {
   return (
     <div className="flex w-full flex-col items-center gap-6">
       <PuzzleBoard
-        label={`Review ${pad2(index + 1)} / ${pad2(total)}`}
+        label={t('review.label', {
+          current: pad2(index + 1),
+          total: pad2(total),
+        })}
         top={round.top}
         bottom={round.bottom}
         showMatches
@@ -50,18 +54,18 @@ export function GameReview({ rounds, answers, onExit }: Props) {
             : 'text-lg font-semibold text-red-700'
         }
       >
-        {isCorrect ? 'Correct' : 'Wrong'}
+        {isCorrect ? t('review.correct') : t('review.wrong')}
       </p>
 
       <div className="flex gap-3">
         <Button variant="outline" size="lg" onClick={goPrev}>
-          Back
+          {t('common.back')}
         </Button>
         <Button variant="outline" size="lg" onClick={onExit}>
-          Exit
+          {t('review.exit')}
         </Button>
         <Button variant="outline" size="lg" onClick={goNext}>
-          Next
+          {t('review.next')}
         </Button>
       </div>
     </div>

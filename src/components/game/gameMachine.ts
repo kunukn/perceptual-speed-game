@@ -11,15 +11,6 @@ const TIME_MODE_ROUND_BUFFER = 10;
 
 export type GameMode = 'count' | 'time';
 
-export function formatTimeLimit(ms: number): string {
-  const seconds = ms / 1000;
-  if (seconds < 60) return `${seconds} seconds`;
-
-  const minutes = seconds / 60;
-
-  return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
-}
-
 export function formatElapsed(ms: number): string {
   return `${Math.round(ms / 1000)}s`;
 }
@@ -98,14 +89,14 @@ const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
   kana: KANA,
 };
 
-export const LETTER_SYSTEM_LABELS: Record<LetterSystem, string> = {
-  english: 'English (a–z)',
-  german: 'German (+ ä ö ü)',
-  accented: 'Accented Latin (+ å ä ö æ ø é ç ñ)',
-  greek: 'Greek (α–ω)',
-  cyrillic: 'Cyrillic (а–я)',
-  kana: 'Japanese kana (hiragana ↔ katakana)',
-};
+export const LETTER_SYSTEMS_LIST: readonly LetterSystem[] = [
+  'english',
+  'german',
+  'accented',
+  'greek',
+  'cyrillic',
+  'kana',
+];
 
 export type Round = {
   top: string[];

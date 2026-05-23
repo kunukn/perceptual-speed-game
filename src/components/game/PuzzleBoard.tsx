@@ -35,6 +35,7 @@ export function PuzzleBoard({
   wrongIdx,
   caption,
 }: PuzzleBoardProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex w-full flex-col items-center gap-4 md:gap-8">
       <div className="text-sm text-slate-500 tabular-nums">{label}</div>
@@ -52,7 +53,7 @@ export function PuzzleBoard({
 
       <hr className="w-full border-slate-200" />
 
-      <p className="leading-none">Answer:</p>
+      <p className="leading-none">{t('puzzle.answer')}</p>
 
       <div className="flex flex-col items-center gap-3">
         <AnswerButtons

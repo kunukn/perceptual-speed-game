@@ -1,5 +1,5 @@
 import { COLS } from './Game';
-import { formatTimeLimit, type GameMode } from './gameMachine';
+import { type GameMode } from './gameMachine';
 import { PuzzleBoard } from './PuzzleBoard';
 
 type Props = {
@@ -17,24 +17,32 @@ export function GameIntro({
   onStart,
   onOpenOptions,
 }: Props) {
+  const { t } = useTranslation();
+
+  const formatTimeLimit = (ms: number): string => {
+    const seconds = ms / 1000;
+    if (seconds < 60) return t('options.timeLimit.seconds', { count: seconds });
+
+    return t('options.timeLimit.minute', { count: seconds / 60 });
+  };
+
   return (
     <div className="max-w-md space-y-3 text-slate-700 md:space-y-4">
       <h2 className="text-center text-lg font-semibold text-slate-900">
-        How to play
+        {t('intro.howToPlay')}
       </h2>
       <p className="text-sm md:text-center md:text-base">
-        Two rows of {COLS} letters — one uppercase, one lowercase. Count the
-        columns where the letters match, then tap that number.
+        {t('intro.rules', { cols: COLS })}
       </p>
 
       <PuzzleBoard
-        label="Example"
+        label={t('intro.example')}
         top={['a', 'b', 'c', 'd']}
         bottom={['A', 'B', 'C', 'E']}
         showMatches
         showColumnOutlines
         highlightIdx={3}
-        caption="3 pairs match — the correct answer is 3"
+        caption={t('intro.exampleCaption')}
       />
 
       <div className="mx-auto flex max-w-68 gap-2">
@@ -44,16 +52,16 @@ export function GameIntro({
           variant="outline"
           onClick={onOpenOptions}
         >
-          Options
+          {t('common.options')}
         </Button>
         <Button className="flex-1" size="lg" onClick={onStart}>
-          Start
+          {t('intro.start')}
         </Button>
       </div>
       <p>
         {mode === 'time'
-          ? `${formatTimeLimit(timeLimitMs)}. We track how many you answer and how many you got right.`
-          : `${countTarget} rounds. We track your time and how many you got right.`}
+          ? t('intro.summaryTime', { time: formatTimeLimit(timeLimitMs) })
+          : t('intro.summaryCount', { count: countTarget })}
       </p>
     </div>
   );

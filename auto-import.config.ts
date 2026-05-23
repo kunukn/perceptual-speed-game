@@ -34,4 +34,7 @@ export const autoImportConfig = [
   {
     '@/components/ui/button': ['Button'],
   },
+  {
+    'react-i18next': ['useTranslation'],
+  },
 ];
