@@ -37,9 +37,15 @@ Scan to play on your phone:
 
 <img src="docs/qrcode.png" alt="QR code linking to the live demo" width="160" />
 
-Screenshot:
+<br />
 
 <img src="docs/demo-1.png" alt="In-game screenshot showing two rows of accented letters with answer buttons" width="300" />
+
+_Accented letters_
+
+<img src="docs/demo-2.png" alt="In-game screenshot showing two rows of emoji with answer buttons" width="300" />
+
+_Emoji letters_
 
 ## How to Play
 
