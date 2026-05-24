@@ -44,29 +44,40 @@ export function isBetter(candidate: HighScore, current: HighScore): boolean {
   return candidate.answered < current.answered;
 }
 
+export type RecordScoreResult = { isEntry: boolean; isPerfect: boolean };
+
 type HighScoresStore = {
   scores: Record<string, HighScore>;
-  recordScore: (input: Omit<HighScore, 'key' | 'achievedAt'>) => void;
+  recordScore: (
+    input: Omit<HighScore, 'key' | 'achievedAt'>,
+  ) => RecordScoreResult;
   clear: () => void;
 };
 
 export const useHighScores = create<HighScoresStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       scores: {},
-      recordScore: (input) =>
-        set((state) => {
-          const key = highScoreKey(input);
-          const candidate: HighScore = {
-            ...input,
-            key,
-            achievedAt: Date.now(),
-          };
-          const current = state.scores[key];
-          if (current && !isBetter(candidate, current)) return state;
+      recordScore: (input) => {
+        const key = highScoreKey(input);
+        const candidate: HighScore = {
+          ...input,
+          key,
+          achievedAt: Date.now(),
+        };
+        const current = get().scores[key];
+        const isEntry = !current || isBetter(candidate, current);
+        const isPerfect =
+          input.mode === 'count' && input.correct === input.countTarget;
 
-          return { scores: { ...state.scores, [key]: candidate } };
-        }),
+        if (isEntry) {
+          set((state) => ({
+            scores: { ...state.scores, [key]: candidate },
+          }));
+        }
+
+        return { isEntry, isPerfect };
+      },
       clear: () => set({ scores: {} }),
     }),
     { name: 'high-scores' },

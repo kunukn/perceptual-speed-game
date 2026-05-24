@@ -8,22 +8,26 @@ const RAINBOW_PALETTE = ['#ff0', '#f00', '#0f0', '#00f', '#f0f', '#0ff'];
 
 export function useConfetti(
   tier: ConfettiTier,
+  onFired?: () => void,
 ): React.RefObject<HTMLCanvasElement | null> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  /* Snapshot tier at mount so consumeConfetti flipping the prop to 'none' mid-animation doesn't trigger the cleanup and wipe the canvas. */
+  /* Fire-once contract: snapshot `tier` at mount and ignore later prop
+   * changes. The animation runs to its built-in duration and cleans up on
+   * unmount — callers must not rely on flipping `tier` back to 'none' to
+   * stop it (doing so would re-run the effect and wipe the canvas). */
   const [initialTier] = useState(tier);
+  /* Latest callback ref — invoked once when the animation actually fires,
+   * without putting `onFired` in the effect's deps. */
+  const onFiredRef = useRef(onFired);
+  onFiredRef.current = onFired;
 
   useEffect(() => {
-    console.debug('[confetti] effect run, initialTier=', initialTier);
     if (initialTier === 'none') return;
 
     const canvas = canvasRef.current;
-    if (!canvas) {
-      console.debug('[confetti] no canvas ref');
-      return;
-    }
+    if (!canvas) return;
 
-    console.debug('[confetti] firing for tier=', initialTier);
+    onFiredRef.current?.();
     const fire = confetti.create(canvas, { resize: true, useWorker: false });
 
     if (initialTier === 'entry') {

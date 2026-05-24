@@ -18,13 +18,7 @@ export function Results() {
   const { correct, answers, elapsedMs } = state.context;
   const answered = answers.length;
   const total = mode === 'time' ? answered : countTarget;
-  const canvasRef = useConfetti(lastResultTier);
-
-  useEffect(() => {
-    if (lastResultTier === 'none') return;
-
-    consumeConfetti();
-  }, [lastResultTier, consumeConfetti]);
+  const canvasRef = useConfetti(lastResultTier, consumeConfetti);
 
   if (state.matches('playing')) return <Navigate to={paths.play} replace />;
 

@@ -3,12 +3,7 @@ import type { ReactNode } from 'react';
 import { paths } from '@/app/paths';
 import type { ConfettiTier } from './components/useConfetti';
 import { gameMachine } from './machine';
-import {
-  highScoreKey,
-  isBetter,
-  useHighScores,
-  type HighScore,
-} from './store/high-scores';
+import { useHighScores } from './store/high-scores';
 
 type MachineReturn = ReturnType<typeof useMachine<typeof gameMachine>>;
 type GameMachineValue = {
@@ -17,6 +12,8 @@ type GameMachineValue = {
   lastResultTier: ConfettiTier;
   consumeConfetti: () => void;
 };
+
+type PendingConfetti = { tier: ConfettiTier; runId: number };
 
 const GameMachineContext = createContext<GameMachineValue | null>(null);
 
@@ -41,35 +38,28 @@ export function GameMachineProvider({ children }: Props) {
     mirrorY,
   } = state.context;
 
-  const [lastResultTier, setLastResultTier] = useState<ConfettiTier>('none');
-  const [confettiConsumedAt, setConfettiConsumedAt] = useState<number>(0);
+  /* Single atomic state: what to celebrate, for which run. `null` means
+   * nothing pending (initial, after consume, or after RESTART). */
+  const [pending, setPending] = useState<PendingConfetti | null>(null);
 
-  const consumeConfetti = useCallback(
-    () => setConfettiConsumedAt(startedAt),
-    [startedAt],
-  );
+  /* Stable callback — referenced from consumer hooks; recompute only when
+   * the current runId changes, so a stale call from a prior run is a no-op. */
+  const consumeConfetti = useCallback(() => {
+    setPending((p) => (p && p.runId === startedAt ? null : p));
+  }, [startedAt]);
 
-  /* Pass 'none' once confetti has been consumed for this run, so remounting Results doesn't replay the animation. */
-  const effectiveTier: ConfettiTier =
-    confettiConsumedAt === startedAt ? 'none' : lastResultTier;
-  console.debug('[machine-context] render', {
-    startedAt,
-    confettiConsumedAt,
-    lastResultTier,
-    effectiveTier,
-    machineState: state.value,
-  });
-
-  /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh records entry — by the time Results mounts, the store is already updated. */
-  const recordedRunRef = useRef(0);
+  /* Persist one record per unique run on entry to `finished`. `startedAt` is
+   * unique per run, so this fires exactly once even under StrictMode
+   * double-effect. */
+  const recordedRef = useRef(0);
   useEffect(() => {
     if (!state.matches('finished')) return;
 
-    if (startedAt === 0 || recordedRunRef.current === startedAt) return;
+    if (startedAt === 0 || recordedRef.current === startedAt) return;
 
-    recordedRunRef.current = startedAt;
+    recordedRef.current = startedAt;
 
-    const input = {
+    const { isEntry, isPerfect } = useHighScores.getState().recordScore({
       mode,
       countTarget,
       timeLimitMs,
@@ -79,26 +69,14 @@ export function GameMachineProvider({ children }: Props) {
       correct,
       answered: answers.length,
       elapsedMs,
-    };
-    const key = highScoreKey(input);
-    const prior = useHighScores.getState().scores[key];
-    const candidate: HighScore = { ...input, key, achievedAt: Date.now() };
-    const isPerfect = mode === 'count' && correct === countTarget;
-    const isEntry = !prior || isBetter(candidate, prior);
-    const tier = isPerfect ? 'perfect' : isEntry ? 'entry' : 'none';
-    console.debug('[machine-context] finished', {
-      startedAt,
-      isPerfect,
-      isEntry,
-      tier,
-      correct,
-      countTarget,
-      mode,
     });
+    const tier: ConfettiTier = isPerfect
+      ? 'perfect'
+      : isEntry
+        ? 'entry'
+        : 'none';
 
-    setLastResultTier(tier);
-
-    useHighScores.getState().recordScore(input);
+    setPending({ tier, runId: startedAt });
   }, [
     state,
     startedAt,
@@ -122,8 +100,13 @@ export function GameMachineProvider({ children }: Props) {
 
   /* Stable context value — prevents consumers from re-rendering on every provider render when machine state is unchanged. */
   const value = useMemo<GameMachineValue>(
-    () => ({ state, send, lastResultTier: effectiveTier, consumeConfetti }),
-    [state, send, effectiveTier, consumeConfetti],
+    () => ({
+      state,
+      send,
+      lastResultTier: pending?.tier ?? 'none',
+      consumeConfetti,
+    }),
+    [state, send, pending, consumeConfetti],
   );
 
   return (
