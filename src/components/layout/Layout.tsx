@@ -20,7 +20,7 @@ export function Layout({
   return (
     <div
       className={cn(
-        'relative flex max-h-240 w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 pt-4 [&>*]:px-6',
+        'relative flex max-h-240 w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 pt-4 *:px-6',
         className,
       )}
       data-testid="layout-root"
