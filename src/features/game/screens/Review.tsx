@@ -78,6 +78,7 @@ export function Review() {
         <PuzzleBoard
           top={round.top}
           bottom={round.bottom}
+          matches={round.matches}
           mirrorX={mirrorX}
           mirrorY={mirrorY}
           showMatches
