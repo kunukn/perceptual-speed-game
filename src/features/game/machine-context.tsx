@@ -15,6 +15,7 @@ type GameMachineValue = {
   state: MachineReturn[0];
   send: MachineReturn[1];
   lastResultTier: ConfettiTier;
+  consumeConfetti: () => void;
 };
 
 const GameMachineContext = createContext<GameMachineValue | null>(null);
@@ -41,6 +42,16 @@ export function GameMachineProvider({ children }: Props) {
   } = state.context;
 
   const [lastResultTier, setLastResultTier] = useState<ConfettiTier>('none');
+  const [confettiConsumedAt, setConfettiConsumedAt] = useState<number>(0);
+
+  const consumeConfetti = useCallback(
+    () => setConfettiConsumedAt(startedAt),
+    [startedAt],
+  );
+
+  /* Pass 'none' once confetti has been consumed for this run, so remounting Results doesn't replay the animation. */
+  const effectiveTier: ConfettiTier =
+    confettiConsumedAt === startedAt ? 'none' : lastResultTier;
 
   /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh records entry — by the time Results mounts, the store is already updated. */
   const recordedRunRef = useRef(0);
@@ -99,8 +110,8 @@ export function GameMachineProvider({ children }: Props) {
 
   /* Stable context value — prevents consumers from re-rendering on every provider render when machine state is unchanged. */
   const value = useMemo<GameMachineValue>(
-    () => ({ state, send, lastResultTier }),
-    [state, send, lastResultTier],
+    () => ({ state, send, lastResultTier: effectiveTier, consumeConfetti }),
+    [state, send, effectiveTier, consumeConfetti],
   );
 
   return (
