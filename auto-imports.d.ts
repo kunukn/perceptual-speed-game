@@ -13,6 +13,7 @@ declare global {
   const cacheSignal: typeof import('react').cacheSignal
   const createContext: typeof import('react').createContext
   const createRef: typeof import('react').createRef
+  const debugLog: typeof import('@/utils/logger').debugLog
   const forwardRef: typeof import('react').forwardRef
   const useActionState: typeof import('react').useActionState
   const useCallback: typeof import('react').useCallback

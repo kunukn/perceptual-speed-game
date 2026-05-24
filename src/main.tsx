@@ -11,6 +11,11 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
+if (import.meta.env.VITE_DEBUG_LOG === '1') {
+  const { initLogger } = await import('@/utils/logger');
+  initLogger();
+}
+
 if (
   import.meta.env.VITE_RAINBOW_DEBUG == '1' ||
   location.href.includes('debug_rainbow=1')

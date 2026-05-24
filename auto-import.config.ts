@@ -37,4 +37,5 @@ export const autoImportConfig = [
   {
     'react-i18next': ['useTranslation'],
   },
+  { '@/utils/logger': ['debugLog'] },
 ];

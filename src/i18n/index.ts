@@ -37,17 +37,17 @@ function detectInitialLanguage(): string {
       ? [...(navigator.languages ?? []), navigator.language].filter(Boolean)
       : [];
 
-  console.debug('[i18n] navigator candidates', candidates);
+  debugLog('[i18n] navigator candidates', candidates);
 
   for (const tag of candidates) {
     const primary = tag.toLowerCase().split('-')[0];
     if ((SUPPORTED as readonly string[]).includes(primary)) {
-      console.debug('[i18n] detected initial language', primary);
+      debugLog('[i18n] detected initial language', primary);
       return primary;
     }
   }
 
-  console.debug('[i18n] no supported candidate, falling back to en');
+  debugLog('[i18n] no supported candidate, falling back to en');
 
   return 'en';
 }
@@ -64,7 +64,7 @@ const localeLoaders = import.meta.glob<{ default: Record<string, unknown> }>(
 );
 delete localeLoaders['./locales/en.json'];
 
-console.debug(
+debugLog(
   '[i18n] available lazy locales',
   Object.keys(localeLoaders).map((p) => p.match(/([a-z]+)\.json$/)?.[1]),
 );
@@ -74,16 +74,16 @@ void i18n
     resourcesToBackend(async (language: string) => {
       const key = `./locales/${language}.json`;
       const loader = localeLoaders[key];
-      console.debug('[i18n] load requested', { language, hasLoader: !!loader });
+      debugLog('[i18n] load requested', { language, hasLoader: !!loader });
       if (!loader) return {};
 
       try {
         const mod = await loader();
-        console.debug('[i18n] loaded', language);
+        debugLog('[i18n] loaded', language);
 
         return mod.default ?? mod;
       } catch (err) {
-        console.debug('[i18n] load failed', language, err);
+        debugLog('[i18n] load failed', language, err);
         throw err;
       }
     }),
@@ -100,10 +100,10 @@ void i18n
   });
 
 i18n.on('languageChanged', (lng) => {
-  console.debug('[i18n] languageChanged', lng);
+  debugLog('[i18n] languageChanged', lng);
 });
 i18n.on('failedLoading', (lng, ns, msg) => {
-  console.debug('[i18n] failedLoading', { lng, ns, msg });
+  debugLog('[i18n] failedLoading', { lng, ns, msg });
 });
 
 export default i18n;
