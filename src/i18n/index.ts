@@ -55,13 +55,14 @@ function detectInitialLanguage(): string {
 /*
  * English is bundled eagerly so first paint never blocks on a network round-trip.
  * Every other language is fetched on demand — each JSON becomes its own code-split
- * chunk, browser-cached after the first load. `import.meta.glob` with a negation
- * pattern excludes en.json from the dynamic set so Rollup doesn't emit
- * INEFFECTIVE_DYNAMIC_IMPORT for the eagerly bundled locale.
+ * chunk, browser-cached after the first load. Plain `*` glob (extglob negation
+ * resolved to an empty object in the production build) — en.json is filtered out
+ * below.
  */
 const localeLoaders = import.meta.glob<{ default: Record<string, unknown> }>(
-  './locales/!(en).json',
+  './locales/*.json',
 );
+delete localeLoaders['./locales/en.json'];
 
 console.debug(
   '[i18n] available lazy locales',
