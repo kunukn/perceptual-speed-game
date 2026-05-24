@@ -47,6 +47,13 @@ export const gameRoutes: RouteObject[] = [
     },
   },
   {
+    path: paths.matchingPairs,
+    lazy: async () => {
+      const { MatchingPairs } = await import('./screens/MatchingPairs');
+      return { Component: MatchingPairs };
+    },
+  },
+  {
     path: '*',
     lazy: async () => {
       const { NotFound } = await import('./screens/NotFound');

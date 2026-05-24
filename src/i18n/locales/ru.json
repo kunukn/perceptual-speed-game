@@ -33,6 +33,7 @@
     "mirror": "Отражение",
     "mirrorX": "Отразить по горизонтали",
     "mirrorY": "Отразить по вертикали",
+    "showPairs": "Показать пары",
     "letterSystem": {
       "english": "Английский (a–z)",
       "german": "Немецкий (+ ä ö ü)",
@@ -49,6 +50,9 @@
       "minute_many": "{{count}} минут",
       "minute_other": "{{count}} минуты"
     }
+  },
+  "matchingPairs": {
+    "title": "Совпадающие пары"
   },
   "puzzle": {
     "answer": "Ответ:"

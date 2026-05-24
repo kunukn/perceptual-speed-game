@@ -33,6 +33,7 @@
     "mirror": "Espejo",
     "mirrorX": "Reflejar horizontalmente",
     "mirrorY": "Reflejar verticalmente",
+    "showPairs": "Mostrar pares",
     "letterSystem": {
       "english": "Inglés (a–z)",
       "german": "Alemán (+ ä ö ü)",
@@ -47,6 +48,9 @@
       "minute_one": "{{count}} minuto",
       "minute_other": "{{count}} minutos"
     }
+  },
+  "matchingPairs": {
+    "title": "Pares coincidentes"
   },
   "puzzle": {
     "answer": "Respuesta:"

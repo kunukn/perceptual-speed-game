@@ -33,6 +33,7 @@
     "mirror": "反転",
     "mirrorX": "左右反転",
     "mirrorY": "上下反転",
+    "showPairs": "ペアを表示",
     "letterSystem": {
       "english": "英語 (a–z)",
       "german": "ドイツ語 (+ ä ö ü)",
@@ -46,6 +47,9 @@
       "seconds": "{{count}} 秒",
       "minute_other": "{{count}} 分"
     }
+  },
+  "matchingPairs": {
+    "title": "一致するペア"
   },
   "puzzle": {
     "answer": "答え："

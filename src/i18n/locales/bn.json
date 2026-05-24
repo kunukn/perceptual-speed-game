@@ -33,6 +33,7 @@
     "mirror": "মিরর",
     "mirrorX": "অনুভূমিকভাবে মিরর করুন",
     "mirrorY": "উল্লম্বভাবে মিরর করুন",
+    "showPairs": "জোড়া দেখান",
     "letterSystem": {
       "english": "ইংরেজি (a–z)",
       "german": "জার্মান (+ ä ö ü)",
@@ -47,6 +48,9 @@
       "minute_one": "{{count}} মিনিট",
       "minute_other": "{{count}} মিনিট"
     }
+  },
+  "matchingPairs": {
+    "title": "মিলে যাওয়া জোড়া"
   },
   "puzzle": {
     "answer": "উত্তর:"

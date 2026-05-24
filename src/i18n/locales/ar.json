@@ -33,6 +33,7 @@
     "mirror": "مرآة",
     "mirrorX": "عكس أفقي",
     "mirrorY": "عكس رأسي",
+    "showPairs": "عرض الأزواج",
     "letterSystem": {
       "english": "الإنجليزية (a–z)",
       "german": "الألمانية (+ ä ö ü)",
@@ -51,6 +52,9 @@
       "minute_many": "{{count}} دقيقة",
       "minute_other": "{{count}} دقيقة"
     }
+  },
+  "matchingPairs": {
+    "title": "الأزواج المتطابقة"
   },
   "puzzle": {
     "answer": "الإجابة:"

@@ -33,6 +33,7 @@
     "mirror": "آئینہ",
     "mirrorX": "افقی طور پر آئینہ کریں",
     "mirrorY": "عمودی طور پر آئینہ کریں",
+    "showPairs": "جوڑے دکھائیں",
     "letterSystem": {
       "english": "انگریزی (a–z)",
       "german": "جرمن (+ ä ö ü)",
@@ -47,6 +48,9 @@
       "minute_one": "{{count}} منٹ",
       "minute_other": "{{count}} منٹ"
     }
+  },
+  "matchingPairs": {
+    "title": "ملنے والے جوڑے"
   },
   "puzzle": {
     "answer": "جواب:"

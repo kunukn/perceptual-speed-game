@@ -33,6 +33,7 @@
     "mirror": "मिरर",
     "mirrorX": "क्षैतिज रूप से मिरर करें",
     "mirrorY": "ऊर्ध्वाधर रूप से मिरर करें",
+    "showPairs": "जोड़े दिखाएँ",
     "letterSystem": {
       "english": "अंग्रेज़ी (a–z)",
       "german": "जर्मन (+ ä ö ü)",
@@ -47,6 +48,9 @@
       "minute_one": "{{count}} मिनट",
       "minute_other": "{{count}} मिनट"
     }
+  },
+  "matchingPairs": {
+    "title": "मिलते जोड़े"
   },
   "puzzle": {
     "answer": "जवाब:"

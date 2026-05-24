@@ -107,7 +107,7 @@ const EMOJI: LetterPair[] = [
   ['🌹', '💐'],
 ];
 
-const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
+export const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
   english: fromString('abcdefghijklmnopqrstuvwxyz'),
   german: fromString('abcdefghijklmnopqrstuvwxyzäöü'),
   accented: fromString('abcdefghijklmnopqrstuvwxyzåäöæøéèçñ'),

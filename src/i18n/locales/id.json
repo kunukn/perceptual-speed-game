@@ -33,6 +33,7 @@
     "mirror": "Cermin",
     "mirrorX": "Cermin horizontal",
     "mirrorY": "Cermin vertikal",
+    "showPairs": "Tampilkan pasangan",
     "letterSystem": {
       "english": "Inggris (a–z)",
       "german": "Jerman (+ ä ö ü)",
@@ -46,6 +47,9 @@
       "seconds": "{{count}} detik",
       "minute_other": "{{count}} menit"
     }
+  },
+  "matchingPairs": {
+    "title": "Pasangan yang cocok"
   },
   "puzzle": {
     "answer": "Jawaban:"

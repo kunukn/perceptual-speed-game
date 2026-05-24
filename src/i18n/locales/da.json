@@ -33,6 +33,7 @@
     "mirror": "Spejling",
     "mirrorX": "Spejlvend vandret",
     "mirrorY": "Spejlvend lodret",
+    "showPairs": "Vis par",
     "letterSystem": {
       "english": "Engelsk (a–z)",
       "german": "Tysk (+ ä ö ü)",
@@ -47,6 +48,9 @@
       "minute_one": "{{count}} minut",
       "minute_other": "{{count}} minutter"
     }
+  },
+  "matchingPairs": {
+    "title": "Matchende par"
   },
   "puzzle": {
     "answer": "Svar:"

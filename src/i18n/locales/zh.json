@@ -33,6 +33,7 @@
     "mirror": "镜像",
     "mirrorX": "水平镜像",
     "mirrorY": "垂直镜像",
+    "showPairs": "显示配对",
     "letterSystem": {
       "english": "英文 (a–z)",
       "german": "德文 (+ ä ö ü)",
@@ -46,6 +47,9 @@
       "seconds": "{{count}} 秒",
       "minute_other": "{{count}} 分钟"
     }
+  },
+  "matchingPairs": {
+    "title": "匹配的配对"
   },
   "puzzle": {
     "answer": "答案："

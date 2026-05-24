@@ -71,14 +71,23 @@ export function Options() {
     <Layout
       header={<AppHeader />}
       footer={
-        <Button
-          className="min-w-40"
-          size="lg"
-          variant="outline"
-          onClick={() => navigate(paths.home)}
-        >
-          {t('common.back')}
-        </Button>
+        <div className="flex w-full max-w-md justify-center gap-2 overflow-x-auto">
+          <Button
+            className="flex-1"
+            size="lg"
+            variant="outline"
+            onClick={() => navigate(paths.matchingPairs)}
+          >
+            {t('options.showPairs')}
+          </Button>
+          <Button
+            className="flex-1"
+            size="lg"
+            onClick={() => navigate(paths.home)}
+          >
+            {t('common.back')}
+          </Button>
+        </div>
       }
     >
       <div className="w-auto max-w-md space-y-6 text-slate-700">
