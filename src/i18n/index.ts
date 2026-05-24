@@ -37,10 +37,17 @@ function detectInitialLanguage(): string {
       ? [...(navigator.languages ?? []), navigator.language].filter(Boolean)
       : [];
 
+  console.debug('[i18n] navigator candidates', candidates);
+
   for (const tag of candidates) {
     const primary = tag.toLowerCase().split('-')[0];
-    if ((SUPPORTED as readonly string[]).includes(primary)) return primary;
+    if ((SUPPORTED as readonly string[]).includes(primary)) {
+      console.debug('[i18n] detected initial language', primary);
+      return primary;
+    }
   }
+
+  console.debug('[i18n] no supported candidate, falling back to en');
 
   return 'en';
 }
@@ -56,15 +63,28 @@ const localeLoaders = import.meta.glob<{ default: Record<string, unknown> }>(
   './locales/!(en).json',
 );
 
+console.debug(
+  '[i18n] available lazy locales',
+  Object.keys(localeLoaders).map((p) => p.match(/([a-z]+)\.json$/)?.[1]),
+);
+
 void i18n
   .use(
     resourcesToBackend(async (language: string) => {
-      const loader = localeLoaders[`./locales/${language}.json`];
+      const key = `./locales/${language}.json`;
+      const loader = localeLoaders[key];
+      console.debug('[i18n] load requested', { language, hasLoader: !!loader });
       if (!loader) return {};
 
-      const mod = await loader();
+      try {
+        const mod = await loader();
+        console.debug('[i18n] loaded', language);
 
-      return mod.default ?? mod;
+        return mod.default ?? mod;
+      } catch (err) {
+        console.debug('[i18n] load failed', language, err);
+        throw err;
+      }
     }),
   )
   .use(initReactI18next)
@@ -77,5 +97,12 @@ void i18n
     interpolation: { escapeValue: false },
     returnNull: false,
   });
+
+i18n.on('languageChanged', (lng) => {
+  console.debug('[i18n] languageChanged', lng);
+});
+i18n.on('failedLoading', (lng, ns, msg) => {
+  console.debug('[i18n] failedLoading', { lng, ns, msg });
+});
 
 export default i18n;
