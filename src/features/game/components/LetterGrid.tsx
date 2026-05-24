@@ -53,7 +53,12 @@ export function LetterGrid({
           key={i}
           className={cn(
             'flex flex-col items-center gap-y-1 rounded-sm border py-[0.05em]',
-            showColumnOutlines ? 'border-slate-200' : 'border-transparent',
+            /* Green border on matching columns also flags matches for emoji glyphs, which ignore `text-emerald-600`. */
+            isMatch(i)
+              ? 'border-emerald-500'
+              : showColumnOutlines
+                ? 'border-slate-200'
+                : 'border-transparent',
           )}
           style={{ width: '1.6em' }}
         >

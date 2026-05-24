@@ -75,6 +75,7 @@ export function Intro() {
           label={t('intro.example')}
           top={examplePuzzle.top}
           bottom={examplePuzzle.bottom}
+          matches={examplePuzzle.matches}
           showMatches
           showColumnOutlines
           mirrorX={mirrorX}

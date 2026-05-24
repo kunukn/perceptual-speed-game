@@ -108,11 +108,7 @@ export function GameMachineProvider({ children }: Props) {
     [state, send, pending, consumeConfetti],
   );
 
-  return (
-    <GameMachineContext.Provider value={value}>
-      {children}
-    </GameMachineContext.Provider>
-  );
+  return <GameMachineContext value={value}>{children}</GameMachineContext>;
 }
 
 export function useGameMachine(): GameMachineValue {

@@ -23,7 +23,8 @@ export type LetterSystem =
   | 'accented'
   | 'greek'
   | 'cyrillic'
-  | 'kana';
+  | 'kana'
+  | 'emoji';
 
 /* Build case pairs from a lowercase string — partner glyph is the uppercase form. */
 function fromString(lower: string): LetterPair[] {
@@ -80,6 +81,32 @@ const KANA: LetterPair[] = [
   ['ん', 'ン'],
 ];
 
+/*
+ * Emoji "case" pairs — first form is the source/early state, second is the
+ * product/later state. Asking the player to match them tests the same
+ * perceptual-speed skill while adding a light memory layer.
+ */
+const EMOJI: LetterPair[] = [
+  ['🥚', '🐣'],
+  ['🐛', '🦋'],
+  ['🌱', '🌳'],
+  ['🌑', '🌕'],
+  ['❄️', '⛄'],
+  ['🌧️', '🌈'],
+  ['🐄', '🥛'],
+  ['🐝', '🍯'],
+  ['🐑', '🧶'],
+  ['🌾', '🍞'],
+  ['🍇', '🍷'],
+  ['🌽', '🍿'],
+  ['🐟', '🍣'],
+  ['🥔', '🍟'],
+  ['🍅', '🍝'],
+  ['☀️', '🌻'],
+  ['🍎', '🥧'],
+  ['🌹', '💐'],
+];
+
 const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
   english: fromString('abcdefghijklmnopqrstuvwxyz'),
   german: fromString('abcdefghijklmnopqrstuvwxyzäöü'),
@@ -87,6 +114,7 @@ const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
   greek: fromString('αβγδεζηθικλμνξοπρστυφχψω'),
   cyrillic: fromString('абвгдеёжзийклмнопрстуфхцчшщъыьэюя'),
   kana: KANA,
+  emoji: EMOJI,
 };
 
 /*
@@ -106,13 +134,25 @@ const EXAMPLE_PUZZLES: Record<
   greek: { top: ['α', 'β', 'γ', 'δ'], bottom: ['Α', 'Β', 'Γ', 'Ζ'] },
   cyrillic: { top: ['а', 'б', 'в', 'г'], bottom: ['А', 'Б', 'В', 'Д'] },
   kana: { top: ['あ', 'い', 'う', 'え'], bottom: ['ア', 'イ', 'ウ', 'オ'] },
+  emoji: {
+    top: ['🥚', '🐛', '🌱', '🐄'],
+    bottom: ['🐣', '🦋', '🌳', '🍯'],
+  },
 };
+
+/*
+ * Examples are hand-built with the same shape: cols 0–2 match, col 3 mismatches.
+ * Returned explicitly so non-alphabetic systems (kana, emoji) don't depend on
+ * LetterGrid's case-insensitive string fallback for highlighting.
+ */
+const EXAMPLE_MATCHES: boolean[] = [true, true, true, false];
 
 export function getExamplePuzzle(system: LetterSystem): {
   top: string[];
   bottom: string[];
+  matches: boolean[];
 } {
-  return EXAMPLE_PUZZLES[system];
+  return { ...EXAMPLE_PUZZLES[system], matches: EXAMPLE_MATCHES };
 }
 
 export const LETTER_SYSTEMS_LIST: readonly LetterSystem[] = [
@@ -122,6 +162,7 @@ export const LETTER_SYSTEMS_LIST: readonly LetterSystem[] = [
   'greek',
   'cyrillic',
   'kana',
+  'emoji',
 ];
 
 export type Round = {
@@ -246,8 +287,10 @@ export const gameMachine = setup({
     }),
     recordAnswer: assign(({ context, event }) => {
       if (event.type !== 'ANSWER') return {};
+
       const isCorrect = event.value === context.rounds[context.current].answer;
       const next = context.current + 1;
+
       return {
         answers: [...context.answers, event.value],
         correct: context.correct + (isCorrect ? 1 : 0),

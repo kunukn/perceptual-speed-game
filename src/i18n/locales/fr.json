@@ -39,7 +39,8 @@
       "accented": "Latin accentué (+ å ä ö æ ø é ç ñ)",
       "greek": "Grec (α–ω)",
       "cyrillic": "Cyrillique (а–я)",
-      "kana": "Kana japonais (hiragana ↔ katakana)"
+      "kana": "Kana japonais (hiragana ↔ katakana)",
+      "emoji": "Emoji (🥚 ↔ 🐣)"
     },
     "timeLimit": {
       "seconds": "{{count}} secondes",
