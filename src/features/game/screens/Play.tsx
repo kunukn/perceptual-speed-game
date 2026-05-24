@@ -1,10 +1,10 @@
-import { Navigate } from 'react-router';
 import { paths } from '@/app/paths';
 import { Layout } from '@/components/layout/Layout';
 import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
 import { Timer } from '@/features/game/components/Timer';
 import { useGameMachine } from '@/features/game/machine-context';
 import { useGameOptions } from '@/features/game/store/options';
+import { Navigate } from 'react-router';
 
 function pad2(n: number): string {
   return String(n).padStart(2, '0');
@@ -57,7 +57,7 @@ export function Play() {
       footer={
         <Button
           size="lg"
-          className="min-w-60"
+          className="min-w-40"
           variant="destructive"
           onClick={handleAbort}
         >

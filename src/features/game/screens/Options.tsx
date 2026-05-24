@@ -72,7 +72,7 @@ export function Options() {
       header={<AppHeader />}
       footer={
         <Button
-          className="w-60 max-w-full"
+          className="min-w-40"
           size="lg"
           variant="outline"
           onClick={() => navigate(paths.home)}
@@ -81,7 +81,7 @@ export function Options() {
         </Button>
       }
     >
-      <div className="max-w-md space-y-6 text-slate-700">
+      <div className="w-auto max-w-md space-y-6 text-slate-700">
         <h2 className="text-center text-lg font-semibold text-slate-900">
           {t('options.title')}
         </h2>

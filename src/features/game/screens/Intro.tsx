@@ -37,7 +37,32 @@ export function Intro() {
   };
 
   return (
-    <Layout header={<AppHeader />}>
+    <Layout
+      header={<AppHeader />}
+      footer={
+        <div className="flex w-full max-w-md justify-center gap-2 overflow-x-auto">
+          <Button
+            className="flex-1"
+            size="lg"
+            variant="outline"
+            onClick={() => navigate(paths.options)}
+          >
+            {t('common.options')}
+          </Button>
+          <Button
+            className="flex-1"
+            size="lg"
+            variant="outline"
+            onClick={() => navigate(paths.records)}
+          >
+            {t('records.open')}
+          </Button>
+          <Button className="flex-1" size="lg" onClick={handleStart}>
+            {t('intro.start')}
+          </Button>
+        </div>
+      }
+    >
       <div className="max-w-md space-y-4 text-slate-700">
         <h2 className="text-center text-lg font-semibold text-slate-900">
           {t('intro.howToPlay')}
@@ -58,29 +83,6 @@ export function Intro() {
           caption={t('intro.exampleCaption')}
         />
 
-        <div className="mx-auto flex max-w-68 flex-col gap-2 pt-4">
-          <Button className="" size="lg" onClick={handleStart}>
-            {t('intro.start')}
-          </Button>
-          <div className="flex gap-2">
-            <Button
-              className="flex-1"
-              size="lg"
-              variant="outline"
-              onClick={() => navigate(paths.options)}
-            >
-              {t('common.options')}
-            </Button>
-            <Button
-              className="flex-1"
-              size="lg"
-              variant="outline"
-              onClick={() => navigate(paths.records)}
-            >
-              {t('records.open')}
-            </Button>
-          </div>
-        </div>
         <p className="text-sm text-slate-500 tabular-nums md:text-base">
           {mode === 'time'
             ? t('intro.summaryTime', { time: formatTimeLimit(timeLimitMs) })

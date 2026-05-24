@@ -20,10 +20,7 @@ export function Layout({
   return (
     <div
       id="layout-root"
-      className={cn(
-        'relative flex w-full max-w-2xl flex-col bg-slate-50 *:px-6',
-        className,
-      )}
+      className={cn('relative w-full max-w-2xl bg-slate-50 *:px-6', className)}
       data-testid="layout-root"
     >
       {overlay}

@@ -201,8 +201,8 @@
     @apply min-h-vhdvh flex flex-1 flex-col;
   }
 
-  .my-app {
-    @apply min-h-vhdvh flex flex-1 flex-col;
+  #layout-root {
+    @apply flex flex-col max-md:flex-1;
   }
 
   /*
