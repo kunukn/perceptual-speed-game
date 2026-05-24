@@ -63,14 +63,14 @@
     "previous": "पिछला",
     "next": "अगला"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "रिकॉर्ड",
+    "open": "रिकॉर्ड",
+    "empty": "अभी कोई रिकॉर्ड नहीं — एक राउंड खेलकर अपना पहला रिकॉर्ड बनाएं।",
+    "clear": "साफ़ करें",
+    "clearConfirm": "सभी सहेजे गए रिकॉर्ड हटाएं?",
+    "clearConfirmDescription": "इसे पूर्ववत नहीं किया जा सकता।",
+    "correct": "{{count}} सही",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

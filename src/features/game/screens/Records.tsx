@@ -19,7 +19,7 @@ import {
   type HighScore,
 } from '@/features/game/store/high-scores';
 
-export function Leaderboard() {
+export function Records() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,14 +61,14 @@ export function Leaderboard() {
       );
     }
     parts.push(t(`options.letterSystem.${s.letterSystem}`));
-    if (s.mirrorX) parts.push(t('leaderboard.mirrorX'));
-    if (s.mirrorY) parts.push(t('leaderboard.mirrorY'));
+    if (s.mirrorX) parts.push(t('records.mirrorX'));
+    if (s.mirrorY) parts.push(t('records.mirrorY'));
 
     return parts.join(', ');
   };
 
   const formatOutcome = (s: HighScore): string => {
-    const correct = t('leaderboard.correct', { count: s.correct });
+    const correct = t('records.correct', { count: s.correct });
     if (s.mode === 'count') return `${correct}, ${formatElapsed(s.elapsedMs)}`;
 
     return correct;
@@ -90,14 +90,14 @@ export function Leaderboard() {
                 className="flex-1"
                 disabled={!hasScores}
               >
-                {t('leaderboard.clear')}
+                {t('records.clear')}
               </Button>
             </DialogTrigger>
             <DialogContent showCloseButton={false}>
               <DialogHeader>
-                <DialogTitle>{t('leaderboard.clearConfirm')}</DialogTitle>
+                <DialogTitle>{t('records.clearConfirm')}</DialogTitle>
                 <DialogDescription>
-                  {t('leaderboard.clearConfirmDescription')}
+                  {t('records.clearConfirmDescription')}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
@@ -117,11 +117,11 @@ export function Leaderboard() {
     >
       <div className="w-full max-w-md space-y-3 text-slate-800">
         <h2 className="text-center text-xl font-semibold">
-          {t('leaderboard.title')}
+          {t('records.title')}
         </h2>
 
         {scores.length === 0 ? (
-          <p className="text-center text-slate-500">{t('leaderboard.empty')}</p>
+          <p className="text-center text-slate-500">{t('records.empty')}</p>
         ) : (
           <ul className="space-y-2">
             {scores.map((s) => (

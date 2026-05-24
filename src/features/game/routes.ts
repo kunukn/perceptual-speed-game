@@ -19,10 +19,10 @@ export const gameRoutes: RouteObject[] = [
     },
   },
   {
-    path: paths.leaderboard,
+    path: paths.records,
     lazy: async () => {
-      const { Leaderboard } = await import('./screens/Leaderboard');
-      return { Component: Leaderboard };
+      const { Records } = await import('./screens/Records');
+      return { Component: Records };
     },
   },
   {

@@ -68,9 +68,9 @@ export function Intro() {
           <Button
             size="lg"
             variant="outline"
-            onClick={() => navigate(paths.leaderboard)}
+            onClick={() => navigate(paths.records)}
           >
-            {t('leaderboard.open')}
+            {t('records.open')}
           </Button>
         </div>
         <p className="text-sm text-slate-500 tabular-nums md:text-base">

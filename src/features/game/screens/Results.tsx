@@ -55,9 +55,9 @@ export function Results() {
             size="lg"
             variant="outline"
             className="flex-1"
-            onClick={() => navigate(paths.leaderboard)}
+            onClick={() => navigate(paths.records)}
           >
-            {t('leaderboard.open')}
+            {t('records.open')}
           </Button>
         </div>
       }

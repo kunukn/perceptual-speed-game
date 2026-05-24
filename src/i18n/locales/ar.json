@@ -67,14 +67,14 @@
     "previous": "السابق",
     "next": "التالي"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "السجلات",
+    "open": "السجلات",
+    "empty": "لا توجد سجلات بعد — العب جولة لتسجيل أول رقم قياسي لك.",
+    "clear": "مسح",
+    "clearConfirm": "حذف جميع السجلات المحفوظة؟",
+    "clearConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
+    "correct": "{{count}} صحيحة",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

@@ -42,7 +42,7 @@ export function GameMachineProvider({ children }: Props) {
 
   const [lastResultTier, setLastResultTier] = useState<ConfettiTier>('none');
 
-  /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh leaderboard entry — by the time Results mounts, the store is already updated. */
+  /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh records entry — by the time Results mounts, the store is already updated. */
   const recordedRunRef = useRef(0);
   useEffect(() => {
     if (!state.matches('finished')) return;

@@ -63,12 +63,12 @@
     "previous": "Prev",
     "next": "Next"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
+  "records": {
+    "title": "Records",
+    "open": "Records",
+    "empty": "No records yet — play a round to set your first record.",
     "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
+    "clearConfirm": "Delete all saved records?",
     "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",

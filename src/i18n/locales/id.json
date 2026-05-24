@@ -62,14 +62,14 @@
     "previous": "Sebelumnya",
     "next": "Berikutnya"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "Rekor",
+    "open": "Rekor",
+    "empty": "Belum ada rekor — mainkan satu ronde untuk mencetak rekor pertamamu.",
+    "clear": "Hapus",
+    "clearConfirm": "Hapus semua rekor tersimpan?",
+    "clearConfirmDescription": "Ini tidak dapat dibatalkan.",
+    "correct": "{{count}} benar",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

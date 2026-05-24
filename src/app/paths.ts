@@ -2,7 +2,7 @@
 export const paths = {
   home: '/',
   options: '/options',
-  leaderboard: '/leaderboard',
+  records: '/records',
   play: '/play',
   results: '/results',
   review: '/review',

@@ -62,14 +62,14 @@
     "previous": "前へ",
     "next": "次へ"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "記録",
+    "open": "記録",
+    "empty": "まだ記録がありません — 1 ラウンドプレイして最初の記録を作ろう。",
+    "clear": "クリア",
+    "clearConfirm": "保存されたすべての記録を削除しますか？",
+    "clearConfirmDescription": "この操作は取り消せません。",
+    "correct": "{{count}} 問正解",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

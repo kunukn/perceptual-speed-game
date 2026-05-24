@@ -63,14 +63,14 @@
     "previous": "Forrige",
     "next": "Næste"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "Rekorder",
+    "open": "Rekorder",
+    "empty": "Ingen rekorder endnu — spil en runde og sæt din første rekord.",
+    "clear": "Ryd",
+    "clearConfirm": "Slet alle gemte rekorder?",
+    "clearConfirmDescription": "Dette kan ikke fortrydes.",
+    "correct": "{{count}} rigtige",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

@@ -63,14 +63,14 @@
     "previous": "Zurück",
     "next": "Weiter"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "Rekorde",
+    "open": "Rekorde",
+    "empty": "Noch keine Rekorde — spiele eine Runde und stelle deinen ersten Rekord auf.",
+    "clear": "Löschen",
+    "clearConfirm": "Alle gespeicherten Rekorde löschen?",
+    "clearConfirmDescription": "Dies kann nicht rückgängig gemacht werden.",
+    "correct": "{{count}} richtig",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }

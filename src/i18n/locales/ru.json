@@ -65,14 +65,14 @@
     "previous": "Назад",
     "next": "Дальше"
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "open": "Leaderboard",
-    "empty": "No scores yet — play a round to set your first record.",
-    "clear": "Clear",
-    "clearConfirm": "Delete all saved scores?",
-    "clearConfirmDescription": "This cannot be undone.",
-    "correct": "{{count}} correct",
+  "records": {
+    "title": "Рекорды",
+    "open": "Рекорды",
+    "empty": "Пока нет рекордов — сыграйте раунд и установите свой первый рекорд.",
+    "clear": "Очистить",
+    "clearConfirm": "Удалить все сохранённые рекорды?",
+    "clearConfirmDescription": "Это действие нельзя отменить.",
+    "correct": "{{count}} верно",
     "mirrorX": "MirrorX",
     "mirrorY": "MirrorY"
   }
