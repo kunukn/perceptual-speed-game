@@ -5,7 +5,8 @@
     "settings": "सेटिंग",
     "language": "भाषा",
     "cancel": "रद्द करें",
-    "delete": "हटाएं"
+    "delete": "हटाएं",
+    "notFound": "नहीं मिला"
   },
   "game": {
     "title": "अवधारणात्मक गति",

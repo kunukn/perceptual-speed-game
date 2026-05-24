@@ -5,7 +5,8 @@
     "settings": "সেটিংস",
     "language": "ভাষা",
     "cancel": "বাতিল",
-    "delete": "মুছুন"
+    "delete": "মুছুন",
+    "notFound": "পাওয়া যায়নি"
   },
   "game": {
     "title": "উপলব্ধির গতি",

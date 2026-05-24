@@ -5,7 +5,8 @@
     "settings": "Réglages",
     "language": "Langue",
     "cancel": "Annuler",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "notFound": "Introuvable"
   },
   "game": {
     "title": "Vitesse perceptive",

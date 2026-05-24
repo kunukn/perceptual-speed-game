@@ -5,7 +5,8 @@
     "settings": "Einstellungen",
     "language": "Sprache",
     "cancel": "Abbrechen",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "notFound": "Nicht gefunden"
   },
   "game": {
     "title": "Wahrnehmungstempo",

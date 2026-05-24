@@ -5,7 +5,8 @@
     "settings": "إعدادات",
     "language": "اللغة",
     "cancel": "إلغاء",
-    "delete": "حذف"
+    "delete": "حذف",
+    "notFound": "غير موجود"
   },
   "game": {
     "title": "السرعة الإدراكية",

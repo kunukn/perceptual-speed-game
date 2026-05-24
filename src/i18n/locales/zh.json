@@ -5,7 +5,8 @@
     "settings": "设置",
     "language": "语言",
     "cancel": "取消",
-    "delete": "删除"
+    "delete": "删除",
+    "notFound": "未找到"
   },
   "game": {
     "title": "感知速度",

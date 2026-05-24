@@ -5,7 +5,8 @@
     "settings": "Pengaturan",
     "language": "Bahasa",
     "cancel": "Batal",
-    "delete": "Hapus"
+    "delete": "Hapus",
+    "notFound": "Tidak ditemukan"
   },
   "game": {
     "title": "Kecepatan Persepsi",

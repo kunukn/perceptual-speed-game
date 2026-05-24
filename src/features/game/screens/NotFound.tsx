@@ -4,6 +4,7 @@ import { Layout } from '@/components/layout/Layout';
 
 export function NotFound() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Layout
@@ -19,7 +20,9 @@ export function NotFound() {
         </Button>
       }
     >
-      <p className="text-center text-lg text-slate-700">Not found</p>
+      <p className="text-center text-lg text-slate-700">
+        {t('common.notFound')}
+      </p>
     </Layout>
   );
 }

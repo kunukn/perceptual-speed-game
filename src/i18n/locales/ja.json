@@ -5,7 +5,8 @@
     "settings": "設定",
     "language": "言語",
     "cancel": "キャンセル",
-    "delete": "削除"
+    "delete": "削除",
+    "notFound": "見つかりません"
   },
   "game": {
     "title": "知覚スピード",

@@ -5,7 +5,8 @@
     "settings": "ترتیبات",
     "language": "زبان",
     "cancel": "منسوخ کریں",
-    "delete": "حذف کریں"
+    "delete": "حذف کریں",
+    "notFound": "نہیں ملا"
   },
   "game": {
     "title": "ادراکی رفتار",
