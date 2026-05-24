@@ -185,7 +185,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground relative flex min-h-full flex-col;
+    @apply bg-background text-foreground relative flex h-full flex-col;
   }
   html {
     @apply h-full font-sans;
@@ -193,11 +193,11 @@
 
   #app,
   #root {
-    @apply flex min-h-full flex-1 flex-col;
+    @apply flex h-full flex-1 flex-col;
   }
 
   .my-app {
-    @apply flex min-h-full flex-1 flex-col;
+    @apply flex h-full flex-1 flex-col;
   }
 
   /*
