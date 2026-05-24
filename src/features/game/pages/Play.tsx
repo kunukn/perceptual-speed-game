@@ -20,6 +20,13 @@ export function Play() {
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
 
+  /* Warm the Results route chunk (and its canvas-confetti dependency) in the
+   * background so the Play → Results transition isn't blocked on a ~1s
+   * network fetch on slower connections. */
+  useEffect(() => {
+    void import('@/features/game/pages/Results');
+  }, []);
+
   if (state.matches('finished')) return <Navigate to={paths.results} replace />;
 
   if (!state.matches('playing')) return <Navigate to={paths.home} replace />;
