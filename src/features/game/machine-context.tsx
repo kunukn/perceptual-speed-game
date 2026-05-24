@@ -1,6 +1,5 @@
-import { useMachine } from '@xstate/react';
-import type { ReactNode } from 'react';
 import { paths } from '@/app/paths';
+import { useMachine } from '@xstate/react';
 import type { ConfettiTier } from './components/useConfetti';
 import { gameMachine } from './machine';
 import { useHighScores } from './store/high-scores';
@@ -18,7 +17,7 @@ type PendingConfetti = { tier: ConfettiTier; runId: number };
 const GameMachineContext = createContext<GameMachineValue | null>(null);
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 export function GameMachineProvider({ children }: Props) {

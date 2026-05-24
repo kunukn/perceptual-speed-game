@@ -47,17 +47,22 @@ function detectInitialLanguage(): string {
 
 /*
  * English is bundled eagerly so first paint never blocks on a network round-trip.
- * Every other language is fetched on demand via Vite's dynamic import — each JSON
- * becomes its own code-split chunk, browser-cached after the first load.
- *
- * Rollup will warn `INEFFECTIVE_DYNAMIC_IMPORT` for en.json — that's expected: the
- * dynamic form matches en.json too but is never called for it, since `resources`
- * below already provides en synchronously.
+ * Every other language is fetched on demand — each JSON becomes its own code-split
+ * chunk, browser-cached after the first load. `import.meta.glob` with a negation
+ * pattern excludes en.json from the dynamic set so Rollup doesn't emit
+ * INEFFECTIVE_DYNAMIC_IMPORT for the eagerly bundled locale.
  */
+const localeLoaders = import.meta.glob<{ default: Record<string, unknown> }>(
+  './locales/!(en).json',
+);
+
 void i18n
   .use(
     resourcesToBackend(async (language: string) => {
-      const mod = await import(`./locales/${language}.json`);
+      const loader = localeLoaders[`./locales/${language}.json`];
+      if (!loader) return {};
+
+      const mod = await loader();
 
       return mod.default ?? mod;
     }),
