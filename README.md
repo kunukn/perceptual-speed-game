@@ -18,6 +18,9 @@ and time.
   Romance), Greek, Cyrillic, and Japanese Kana.
 - **Review** — after a game, step through each round to see the correct answer
   and your pick side by side.
+- **Records** — past game results are saved locally and viewable on the Records
+  screen, sorted by recency. Includes mode, letter system, score, and timestamp.
+  You can clear all records at any time.
 - **Localized** — UI available in 14 languages: English, Danish, German,
   Spanish, French, Portuguese, Indonesian, Russian, Chinese, Japanese, Hindi,
   Bengali, Arabic (RTL), and Urdu (RTL). Your settings are saved between
@@ -30,6 +33,10 @@ and time.
 Scan to play on your phone:
 
 <img src="docs/qrcode.png" alt="QR code linking to the live demo" width="160" />
+
+Screenshot:
+
+<img src="docs/demo-1.png" alt="In-game screenshot showing two rows of accented letters with answer buttons" width="300" />
 
 ## How to Play
 
