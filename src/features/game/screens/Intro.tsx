@@ -2,7 +2,7 @@ import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
 import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
-import { COLS } from '@/features/game/machine';
+import { COLS, getExamplePuzzle } from '@/features/game/machine';
 import { useGameMachine } from '@/features/game/machine-context';
 import { useGameOptions } from '@/features/game/store/options';
 
@@ -16,6 +16,13 @@ export function Intro() {
   const timeLimitMs = useGameOptions((s) => s.timeLimitMs);
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
+  const letterSystem = useGameOptions((s) => s.letterSystem);
+
+  /* Stable reference — only recompute when the letter system changes */
+  const examplePuzzle = useMemo(
+    () => getExamplePuzzle(letterSystem),
+    [letterSystem],
+  );
 
   const handleStart = () => {
     send({ type: 'START', options: useGameOptions.getState() });
@@ -41,8 +48,8 @@ export function Intro() {
 
         <PuzzleBoard
           label={t('intro.example')}
-          top={['a', 'b', 'c', 'd']}
-          bottom={['A', 'B', 'C', 'E']}
+          top={examplePuzzle.top}
+          bottom={examplePuzzle.bottom}
           showMatches
           showColumnOutlines
           mirrorX={mirrorX}

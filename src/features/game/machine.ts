@@ -89,6 +89,32 @@ const LETTER_SYSTEMS: Record<LetterSystem, LetterPair[]> = {
   kana: KANA,
 };
 
+/*
+ * Hand-picked 4-column example per letter system for the Intro screen.
+ * Each example has 3 matching columns and 1 mismatch in column 3, so
+ * highlightIdx=3 (the "3 matches" answer button) is always correct.
+ * Letters are chosen to be distinctive — e.g. umlauts for German — so
+ * the preview clearly reflects the user's selected system.
+ */
+const EXAMPLE_PUZZLES: Record<
+  LetterSystem,
+  { top: string[]; bottom: string[] }
+> = {
+  english: { top: ['a', 'b', 'c', 'd'], bottom: ['A', 'B', 'C', 'E'] },
+  german: { top: ['a', 'ä', 'ö', 'ü'], bottom: ['A', 'Ä', 'Ö', 'B'] },
+  accented: { top: ['å', 'ä', 'ø', 'ñ'], bottom: ['Å', 'Ä', 'Ø', 'É'] },
+  greek: { top: ['α', 'β', 'γ', 'δ'], bottom: ['Α', 'Β', 'Γ', 'Ζ'] },
+  cyrillic: { top: ['а', 'б', 'в', 'г'], bottom: ['А', 'Б', 'В', 'Д'] },
+  kana: { top: ['あ', 'い', 'う', 'え'], bottom: ['ア', 'イ', 'ウ', 'オ'] },
+};
+
+export function getExamplePuzzle(system: LetterSystem): {
+  top: string[];
+  bottom: string[];
+} {
+  return EXAMPLE_PUZZLES[system];
+}
+
 export const LETTER_SYSTEMS_LIST: readonly LetterSystem[] = [
   'english',
   'german',
