@@ -52,6 +52,13 @@ export function GameMachineProvider({ children }: Props) {
   /* Pass 'none' once confetti has been consumed for this run, so remounting Results doesn't replay the animation. */
   const effectiveTier: ConfettiTier =
     confettiConsumedAt === startedAt ? 'none' : lastResultTier;
+  console.debug('[machine-context] render', {
+    startedAt,
+    confettiConsumedAt,
+    lastResultTier,
+    effectiveTier,
+    machineState: state.value,
+  });
 
   /* Persist one record per unique run on entry to `finished`. `startedAt` is unique per run, so this fires exactly once even under StrictMode double-effect. Snapshot the prior score before saving so Results can celebrate a fresh records entry — by the time Results mounts, the store is already updated. */
   const recordedRunRef = useRef(0);
@@ -76,15 +83,20 @@ export function GameMachineProvider({ children }: Props) {
     const key = highScoreKey(input);
     const prior = useHighScores.getState().scores[key];
     const candidate: HighScore = { ...input, key, achievedAt: Date.now() };
+    const isPerfect = mode === 'count' && correct === countTarget;
     const isEntry = !prior || isBetter(candidate, prior);
+    const tier = isPerfect ? 'perfect' : isEntry ? 'entry' : 'none';
+    console.debug('[machine-context] finished', {
+      startedAt,
+      isPerfect,
+      isEntry,
+      tier,
+      correct,
+      countTarget,
+      mode,
+    });
 
-    setLastResultTier(
-      !isEntry
-        ? 'none'
-        : mode === 'count' && correct === countTarget
-          ? 'perfect'
-          : 'entry',
-    );
+    setLastResultTier(tier);
 
     useHighScores.getState().recordScore(input);
   }, [

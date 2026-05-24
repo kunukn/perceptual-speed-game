@@ -1,5 +1,5 @@
 import confetti from 'canvas-confetti';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export type ConfettiTier = 'none' | 'entry' | 'perfect';
 
@@ -10,16 +10,23 @@ export function useConfetti(
   tier: ConfettiTier,
 ): React.RefObject<HTMLCanvasElement | null> {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  /* Snapshot tier at mount so consumeConfetti flipping the prop to 'none' mid-animation doesn't trigger the cleanup and wipe the canvas. */
+  const [initialTier] = useState(tier);
 
   useEffect(() => {
-    if (tier === 'none') return;
+    console.debug('[confetti] effect run, initialTier=', initialTier);
+    if (initialTier === 'none') return;
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      console.debug('[confetti] no canvas ref');
+      return;
+    }
 
+    console.debug('[confetti] firing for tier=', initialTier);
     const fire = confetti.create(canvas, { resize: true, useWorker: false });
 
-    if (tier === 'entry') {
+    if (initialTier === 'entry') {
       const end = Date.now() + 3000;
 
       let rafId: number;
@@ -44,7 +51,7 @@ export function useConfetti(
       };
     }
 
-    /* tier === 'perfect': single big cannon, then ~5s of gold fireworks. */
+    /* initialTier === 'perfect': single big cannon, then ~5s of gold fireworks. */
     fire({
       particleCount: 180,
       spread: 100,
@@ -80,7 +87,7 @@ export function useConfetti(
       clearTimeout(timeoutId);
       fire.reset();
     };
-  }, [tier]);
+  }, [initialTier]);
 
   return canvasRef;
 }
