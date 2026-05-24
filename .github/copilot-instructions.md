@@ -26,7 +26,7 @@ components stay thin renderers.
 
 ## Stack
 
-React 19 + TypeScript + Vite. Styling: Tailwind CSS 4 + Emotion + shadcn/Radix UI components. State: Zustand (stores) and XState (state machines) — both are actively used; pick whichever fits the situation rather than introducing a third pattern.
+React 19 + TypeScript + Vite. Styling: Tailwind CSS 4 + Emotion + shadcn/Radix UI components. State: Zustand (stores) and XState (state machines) — both are actively used; pick whichever fits the situation rather than introducing a third pattern. See [docs/state-architecture.md](../docs/state-architecture.md) for the per-store rationale and data-flow diagram.
 
 ## Commands
 
