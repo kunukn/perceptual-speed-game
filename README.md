@@ -5,8 +5,8 @@
 A web game that measures **perceptual speed** — the cognitive skill of rapidly
 comparing visual symbols under time pressure.
 
-Each round shows two short rows of glyphs (uppercase vs. lowercase, or hiragana
-vs. katakana). You count how many vertical positions hold the **same letter**
+Each round shows two short rows of glyphs (uppercase vs. lowercase, hiragana
+vs. katakana, or emoji pairs like 🥚 ↔ 🐣). You count how many vertical positions hold the **same letter**
 (case-insensitive) and pick a number from 0 to 4. The game tracks both accuracy
 and time.
 
@@ -15,7 +15,10 @@ and time.
 - **Time mode** — answer as many rounds as you can within a time limit
   (10s / 30s / 60s / 120s); rounds keep generating until the clock runs out.
 - **Letter systems** — English, German (with umlauts), Accented (Nordic /
-  Romance), Greek, Cyrillic, and Japanese Kana.
+  Romance), Greek, Cyrillic, Japanese Kana, and Emoji (🥚 ↔ 🐣, 🐛 ↔ 🦋, …).
+- **Matching Pairs reference** — a "show pairs" page (reachable from Options)
+  displays every pair in the currently selected letter system, so you can study
+  the set — especially useful for Kana and Emoji — before playing.
 - **Review** — after a game, step through each round to see the correct answer
   and your pick side by side.
 - **Records** — past game results are saved locally and viewable on the Records
