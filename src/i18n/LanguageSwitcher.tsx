@@ -1,3 +1,4 @@
+import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { Label } from '@/components/ui/label';
 import {
   Popover,
@@ -133,9 +134,20 @@ export function LanguageSwitcher() {
             )}
             {rest.map(renderItem)}
           </RadioGroup>
-          <p className="border-t ps-6 pt-2 text-sm leading-none text-slate-500">
-            {import.meta.env.VITE_APP_VERSION}
-          </p>
+          <div className="flex items-center gap-2 border-t px-1 pt-1">
+            <p className="text-sm leading-none text-slate-500">
+              {import.meta.env.VITE_APP_VERSION}
+            </p>
+            <a
+              href="https://github.com/kunukn/perceptual-speed-game"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+              className="p-1"
+            >
+              <GitHubIcon size={16} />
+            </a>
+          </div>
         </div>
       </PopoverContent>
     </Popover>
