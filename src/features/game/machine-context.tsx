@@ -51,6 +51,7 @@ export function GameMachineProvider({ children }: Props) {
    * unique per run, so this fires exactly once even under StrictMode
    * double-effect. */
   const recordedRef = useRef(0);
+
   useEffect(() => {
     if (!state.matches('finished')) return;
 
@@ -69,6 +70,7 @@ export function GameMachineProvider({ children }: Props) {
       answered: answers.length,
       elapsedMs,
     });
+
     const tier: ConfettiTier = isPerfect
       ? 'perfect'
       : isEntry
