@@ -52,6 +52,9 @@ export function Intro() {
         />
 
         <div className="mx-auto flex max-w-68 flex-col gap-2 pt-4">
+          <Button className="" size="lg" onClick={handleStart}>
+            {t('intro.start')}
+          </Button>
           <div className="flex gap-2">
             <Button
               className="flex-1"
@@ -61,17 +64,15 @@ export function Intro() {
             >
               {t('common.options')}
             </Button>
-            <Button className="flex-1" size="lg" onClick={handleStart}>
-              {t('intro.start')}
+            <Button
+              className="flex-1"
+              size="lg"
+              variant="outline"
+              onClick={() => navigate(paths.records)}
+            >
+              {t('records.open')}
             </Button>
           </div>
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => navigate(paths.records)}
-          >
-            {t('records.open')}
-          </Button>
         </div>
         <p className="text-sm text-slate-500 tabular-nums md:text-base">
           {mode === 'time'
