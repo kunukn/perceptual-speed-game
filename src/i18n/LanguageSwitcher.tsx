@@ -134,7 +134,7 @@ export function LanguageSwitcher() {
             )}
             {rest.map(renderItem)}
           </RadioGroup>
-          <div className="flex items-center gap-2 border-t px-1 pt-1">
+          <div className="flex items-center gap-2 border-t px-1 pt-2">
             <p className="text-sm leading-none text-slate-500">
               {import.meta.env.VITE_APP_VERSION}
             </p>
