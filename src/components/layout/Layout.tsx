@@ -19,23 +19,24 @@ export function Layout({
 }: Props) {
   return (
     <div
+      id="layout-root"
       className={cn(
-        'relative flex w-full max-w-2xl flex-1 flex-col overflow-hidden bg-slate-50 pt-4 *:px-6',
+        'relative flex w-full max-w-2xl flex-col bg-slate-50 *:px-6',
         className,
       )}
       data-testid="layout-root"
     >
       {overlay}
-      <header className="relative shrink-0 overflow-y-auto border-b border-slate-200 pb-4">
+      <header className="sticky top-0 z-10 shrink-0 border-b border-slate-200 bg-slate-50 pt-4 pb-4">
         {header}
       </header>
 
-      <section className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto py-4">
+      <section className="flex flex-1 flex-col items-center justify-center-safe py-4">
         {children}
       </section>
 
       {footer && (
-        <footer className="flex min-h-15 shrink-0 items-center justify-center gap-2 overflow-y-auto border-t border-slate-200">
+        <footer className="sticky bottom-0 z-10 flex min-h-15 shrink-0 items-center justify-center gap-2 border-t border-slate-200 bg-slate-50">
           {footer}
         </footer>
       )}

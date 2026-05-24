@@ -185,19 +185,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground relative flex h-full flex-col;
+    @apply bg-background text-foreground relative flex min-h-dvh flex-col;
   }
   html {
-    @apply h-full font-sans;
+    @apply font-sans;
   }
 
   #app,
   #root {
-    @apply flex h-full flex-1 flex-col;
+    @apply flex min-h-dvh flex-1 flex-col;
   }
 
   .my-app {
-    @apply flex h-full flex-1 flex-col;
+    @apply flex min-h-dvh flex-1 flex-col;
   }
 
   /*
