@@ -1,11 +1,8 @@
 import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
-import { LetterGrid } from '@/features/game/components/LetterGrid';
 import { LETTER_SYSTEMS } from '@/features/game/machine';
 import { useGameOptions } from '@/features/game/store/options';
-
-const PAIRS_PER_ROW = 10;
 
 export function MatchingPairs() {
   const { t } = useTranslation();
@@ -14,19 +11,15 @@ export function MatchingPairs() {
   const mirrorX = useGameOptions((s) => s.mirrorX);
   const mirrorY = useGameOptions((s) => s.mirrorY);
 
-  /* Stable reference — chunked list only changes when the letter system changes. */
-  const groups = useMemo(() => {
-    const pairs = LETTER_SYSTEMS[letterSystem];
-    const out: { top: string[]; bottom: string[] }[] = [];
-    for (let i = 0; i < pairs.length; i += PAIRS_PER_ROW) {
-      const slice = pairs.slice(i, i + PAIRS_PER_ROW);
-      out.push({
-        top: slice.map(([lower]) => lower),
-        bottom: slice.map(([, upper]) => upper),
-      });
-    }
-    return out;
-  }, [letterSystem]);
+  const pairs = LETTER_SYSTEMS[letterSystem];
+
+  const transform =
+    [mirrorX && 'scaleX(-1)', mirrorY && 'scaleY(-1)']
+      .filter(Boolean)
+      .join(' ') || undefined;
+  const glyphStyle = transform
+    ? { transform, display: 'inline-block' as const }
+    : undefined;
 
   return (
     <Layout
@@ -47,18 +40,26 @@ export function MatchingPairs() {
           {t('matchingPairs.title')}
         </h2>
 
-        <div className="flex flex-col items-center gap-4">
-          {groups.map((group, i) => (
-            <LetterGrid
+        <div className="font-hyperlegible mx-auto flex max-w-md flex-wrap justify-center gap-1 text-2xl">
+          {pairs.map(([lower, upper], i) => (
+            <div
               key={i}
-              top={group.top}
-              bottom={group.bottom}
-              matches={group.top.map(() => true)}
-              showMatches
-              showColumnOutlines
-              mirrorX={mirrorX}
-              mirrorY={mirrorY}
-            />
+              className="flex flex-col items-center gap-y-1 rounded-sm border border-emerald-500 py-[0.05em]"
+              style={{ width: '1.6em' }}
+            >
+              <span
+                className="text-center text-emerald-600 tabular-nums"
+                style={glyphStyle}
+              >
+                {lower}
+              </span>
+              <span
+                className="text-center text-emerald-600 tabular-nums"
+                style={glyphStyle}
+              >
+                {upper}
+              </span>
+            </div>
           ))}
         </div>
       </div>
