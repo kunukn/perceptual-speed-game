@@ -202,7 +202,7 @@
   }
 
   #layout-root {
-    @apply flex flex-col max-md:flex-1;
+    @apply flex min-h-[50vh] flex-col [@media(max-height:50rem)]:flex-1;
   }
 
   /*

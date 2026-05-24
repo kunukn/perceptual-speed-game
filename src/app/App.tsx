@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div
       id="app"
-      className="flex flex-1 flex-col items-center md:justify-center-safe"
+      className="flex flex-1 flex-col items-center justify-center-safe"
     >
       <RouterProvider router={router} />
     </div>
