@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router';
 import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
@@ -6,6 +5,7 @@ import { useConfetti } from '@/features/game/components/useConfetti';
 import { formatElapsed } from '@/features/game/machine';
 import { useGameMachine } from '@/features/game/machine-context';
 import { useGameOptions } from '@/features/game/store/options';
+import { Navigate } from 'react-router';
 
 export function Results() {
   const { t } = useTranslation();
@@ -48,9 +48,6 @@ export function Results() {
           >
             {t('results.review')}
           </Button>
-          <Button size="lg" className="flex-1" onClick={handleRestart}>
-            {t('results.restart')}
-          </Button>
           <Button
             size="lg"
             variant="outline"
@@ -58,6 +55,9 @@ export function Results() {
             onClick={() => navigate(paths.records)}
           >
             {t('records.open')}
+          </Button>
+          <Button size="lg" className="flex-1" onClick={handleRestart}>
+            {t('results.restart')}
           </Button>
         </div>
       }

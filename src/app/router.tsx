@@ -1,11 +1,14 @@
-import { createHashRouter, Outlet } from 'react-router';
 import { GameMachineProvider } from '@/features/game/machine-context';
 import { gameRoutes } from '@/features/game/routes';
+import { createHashRouter, Outlet } from 'react-router';
 
-/* Root layout route hosts cross-cutting providers (machine today; future: auth,
- * theme, telemetry). It renders inside the router so `useNavigate()` works in
- * the provider's state→route effect. Each feature contributes routes via the
- * children spread — one line per feature at scale. */
+/* Pathless Layout Route pattern (React Router): the outer route has no `path`,
+ * only an `element` + `children`, so it wraps the tree with shared providers
+ * without matching a URL segment. Children render through `<Outlet />`, which
+ * keeps providers *inside* the router — so `useNavigate()` works in the
+ * provider's state→route effect. Each feature contributes its own route
+ * module via the children spread (feature-sliced routes) — one line per
+ * feature at scale. */
 export const router = createHashRouter([
   {
     element: (
