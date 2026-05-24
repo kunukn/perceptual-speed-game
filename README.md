@@ -42,6 +42,8 @@ Scan to play on your phone:
 <img src="docs/demo-1.png" alt="In-game screenshot showing two rows of accented letters with answer buttons" width="300" />
 
 _Accented letters_
+<br />
+<br />
 
 <img src="docs/demo-2.png" alt="In-game screenshot showing two rows of emoji with answer buttons" width="300" />
 
