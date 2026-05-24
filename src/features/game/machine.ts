@@ -12,7 +12,7 @@ const TIME_MODE_ROUND_BUFFER = 10;
 export type GameMode = 'count' | 'time';
 
 export function formatElapsed(ms: number): string {
-  return `${Math.round(ms / 1000)}s`;
+  return `${(ms / 1000).toFixed(1)}s`;
 }
 
 type LetterPair = readonly [string, string];
