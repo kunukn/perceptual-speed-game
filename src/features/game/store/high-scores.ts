@@ -44,7 +44,7 @@ export function isBetter(candidate: HighScore, current: HighScore): boolean {
   return candidate.answered < current.answered;
 }
 
-export type RecordScoreResult = { isEntry: boolean; isPerfect: boolean };
+export type RecordScoreResult = { isNewRecord: boolean };
 
 type HighScoresStore = {
   scores: Record<string, HighScore>;
@@ -66,17 +66,15 @@ export const useHighScores = create<HighScoresStore>()(
           achievedAt: Date.now(),
         };
         const current = get().scores[key];
-        const isEntry = !current || isBetter(candidate, current);
-        const isPerfect =
-          input.mode === 'count' && input.correct === input.countTarget;
+        const isNewRecord = !current || isBetter(candidate, current);
 
-        if (isEntry) {
+        if (isNewRecord) {
           set((state) => ({
             scores: { ...state.scores, [key]: candidate },
           }));
         }
 
-        return { isEntry, isPerfect };
+        return { isNewRecord };
       },
       clear: () => set({ scores: {} }),
     }),

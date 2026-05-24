@@ -29,7 +29,7 @@ export const autoImportConfig = [
     ],
   },
   {
-    'react-router': ['useNavigate'],
+    'react-router': ['useNavigate', 'Navigate'],
   },
   {
     '@/components/ui/button': ['Button'],

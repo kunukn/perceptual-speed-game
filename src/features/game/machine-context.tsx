@@ -59,7 +59,7 @@ export function GameMachineProvider({ children }: Props) {
 
     recordedRef.current = startedAt;
 
-    const { isEntry, isPerfect } = useHighScores.getState().recordScore({
+    const { isNewRecord } = useHighScores.getState().recordScore({
       mode,
       countTarget,
       timeLimitMs,
@@ -71,9 +71,10 @@ export function GameMachineProvider({ children }: Props) {
       elapsedMs,
     });
 
-    const tier: ConfettiTier = isPerfect
+    const hasNoErrors = answers.length >= 1 && correct === answers.length;
+    const tier: ConfettiTier = isNewRecord
       ? 'perfect'
-      : isEntry
+      : hasNoErrors
         ? 'entry'
         : 'none';
 

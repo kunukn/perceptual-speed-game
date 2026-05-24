@@ -9,6 +9,7 @@ declare global {
   const Activity: typeof import('react').Activity
   const Button: typeof import('@/components/ui/button').Button
   const Fragment: typeof import('react').Fragment
+  const Navigate: typeof import('react-router').Navigate
   const Suspense: typeof import('react').Suspense
   const cacheSignal: typeof import('react').cacheSignal
   const createContext: typeof import('react').createContext
