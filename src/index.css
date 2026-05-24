@@ -180,12 +180,17 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility min-h-vhdvh {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground relative flex min-h-dvh flex-col;
+    @apply bg-background text-foreground min-h-vhdvh relative flex flex-col;
   }
   html {
     @apply font-sans;
@@ -193,11 +198,11 @@
 
   #app,
   #root {
-    @apply flex min-h-dvh flex-1 flex-col;
+    @apply min-h-vhdvh flex flex-1 flex-col;
   }
 
   .my-app {
-    @apply flex min-h-dvh flex-1 flex-col;
+    @apply min-h-vhdvh flex flex-1 flex-col;
   }
 
   /*
