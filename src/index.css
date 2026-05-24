@@ -189,20 +189,18 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground min-h-vhdvh relative flex flex-col;
-  }
+
   html {
     @apply font-sans;
   }
 
-  #app,
-  #root {
-    @apply min-h-vhdvh flex flex-1 flex-col;
+  body {
+    @apply bg-background text-foreground min-h-vhdvh relative flex flex-col;
   }
 
-  #layout-root {
-    @apply flex min-h-[50vh] flex-col [@media(max-height:50rem)]:flex-1;
+  /* React root. */
+  #root {
+    @apply min-h-vhdvh flex flex-1 flex-col;
   }
 
   /*
