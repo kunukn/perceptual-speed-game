@@ -144,7 +144,8 @@ export function Options() {
 
         <fieldset className="space-y-4">
           <legend className="text-sm font-medium text-slate-900">
-            {t('options.mirror')}
+            {t('options.mirror')}{' '}
+            {mirrorX && mirrorY ? `(${t('records.rotated')})` : ''}
           </legend>
 
           <div className="flex items-center gap-3">

@@ -73,6 +73,7 @@
     "clearConfirmDescription": "Dette kan ikke fortrydes.",
     "correct": "{{count}} rigtige",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Roteret"
   }
 }

@@ -72,6 +72,7 @@
     "clearConfirmDescription": "Ini tidak dapat dibatalkan.",
     "correct": "{{count}} benar",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Diputar"
   }
 }

@@ -73,6 +73,7 @@
     "clearConfirmDescription": "Cette action est irréversible.",
     "correct": "{{count}} correctes",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Pivoté"
   }
 }

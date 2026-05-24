@@ -73,6 +73,7 @@
     "clearConfirmDescription": "This cannot be undone.",
     "correct": "{{count}} correct",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Rotated"
   }
 }

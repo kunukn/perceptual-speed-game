@@ -73,6 +73,7 @@
     "clearConfirmDescription": "Dies kann nicht rückgängig gemacht werden.",
     "correct": "{{count}} richtig",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Gedreht"
   }
 }

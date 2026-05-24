@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-import { useLocation } from 'react-router';
 import { paths } from '@/app/paths';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Layout } from '@/components/layout/Layout';
@@ -18,6 +16,8 @@ import {
   useHighScores,
   type HighScore,
 } from '@/features/game/store/high-scores';
+import dayjs from 'dayjs';
+import { useLocation } from 'react-router';
 
 export function Records() {
   const { t } = useTranslation();
@@ -61,8 +61,12 @@ export function Records() {
       );
     }
     parts.push(t(`options.letterSystem.${s.letterSystem}`));
-    if (s.mirrorX) parts.push(t('records.mirrorX'));
-    if (s.mirrorY) parts.push(t('records.mirrorY'));
+    if (s.mirrorX && s.mirrorY) {
+      parts.push(t('records.rotated'));
+    } else {
+      if (s.mirrorX) parts.push(t('records.mirrorX'));
+      if (s.mirrorY) parts.push(t('records.mirrorY'));
+    }
 
     return parts.join(', ');
   };

@@ -73,6 +73,7 @@
     "clearConfirmDescription": "इसे पूर्ववत नहीं किया जा सकता।",
     "correct": "{{count}} सही",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "घुमाया गया"
   }
 }

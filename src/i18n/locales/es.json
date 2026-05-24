@@ -73,6 +73,7 @@
     "clearConfirmDescription": "Esto no se puede deshacer.",
     "correct": "{{count}} correctas",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Rotado"
   }
 }

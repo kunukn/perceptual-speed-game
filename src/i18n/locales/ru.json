@@ -75,6 +75,7 @@
     "clearConfirmDescription": "Это действие нельзя отменить.",
     "correct": "{{count}} верно",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "Повёрнуто"
   }
 }

@@ -73,6 +73,7 @@
     "clearConfirmDescription": "এটি পূর্বাবস্থায় ফেরানো যাবে না।",
     "correct": "{{count}} সঠিক",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "ঘোরানো"
   }
 }

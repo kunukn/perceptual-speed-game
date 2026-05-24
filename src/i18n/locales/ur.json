@@ -73,6 +73,7 @@
     "clearConfirmDescription": "یہ کارروائی واپس نہیں لی جا سکتی۔",
     "correct": "{{count}} درست",
     "mirrorX": "MirrorX",
-    "mirrorY": "MirrorY"
+    "mirrorY": "MirrorY",
+    "rotated": "گھمایا گیا"
   }
 }
