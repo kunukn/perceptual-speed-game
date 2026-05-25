@@ -37,7 +37,7 @@ export function AnswerButtons({
   return (
     <div
       className={cn(
-        'flex w-full max-w-md justify-around gap-2',
+        'flex w-full max-w-md justify-around gap-4',
         isPreview && 'pointer-events-none',
         className,
       )}

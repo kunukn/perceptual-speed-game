@@ -1,19 +1,18 @@
-import { formatElapsed } from '@/features/game/machine';
-
 type Props = { startedAt: number };
 
 export function Timer({ startedAt }: Props) {
-  const [now, setNow] = useState(() => Date.now());
+  const [seconds, setSeconds] = useState(() =>
+    Math.floor((Date.now() - startedAt) / 1000),
+  );
 
   useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 100);
+    const id = setInterval(
+      () => setSeconds(Math.floor((Date.now() - startedAt) / 1000)),
+      1000,
+    );
 
     return () => clearInterval(id);
-  }, []);
+  }, [startedAt]);
 
-  return (
-    <span className="text-slate-500 tabular-nums">
-      {formatElapsed(now - startedAt)}
-    </span>
-  );
+  return <span className="text-slate-500 tabular-nums">{seconds}s</span>;
 }

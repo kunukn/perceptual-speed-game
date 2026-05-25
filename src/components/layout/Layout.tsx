@@ -27,7 +27,7 @@ export function Layout({
       data-testid="layout-root"
     >
       {overlay}
-      <header className="sticky top-0 z-10 min-h-15 shrink-0 border-b border-slate-200 bg-slate-50 pt-4 pb-4">
+      <header className="sticky top-0 z-10 flex min-h-15 shrink-0 flex-col items-center justify-center-safe border-b border-slate-200 bg-slate-50 pt-4 pb-4">
         {header}
       </header>
 

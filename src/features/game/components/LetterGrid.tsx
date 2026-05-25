@@ -44,7 +44,7 @@ export function LetterGrid({
   return (
     <div
       className={cn(
-        'font-hyperlegible flex min-h-22.5 w-fit min-w-62.5 items-center justify-center gap-1',
+        'font-hyperlegible flex min-h-22.5 w-fit min-w-62.5 items-center justify-center gap-3',
         className,
       )}
     >
@@ -52,7 +52,7 @@ export function LetterGrid({
         <div
           key={i}
           className={cn(
-            'flex flex-col items-center gap-y-1 rounded-sm border py-[0.05em]',
+            'flex flex-col items-center gap-y-2 rounded-sm border py-[0.05em]',
             /* Green border on matching columns also flags matches for emoji glyphs, which ignore `text-emerald-600`. */
             isMatch(i)
               ? 'border-emerald-500'
