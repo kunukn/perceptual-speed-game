@@ -102,6 +102,119 @@ test.each([
 })
 ```
 
+## Test Rationale Comments
+
+**Every `describe` block MUST be preceded by a block comment explaining why the test deserves to exist.** This is a quality gate, not paperwork. A test that cannot justify itself in 2–6 lines is almost always a test worth deleting — see [Smell-check: tests that probably shouldn't exist](#smell-check-tests-that-probably-shouldnt-exist) below.
+
+### Why this is mandatory
+
+Tests are not free. They take time to maintain, they slow down refactors, and stale tests actively mislead. The way to make sure each test pays its rent is to write down — at the moment of creation — *what contract it protects* and *what breaks if it disappears*. If you can't articulate that, the test isn't earning its place.
+
+Reading the rationale six months later is also how the next person (or you) decides whether a failing test reflects a real regression or just a spec change. Without the rationale, every red test becomes a guessing game.
+
+### The three-part template
+
+A good rationale comment answers three questions:
+
+1. **What contract / invariant does this test protect?** (the *what*)
+2. **What concrete failure mode does it catch?** (the *how it breaks*)
+3. **Why would that failure be hard to catch without this test?** (the *why a test is the right tool*)
+
+Format: a `/* */` block comment placed directly above the `describe`. Aim for 3–8 lines. Block comments — not multiple `//` lines (matches the project convention).
+
+### Canonical examples
+
+These are taken from `src/features/game/machine.test.ts`. Use them as templates.
+
+**Example 1 — protecting a user-facing format contract:**
+
+```typescript
+/*
+ * Why this matters: formatElapsed is one line of code, but every timer and
+ * results screen depends on its exact output ("1.2s", one decimal). A "small
+ * cleanup" that rounds to whole seconds, swaps in Intl.NumberFormat, or
+ * changes the unit silently changes every time displayed in the app. This
+ * test makes such a change impossible to ship without an explicit decision.
+ */
+describe('formatElapsed', () => { ... })
+```
+
+**Example 2 — protecting a hand-maintained table across N variants:**
+
+```typescript
+/*
+ * Why this matters: the Intro screen teaches the player by showing a worked
+ * example whose correct answer is always "3 matches". That promise is encoded
+ * across 7 hand-built EXAMPLE_PUZZLES entries — kana and emoji included. A
+ * future edit to any non-Latin entry could easily introduce a 4-match row or
+ * a mismatch in the wrong column, and the intro would teach a wrong example
+ * with no compile error. This test enforces the shape for every system at
+ * once, so editing the table can't silently break the tutorial.
+ */
+describe('getExamplePuzzle', () => { ... })
+```
+
+**Example 3 — property-style invariants over non-deterministic logic:**
+
+```typescript
+/*
+ * Why this matters: generateRound is the most logic-heavy function in this
+ * file — Math.random, a "used pairs" set, intricate match-column assignment.
+ * Exactly the shape of code where off-by-one and boundary bugs hide. We don't
+ * seed RNG; we sample 50 rounds per letter system and assert the invariants
+ * that MUST hold for the game to be playable (4 cols everywhere, answer
+ * equals the number of matches, answer in [0..4]). A regression here is the
+ * kind of bug a player would actually hit — wrong scoring or a broken letter
+ * system — and would show up as "the game is just wrong," nearly impossible
+ * to triage from a bug report.
+ */
+describe('generateRound - invariants', () => { ... })
+```
+
+**Example 4 — a silent failure mode that takes time to manifest:**
+
+```typescript
+/*
+ * Why this matters: time mode is endless — rounds are appended lazily as the
+ * player approaches the buffer boundary. The implementation is three lines of
+ * dense logic in recordAnswer (mode check AND boundary check AND immutable
+ * append) and the failure mode is silent: a player runs out of rounds ~30s
+ * into time mode and the UI tries to render an undefined round. This test
+ * pins both halves of the contract:
+ *   1. The buffer does NOT grow mid-buffer (no eager generation).
+ *   2. The buffer grows by exactly one when crossing the boundary.
+ * An off-by-one regression (e.g. `>` instead of `>=`) is essentially
+ * undetectable in casual dev play because it takes 10 answers to manifest.
+ */
+describe('gameMachine - time mode lazy rounds', () => { ... })
+```
+
+### Phrases worth reaching for
+
+Strong rationale comments tend to use phrasing like:
+
+- *"silently changes…"* / *"fails silently"* — points to a regression that wouldn't be noticed in dev
+- *"with no compile error"* — TypeScript can't catch this; only a test can
+- *"every X depends on…"* — explains the blast radius
+- *"would show up as 'the game is just wrong'"* — names the user-visible symptom
+- *"takes N answers / N seconds to manifest"* — explains why dev play-testing misses it
+- *"pins both halves of the contract"* — explicit about what's being locked in
+- *"essentially undetectable in casual dev play"* — explains why a manual smoke test isn't enough
+
+### Smell-check: tests that probably shouldn't exist
+
+If you can't honestly write a rationale that answers the three questions above, the test is probably one of these:
+
+| Smell | Example | What to do |
+|---|---|---|
+| **Asserts a declarative config line back to itself** | Testing that an XState transition `ABORT: { target: 'idle' }` goes to `'idle'`. The machine IS the spec — there's no logic to break. | Delete it. Trust types + a 5-second manual smoke test. |
+| **Asserts the framework works** | Testing that `useState` updates state, or that a zustand `set({ foo: 1 })` sets `foo` to `1`. | Delete it. The framework's own tests cover this. |
+| **Re-implements the function to check the function** | Test computes `a + b` and asserts the SUT returns `a + b`. | Delete or replace with a *table of known inputs and outputs* — the table is the contract, not the recomputation. |
+| **Mocks everything down to the assertion** | Test mocks the API client, the cache, the formatter, then asserts the SUT calls them in order. | Delete or rewrite as an integration test — the mock setup IS the production code path, so the test only protects the mock setup. |
+| **Asserts implementation details** | Test asserts a specific internal function was called, rather than the observable result. | Rewrite to assert behavior. If you can't, the abstraction probably leaks. |
+
+**The deletion test:** if a regression in this code would either (a) cause a TypeScript error, (b) be obvious in 5 seconds of manual testing, or (c) only happen if someone edits the spec on purpose — the test is not earning its place.
+
 ## Mocking
 
 ### Module mocks — `vi.mock()`
@@ -261,6 +374,7 @@ Use `afterEach` only when you need cleanup that differs from setup (e.g., restor
 
 ## Common Pitfalls
 
+- **Every `describe` needs a rationale comment** — see [Test Rationale Comments](#test-rationale-comments). If you can't write one, delete the test.
 - **Do not re-mock IntersectionObserver or ResizeObserver** — already handled in `vitest.setup.ts`
 - **Do not import vitest globals** — `vi`, `describe`, `test`, `expect`, `beforeEach`, `afterEach` are all available without imports
 - **Use `vi.spyOn`**, not `vitest.spyOn` — consistent prefix across the codebase

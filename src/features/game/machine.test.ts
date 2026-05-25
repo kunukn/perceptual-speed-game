@@ -9,6 +9,13 @@ import {
   type GameOptions,
 } from '@/features/game/machine';
 
+/*
+ * Why this matters: formatElapsed is one line of code, but every timer and
+ * results screen depends on its exact output ("1.2s", one decimal). A "small
+ * cleanup" that rounds to whole seconds, swaps in Intl.NumberFormat, or
+ * changes the unit silently changes every time displayed in the app. This
+ * test makes such a change impossible to ship without an explicit decision.
+ */
 describe('formatElapsed', () => {
   test.each([
     { input: 0, expected: '0.0s' },
@@ -19,6 +26,15 @@ describe('formatElapsed', () => {
   });
 });
 
+/*
+ * Why this matters: the Intro screen teaches the player by showing a worked
+ * example whose correct answer is always "3 matches". That promise is encoded
+ * across 7 hand-built EXAMPLE_PUZZLES entries — kana and emoji included. A
+ * future edit to any non-Latin entry could easily introduce a 4-match row or
+ * a mismatch in the wrong column, and the intro would teach a wrong example
+ * with no compile error. This test enforces the shape for every system at
+ * once, so editing the table can't silently break the tutorial.
+ */
 describe('getExamplePuzzle', () => {
   test.each(LETTER_SYSTEMS_LIST.map((system) => ({ system })))(
     'returns a 4-column example for $system with mismatch in last column',
@@ -34,11 +50,18 @@ describe('getExamplePuzzle', () => {
   );
 });
 
+/*
+ * Why this matters: generateRound is the most logic-heavy function in this
+ * file — Math.random, a "used pairs" set, intricate match-column assignment.
+ * Exactly the shape of code where off-by-one and boundary bugs hide. We don't
+ * seed RNG; we sample 50 rounds per letter system and assert the invariants
+ * that MUST hold for the game to be playable (4 cols everywhere, answer
+ * equals the number of matches, answer in [0..4]). A regression here is the
+ * kind of bug a player would actually hit — wrong scoring or a broken letter
+ * system — and would show up as "the game is just wrong," nearly impossible
+ * to triage from a bug report.
+ */
 describe('generateRound - invariants', () => {
-  /*
-   * generateRound is non-deterministic. Instead of seeding RNG we sample many
-   * rounds and assert the structural invariants that must always hold.
-   */
   test.each(LETTER_SYSTEMS_LIST.map((system) => ({ system })))(
     'generates valid rounds for $system across 50 samples',
     ({ system }) => {
@@ -67,6 +90,20 @@ describe('generateRound - invariants', () => {
   );
 });
 
+/*
+ * Why this matters: end-to-end happy path for the primary user flow. Walks
+ * the machine idle → playing → finished, asserting state transitions AND the
+ * correct-answer counter at every step. A single test guards against the
+ * broadest class of regressions: did anyone break START, ANSWER, the
+ * isCountComplete guard, the correct counter, or the answers array? Any one
+ * of those is catastrophic for the game, and they're all locked in here.
+ *
+ * The "wrong answers" partner test is critical alongside the happy path: a
+ * subtle bug in the isCorrect check (`!==` instead of `===`, or comparing
+ * the wrong field) would still pass the happy path because every answer is
+ * correct. Submitting deliberately wrong values and asserting score stays
+ * at 0 proves the scoring is actually conditional, not just an increment.
+ */
 describe('gameMachine - count mode flow', () => {
   test('should walk from idle through playing to finished and count correct answers', () => {
     const actor = createActor(gameMachine);
@@ -120,6 +157,18 @@ describe('gameMachine - count mode flow', () => {
   });
 });
 
+/*
+ * Why this matters: time mode is endless — rounds are appended lazily as the
+ * player approaches the buffer boundary. The implementation is three lines of
+ * dense logic in recordAnswer (mode check AND boundary check AND immutable
+ * append) and the failure mode is silent: a player runs out of rounds ~30s
+ * into time mode and the UI tries to render an undefined round. This test
+ * pins both halves of the contract:
+ *   1. The buffer does NOT grow mid-buffer (no eager generation).
+ *   2. The buffer grows by exactly one when crossing the boundary.
+ * An off-by-one regression (e.g. `>` instead of `>=`) is essentially
+ * undetectable in casual dev play because it takes 10 answers to manifest.
+ */
 describe('gameMachine - time mode lazy rounds', () => {
   test('should extend the rounds buffer when crossing its boundary', () => {
     const actor = createActor(gameMachine);
@@ -143,19 +192,6 @@ describe('gameMachine - time mode lazy rounds', () => {
     actor.send({ type: 'ANSWER', value: 0 });
 
     expect(actor.getSnapshot().context.rounds.length).toBe(initialLength + 1);
-    actor.stop();
-  });
-});
-
-describe('gameMachine - ABORT', () => {
-  test('should return to idle when playing is aborted', () => {
-    const actor = createActor(gameMachine);
-    actor.start();
-    actor.send({ type: 'START', options: DEFAULT_OPTIONS });
-    expect(actor.getSnapshot().value).toBe('playing');
-
-    actor.send({ type: 'ABORT' });
-    expect(actor.getSnapshot().value).toBe('idle');
     actor.stop();
   });
 });
