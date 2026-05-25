@@ -15,9 +15,9 @@ These instructions apply when writing or modifying test files (`*.test.ts` / `*.
 
 ## File Naming
 
-| Extension | Usage |
-|-----------|-------|
-| `.test.ts` | Pure utility/logic functions with no JSX |
+| Extension   | Usage                                                            |
+| ----------- | ---------------------------------------------------------------- |
+| `.test.ts`  | Pure utility/logic functions with no JSX                         |
 | `.test.tsx` | React components, hooks, and context (anything that imports JSX) |
 
 Test files live next to the source file they test:
@@ -36,12 +36,12 @@ Since `globals: true` is enabled, **do not import** `describe`, `test`, `it`, `e
 
 ```typescript
 /* ❌ Unnecessary — these are auto-imported globals */
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest';
 
 /* ✅ Correct — only import what is not global */
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { renderHook, act } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 ```
 
 Import order in test files:
@@ -98,8 +98,8 @@ test.each([
   { input: 'abc', expected: 'ABC' },
   { input: '', expected: '' },
 ])('should uppercase "$input" to "$expected"', ({ input, expected }) => {
-  expect(toUpper(input)).toBe(expected)
-})
+  expect(toUpper(input)).toBe(expected);
+});
 ```
 
 ## Test Rationale Comments
@@ -108,7 +108,7 @@ test.each([
 
 ### Why this is mandatory
 
-Tests are not free. They take time to maintain, they slow down refactors, and stale tests actively mislead. The way to make sure each test pays its rent is to write down — at the moment of creation — *what contract it protects* and *what breaks if it disappears*. If you can't articulate that, the test isn't earning its place.
+Tests are not free. They take time to maintain, they slow down refactors, and stale tests actively mislead. The way to make sure each test pays its rent is to write down — at the moment of creation — _what contract it protects_ and _what breaks if it disappears_. If you can't articulate that, the test isn't earning its place.
 
 Reading the rationale six months later is also how the next person (or you) decides whether a failing test reflects a real regression or just a spec change. Without the rationale, every red test becomes a guessing game.
 
@@ -116,9 +116,9 @@ Reading the rationale six months later is also how the next person (or you) deci
 
 A good rationale comment answers three questions:
 
-1. **What contract / invariant does this test protect?** (the *what*)
-2. **What concrete failure mode does it catch?** (the *how it breaks*)
-3. **Why would that failure be hard to catch without this test?** (the *why a test is the right tool*)
+1. **What contract / invariant does this test protect?** (the _what_)
+2. **What concrete failure mode does it catch?** (the _how it breaks_)
+3. **Why would that failure be hard to catch without this test?** (the _why a test is the right tool_)
 
 Format: a `/* */` block comment placed directly above the `describe`. Aim for 3–8 lines. Block comments — not multiple `//` lines (matches the project convention).
 
@@ -193,25 +193,25 @@ describe('gameMachine - time mode lazy rounds', () => { ... })
 
 Strong rationale comments tend to use phrasing like:
 
-- *"silently changes…"* / *"fails silently"* — points to a regression that wouldn't be noticed in dev
-- *"with no compile error"* — TypeScript can't catch this; only a test can
-- *"every X depends on…"* — explains the blast radius
-- *"would show up as 'the game is just wrong'"* — names the user-visible symptom
-- *"takes N answers / N seconds to manifest"* — explains why dev play-testing misses it
-- *"pins both halves of the contract"* — explicit about what's being locked in
-- *"essentially undetectable in casual dev play"* — explains why a manual smoke test isn't enough
+- _"silently changes…"_ / _"fails silently"_ — points to a regression that wouldn't be noticed in dev
+- _"with no compile error"_ — TypeScript can't catch this; only a test can
+- _"every X depends on…"_ — explains the blast radius
+- _"would show up as 'the game is just wrong'"_ — names the user-visible symptom
+- _"takes N answers / N seconds to manifest"_ — explains why dev play-testing misses it
+- _"pins both halves of the contract"_ — explicit about what's being locked in
+- _"essentially undetectable in casual dev play"_ — explains why a manual smoke test isn't enough
 
 ### Smell-check: tests that probably shouldn't exist
 
 If you can't honestly write a rationale that answers the three questions above, the test is probably one of these:
 
-| Smell | Example | What to do |
-|---|---|---|
-| **Asserts a declarative config line back to itself** | Testing that an XState transition `ABORT: { target: 'idle' }` goes to `'idle'`. The machine IS the spec — there's no logic to break. | Delete it. Trust types + a 5-second manual smoke test. |
-| **Asserts the framework works** | Testing that `useState` updates state, or that a zustand `set({ foo: 1 })` sets `foo` to `1`. | Delete it. The framework's own tests cover this. |
-| **Re-implements the function to check the function** | Test computes `a + b` and asserts the SUT returns `a + b`. | Delete or replace with a *table of known inputs and outputs* — the table is the contract, not the recomputation. |
-| **Mocks everything down to the assertion** | Test mocks the API client, the cache, the formatter, then asserts the SUT calls them in order. | Delete or rewrite as an integration test — the mock setup IS the production code path, so the test only protects the mock setup. |
-| **Asserts implementation details** | Test asserts a specific internal function was called, rather than the observable result. | Rewrite to assert behavior. If you can't, the abstraction probably leaks. |
+| Smell                                                | Example                                                                                                                              | What to do                                                                                                                       |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Asserts a declarative config line back to itself** | Testing that an XState transition `ABORT: { target: 'idle' }` goes to `'idle'`. The machine IS the spec — there's no logic to break. | Delete it. Trust types + a 5-second manual smoke test.                                                                           |
+| **Asserts the framework works**                      | Testing that `useState` updates state, or that a zustand `set({ foo: 1 })` sets `foo` to `1`.                                        | Delete it. The framework's own tests cover this.                                                                                 |
+| **Re-implements the function to check the function** | Test computes `a + b` and asserts the SUT returns `a + b`.                                                                           | Delete or replace with a _table of known inputs and outputs_ — the table is the contract, not the recomputation.                 |
+| **Mocks everything down to the assertion**           | Test mocks the API client, the cache, the formatter, then asserts the SUT calls them in order.                                       | Delete or rewrite as an integration test — the mock setup IS the production code path, so the test only protects the mock setup. |
+| **Asserts implementation details**                   | Test asserts a specific internal function was called, rather than the observable result.                                             | Rewrite to assert behavior. If you can't, the abstraction probably leaks.                                                        |
 
 **The deletion test:** if a regression in this code would either (a) cause a TypeScript error, (b) be obvious in 5 seconds of manual testing, or (c) only happen if someone edits the spec on purpose — the test is not earning its place.
 
@@ -226,7 +226,7 @@ vi.mock('@/apis/userApi', () => ({
   userApi: {
     getUserById: (...args: unknown[]) => mockGetUserById(...args),
   },
-}))
+}));
 ```
 
 ### Function mocks — `vi.fn()`
@@ -246,9 +246,9 @@ expect(onCheckedChange).toHaveBeenCalledTimes(1)
 Use for observing existing functions without replacing them. Always use `vi.spyOn` (not `vitest.spyOn`):
 
 ```typescript
-const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 // ... test ...
-warnSpy.mockRestore()
+warnSpy.mockRestore();
 ```
 
 ### Global mocks already available
@@ -276,13 +276,13 @@ render(<Component />, { wrapper })
 ### Hooks
 
 ```typescript
-const { result } = renderHook(() => useCustomHook(args), { wrapper })
+const { result } = renderHook(() => useCustomHook(args), { wrapper });
 
-expect(result.current.data).toEqual(expectedData)
+expect(result.current.data).toEqual(expectedData);
 
 act(() => {
-  result.current.updateSomething(newValue)
-})
+  result.current.updateSomething(newValue);
+});
 ```
 
 ### Async operations
@@ -291,34 +291,34 @@ Use `waitFor` for assertions that depend on async state updates:
 
 ```typescript
 await waitFor(() => {
-  expect(result.current.isLoading).toBe(false)
-})
+  expect(result.current.isLoading).toBe(false);
+});
 ```
 
 Use `act` when triggering state changes in hooks:
 
 ```typescript
 await act(async () => {
-  await userEvent.click(screen.getByRole('button'))
-})
+  await userEvent.click(screen.getByRole('button'));
+});
 ```
 
 ## Assertions
 
 Use the correct matcher for the value type:
 
-| Value type | Matcher |
-|-----------|---------|
-| Primitives (string, number, boolean) | `toBe()` |
-| Objects and arrays | `toEqual()` |
-| Array length | `toHaveLength()` |
-| DOM presence | `toBeInTheDocument()` |
-| DOM absence | `expect(screen.queryByText('x')).toBeNull()` |
-| DOM attributes | `toHaveAttribute('title', 'value')` |
-| DOM text content | `toHaveTextContent('text')` |
-| DOM classes | `toHaveClass('class-name')` |
-| Mock called | `toHaveBeenCalledTimes(n)` / `toHaveBeenCalledWith(args)` |
-| Mock not called | `not.toHaveBeenCalled()` |
+| Value type                           | Matcher                                                   |
+| ------------------------------------ | --------------------------------------------------------- |
+| Primitives (string, number, boolean) | `toBe()`                                                  |
+| Objects and arrays                   | `toEqual()`                                               |
+| Array length                         | `toHaveLength()`                                          |
+| DOM presence                         | `toBeInTheDocument()`                                     |
+| DOM absence                          | `expect(screen.queryByText('x')).toBeNull()`              |
+| DOM attributes                       | `toHaveAttribute('title', 'value')`                       |
+| DOM text content                     | `toHaveTextContent('text')`                               |
+| DOM classes                          | `toHaveClass('class-name')`                               |
+| Mock called                          | `toHaveBeenCalledTimes(n)` / `toHaveBeenCalledWith(args)` |
+| Mock not called                      | `not.toHaveBeenCalled()`                                  |
 
 Use `screen.getBy*` when the element must exist. Use `screen.queryBy*` when asserting absence (returns `null` instead of throwing).
 
@@ -328,8 +328,8 @@ Use `screen.getBy*` when the element must exist. Use `screen.queryBy*` when asse
 
 ```typescript
 test('should format name', () => {
-  expect(formatName({ first: 'John', last: 'Doe' })).toBe('John Doe')
-})
+  expect(formatName({ first: 'John', last: 'Doe' })).toBe('John Doe');
+});
 ```
 
 ### Factory functions — for reusable or complex data
@@ -342,12 +342,12 @@ const createMockUser = (overrides?: Partial<User>): User => ({
   name: 'Test User',
   status: UserStatus.Active,
   ...overrides,
-})
+});
 
 test('should show error for inactive users', () => {
-  const user = createMockUser({ status: UserStatus.Inactive })
+  const user = createMockUser({ status: UserStatus.Inactive });
   // ...
-})
+});
 ```
 
 ### Separate mock files — for large datasets
@@ -355,8 +355,8 @@ test('should show error for inactive users', () => {
 Use `*.mock.ts` or `*.mock.json` next to the test file:
 
 ```typescript
-import { getMockUsers } from './useUserQuery.mock'
-import mockSamples from './useChartData.mock.json'
+import { getMockUsers } from './useUserQuery.mock';
+import mockSamples from './useChartData.mock.json';
 ```
 
 ## Setup & Teardown
@@ -365,9 +365,9 @@ Use `beforeEach` to reset state before each test. Prefer `beforeEach` over `afte
 
 ```typescript
 beforeEach(() => {
-  localStorage.clear()
-  mockFn.mockReset()
-})
+  localStorage.clear();
+  mockFn.mockReset();
+});
 ```
 
 Use `afterEach` only when you need cleanup that differs from setup (e.g., restoring a patched global).
