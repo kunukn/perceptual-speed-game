@@ -10,7 +10,7 @@ These instructions apply when writing or modifying test files (`*.test.ts` / `*.
 
 - **Runner**: Vitest with `globals: true` and `jsdom` environment
 - **Component testing**: React Testing Library (`@testing-library/react`)
-- **Setup file**: `src/vitest.setup.ts` — globally mocks `IntersectionObserver`, `ResizeObserver`, and stubs `fetch` for `/settings.json`
+- **Setup file**: `src/vitest.setup.ts` — globally mocks `IntersectionObserver` and `ResizeObserver`, and stubs `fetch` to reject so any stray network call surfaces loudly
 - **CI**: Tests run on Linux with jsdom — avoid platform-specific assertions
 
 ## File Naming
