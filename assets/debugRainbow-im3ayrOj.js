@@ -1,0 +1,1 @@
+function e(){if(!document.getElementById(`rainbow-debugger`)){let e=document.createElement(`script`);e.id=`rainbow-debugger`,e.src=`/perceptual-speed-game/rainbow.js`,e.addEventListener(`load`,()=>{console.debug(`*** Rainbow CSS debugging loaded`)}),document.body.appendChild(e)}}export{e as initDebugRainbow};
