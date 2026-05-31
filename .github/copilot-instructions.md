@@ -19,7 +19,7 @@ many vertical pairs are the **same letter**, case-insensitive (0–4).
 - **Persistence:** user settings (mode, limits, letter system, language) are
   saved in `localStorage`.
 
-The XState machine in [`src/components/game/gameMachine.ts`](../src/components/game/gameMachine.ts)
+The XState machine in [`src/features/game/machine.ts`](../src/features/game/machine.ts)
 is the source of truth for game rules and flow: `intro → options → playing →
 results ↔ review`. Game-state changes should go through the machine; UI
 components stay thin renderers.
