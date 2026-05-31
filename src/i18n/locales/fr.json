@@ -8,7 +8,7 @@
     "delete": "Supprimer",
     "notFound": "Introuvable"
   },
-  "game": {
+  "app": {
     "title": "Vitesse perceptive",
     "subtitle": "Prototype",
     "abort": "Abandonner",

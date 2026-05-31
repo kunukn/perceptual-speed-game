@@ -47,8 +47,8 @@ export function Play() {
         <span className="flex items-center justify-center gap-2 text-slate-500 tabular-nums">
           <span>
             {mode === 'time'
-              ? t('game.roundLabel', { current: pad2(current + 1) })
-              : t('game.roundLabelOfTotal', {
+              ? t('app.roundLabel', { current: pad2(current + 1) })
+              : t('app.roundLabelOfTotal', {
                   current: pad2(current + 1),
                   total: pad2(countTarget),
                 })}
@@ -68,7 +68,7 @@ export function Play() {
           variant="destructive"
           onClick={handleAbort}
         >
-          {t('game.abort')}
+          {t('app.abort')}
         </Button>
       }
     >

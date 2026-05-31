@@ -30,13 +30,6 @@
     "type": "git",
     "url": "git+https://github.com/kunukn/perceptual-speed-game.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kunukn/perceptual-speed-game/issues"
-  },
-  "homepage": "https://github.com/kunukn/perceptual-speed-game#readme",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@playwright/test": "^1.60.0",
@@ -99,5 +92,12 @@
   "overrides": {
     "react-router-dom": "npm:react-router",
     "react-is": "$react-is"
-  }
+  },
+  "keywords": [],
+  "author": "kunukn",
+  "license": "0BSD",
+  "bugs": {
+    "url": "https://github.com/kunukn/perceptual-speed-game/issues"
+  },
+  "homepage": "https://github.com/kunukn/perceptual-speed-game#readme"
 }

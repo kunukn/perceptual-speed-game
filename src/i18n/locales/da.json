@@ -8,7 +8,7 @@
     "delete": "Slet",
     "notFound": "Ikke fundet"
   },
-  "game": {
+  "app": {
     "title": "Perceptuel hastighed",
     "subtitle": "Prototype",
     "abort": "Afbryd",

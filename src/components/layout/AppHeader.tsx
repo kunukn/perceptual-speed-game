@@ -5,7 +5,7 @@ export function AppHeader() {
   return (
     <div className="relative flex w-full items-center justify-center">
       <h1 className="text-center text-2xl font-bold text-slate-900">
-        {t('game.title')}
+        {t('app.title')}
       </h1>
       <div className="absolute inset-e-0 top-0">
         <LanguageSwitcher />
