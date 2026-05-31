@@ -34,8 +34,11 @@ React 19 + TypeScript + Vite. Styling: Tailwind CSS 4 + Emotion + shadcn/Radix U
 - `pnpm build` — typechecks (`tsc -b`) then Vite production build
 - `pnpm format` — Prettier write
 - `pnpm format:check` — Prettier check (CI-style)
+- `pnpm test` — Vitest in watch mode
+- `pnpm test:run` — Vitest single run (CI-style)
+- `pnpm test:coverage` — Vitest run with v8 coverage
 
-No test runner is wired up. `vitest` and `playwright` are installed but `vitest.config.ts` is empty and there are no tests. Do not add tests unless explicitly asked.
+Vitest is wired up (`vitest.config.ts`, jsdom + Testing Library, setup in `src/vitest.setup.ts`). Unit tests live alongside source as `*.test.ts(x)` (currently under `src/features/game/`). Playwright is installed but has no config or e2e tests yet. Note `pnpm check` runs only typecheck + lint, not tests — run tests separately.
 
 ## Conventions
 
@@ -164,6 +167,27 @@ Example:
 // ✅ OK - single-line comment stays as //
 // This is a brief note about the next line
 ```
+
+### Bug Discovery Logging
+
+**CRITICAL**: Don't silently ignore bugs and don't silently fix them either. If you notice a bug that is **out of scope** for the current task — UI glitch, logic error, perf issue, a11y defect, broken type, stale doc, anything — append an entry to [BUGS.md](../BUGS.md) at the repo root instead of expanding the diff.
+
+In-scope bugs (the thing you were asked to fix or are clearly inside the change you're making) are still fixed normally.
+
+**Rule of thumb**: if fixing it would touch a file outside what the user asked for, log it; do not fix it.
+
+**Entry format** (append to the bottom of `BUGS.md`, newest at the bottom):
+
+```text
+<YYYY-MM-DD>
+Component: <file path or component name>
+Expected: <what should happen>
+Actual: <what currently happens>
+Repro: <one-line steps to reproduce>
+Workaround: <none, or a short note>
+```
+
+After logging, mention the entry in your end-of-turn summary so the user knows it was captured. Do not apply the fix unless the user explicitly asks for it.
 
 ### Code Verification
 
