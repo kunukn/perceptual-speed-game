@@ -1,1 +1,0 @@
-import{a as e,c as t,o as n}from"./index-D3N7iO9y.js";var r=n()(e(e=>({...t,setMode:t=>e({mode:t}),setCountTarget:t=>e({countTarget:t}),setTimeLimit:t=>e({timeLimitMs:t}),setShowTimer:t=>e({showTimer:t}),setMirrorX:t=>e({mirrorX:t}),setMirrorY:t=>e({mirrorY:t}),setLetterSystem:t=>e({letterSystem:t})}),{name:`game-options`}));export{r as t};
