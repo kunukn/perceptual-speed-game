@@ -62,7 +62,7 @@ _Emoji letters_
 
 ```bash
 pnpm install
-pnpm dev      # start the Vite dev server (http://localhost:5173)
+pnpm dev      # start the Vite dev server (http://localhost:5175)
 ```
 
 ## Scripts

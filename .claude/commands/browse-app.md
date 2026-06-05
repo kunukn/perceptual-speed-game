@@ -13,9 +13,9 @@ Use this skill when the user wants to:
 
 ## Instructions
 
-When the user asks to browse a URL (e.g., `Browse http://localhost:5173`), follow these steps.
+When the user asks to browse a URL (e.g., `Browse http://localhost:5175`), follow these steps.
 
-**If no URL is provided**, default to `http://localhost:5173/`.
+**If no URL is provided**, default to `http://localhost:5175/`.
 
 ### 1. Acknowledge the Web Application is Running
 
@@ -43,13 +43,13 @@ Use the browser MCP tools to:
 
 User says:
 
-> Browse http://localhost:5173
+> Browse http://localhost:5175
 
 This should be interpreted as:
 
 ```
 The web application is running at:
-http://localhost:5173
+http://localhost:5175
 
 Browser MCP tools are available.
 Load the web application in the browser and describe what you see.
