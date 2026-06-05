@@ -1,38 +1,38 @@
-import { paths } from '@/app/paths';
-import { Layout } from '@/components/layout/Layout';
-import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
-import { useGameMachine } from '@/features/game/machine-context';
-import { useGameOptions } from '@/features/game/store/options';
-import { Navigate } from 'react-router';
+import { paths } from '@/app/paths'
+import { Layout } from '@/components/layout/Layout'
+import { PuzzleBoard } from '@/features/game/components/PuzzleBoard'
+import { useGameMachine } from '@/features/game/machine-context'
+import { useGameOptions } from '@/features/game/store/options'
+import { Navigate } from 'react-router'
 
 function pad2(n: number): string {
-  return String(n).padStart(2, '0');
+  return String(n).padStart(2, '0')
 }
 
 export function Review() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { state } = useGameMachine();
-  const mirrorX = useGameOptions((s) => s.mirrorX);
-  const mirrorY = useGameOptions((s) => s.mirrorY);
-  const [index, setIndex] = useState(0);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { state } = useGameMachine()
+  const mirrorX = useGameOptions((s) => s.mirrorX)
+  const mirrorY = useGameOptions((s) => s.mirrorY)
+  const [index, setIndex] = useState(0)
 
-  if (state.matches('playing')) return <Navigate to={paths.play} replace />;
+  if (state.matches('playing')) return <Navigate to={paths.play} replace />
 
-  if (!state.matches('finished')) return <Navigate to={paths.home} replace />;
+  if (!state.matches('finished')) return <Navigate to={paths.home} replace />
 
-  const { rounds, answers } = state.context;
-  const total = answers.length;
-  const round = rounds[index];
-  const userAnswer = answers[index];
-  const isCorrect = userAnswer === round.answer;
+  const { rounds, answers } = state.context
+  const total = answers.length
+  const round = rounds[index]
+  const userAnswer = answers[index]
+  const isCorrect = userAnswer === round.answer
 
   function goNext() {
-    setIndex((i) => (i + 1) % total);
+    setIndex((i) => (i + 1) % total)
   }
 
   function goPrev() {
-    setIndex((i) => (i - 1 + total) % total);
+    setIndex((i) => (i - 1 + total) % total)
   }
 
   return (
@@ -97,5 +97,5 @@ export function Review() {
         </p>
       </div>
     </Layout>
-  );
+  )
 }

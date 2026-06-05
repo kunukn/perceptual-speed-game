@@ -1,7 +1,7 @@
-import i18n from 'i18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import { initReactI18next } from 'react-i18next';
-import en from './locales/en.json';
+import i18n from 'i18next'
+import resourcesToBackend from 'i18next-resources-to-backend'
+import { initReactI18next } from 'react-i18next'
+import en from './locales/en.json'
 
 const SUPPORTED = [
   'en',
@@ -18,12 +18,12 @@ const SUPPORTED = [
   'bn',
   'ar',
   'ur',
-] as const;
+] as const
 
-const RTL = new Set<string>(['ar', 'ur']);
+const RTL = new Set<string>(['ar', 'ur'])
 
 export function isRtl(lng: string): boolean {
-  return RTL.has(lng.toLowerCase().split('-')[0]);
+  return RTL.has(lng.toLowerCase().split('-')[0])
 }
 
 /*
@@ -35,21 +35,21 @@ function detectInitialLanguage(): string {
   const candidates =
     typeof navigator !== 'undefined'
       ? [...(navigator.languages ?? []), navigator.language].filter(Boolean)
-      : [];
+      : []
 
-  debugLog('[i18n] navigator candidates', candidates);
+  debugLog('[i18n] navigator candidates', candidates)
 
   for (const tag of candidates) {
-    const primary = tag.toLowerCase().split('-')[0];
+    const primary = tag.toLowerCase().split('-')[0]
     if ((SUPPORTED as readonly string[]).includes(primary)) {
-      debugLog('[i18n] detected initial language', primary);
-      return primary;
+      debugLog('[i18n] detected initial language', primary)
+      return primary
     }
   }
 
-  debugLog('[i18n] no supported candidate, falling back to en');
+  debugLog('[i18n] no supported candidate, falling back to en')
 
-  return 'en';
+  return 'en'
 }
 
 /*
@@ -61,30 +61,30 @@ function detectInitialLanguage(): string {
  */
 const localeLoaders = import.meta.glob<{ default: Record<string, unknown> }>(
   './locales/*.json',
-);
-delete localeLoaders['./locales/en.json'];
+)
+delete localeLoaders['./locales/en.json']
 
 debugLog(
   '[i18n] available lazy locales',
   Object.keys(localeLoaders).map((p) => p.match(/([a-z]+)\.json$/)?.[1]),
-);
+)
 
 void i18n
   .use(
     resourcesToBackend(async (language: string) => {
-      const key = `./locales/${language}.json`;
-      const loader = localeLoaders[key];
-      debugLog('[i18n] load requested', { language, hasLoader: !!loader });
-      if (!loader) return {};
+      const key = `./locales/${language}.json`
+      const loader = localeLoaders[key]
+      debugLog('[i18n] load requested', { language, hasLoader: !!loader })
+      if (!loader) return {}
 
       try {
-        const mod = await loader();
-        debugLog('[i18n] loaded', language);
+        const mod = await loader()
+        debugLog('[i18n] loaded', language)
 
-        return mod.default ?? mod;
+        return mod.default ?? mod
       } catch (err) {
-        debugLog('[i18n] load failed', language, err);
-        throw err;
+        debugLog('[i18n] load failed', language, err)
+        throw err
       }
     }),
   )
@@ -97,13 +97,13 @@ void i18n
     partialBundledLanguages: true,
     interpolation: { escapeValue: false },
     returnNull: false,
-  });
+  })
 
 i18n.on('languageChanged', (lng) => {
-  debugLog('[i18n] languageChanged', lng);
-});
+  debugLog('[i18n] languageChanged', lng)
+})
 i18n.on('failedLoading', (lng, ns, msg) => {
-  debugLog('[i18n] failedLoading', { lng, ns, msg });
-});
+  debugLog('[i18n] failedLoading', { lng, ns, msg })
+})
 
-export default i18n;
+export default i18n

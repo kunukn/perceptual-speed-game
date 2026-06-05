@@ -1,7 +1,7 @@
-import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher'
 
 export function AppHeader() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <div className="relative flex w-full items-center justify-center">
       <h1 className="text-center text-2xl font-bold text-slate-900">
@@ -11,5 +11,5 @@ export function AppHeader() {
         <LanguageSwitcher />
       </div>
     </div>
-  );
+  )
 }

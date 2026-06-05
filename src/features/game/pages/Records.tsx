@@ -1,6 +1,6 @@
-import { paths } from '@/app/paths';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Layout } from '@/components/layout/Layout';
+import { paths } from '@/app/paths'
+import { AppHeader } from '@/components/layout/AppHeader'
+import { Layout } from '@/components/layout/Layout'
 import {
   Dialog,
   DialogClose,
@@ -10,73 +10,73 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { formatElapsed } from '@/features/game/machine';
+} from '@/components/ui/dialog'
+import { formatElapsed } from '@/features/game/machine'
 import {
   useHighScores,
   type HighScore,
-} from '@/features/game/store/high-scores';
-import dayjs from 'dayjs';
-import { useLocation } from 'react-router';
+} from '@/features/game/store/high-scores'
+import dayjs from 'dayjs'
+import { useLocation } from 'react-router'
 
 export function Records() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const scoresMap = useHighScores((s) => s.scores);
-  const hasScores = Object.keys(scoresMap).length > 0;
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const scoresMap = useHighScores((s) => s.scores)
+  const hasScores = Object.keys(scoresMap).length > 0
 
   const handleBack = () => {
     if (location.key !== 'default') {
-      navigate(-1);
-      return;
+      navigate(-1)
+      return
     }
 
-    navigate(paths.home);
-  };
+    navigate(paths.home)
+  }
 
   /* Sort by recency so the run the player just completed bubbles to the top. */
   const scores = useMemo(
     () => Object.values(scoresMap).sort((a, b) => b.achievedAt - a.achievedAt),
     [scoresMap],
-  );
+  )
 
   const handleClearScores = () => {
-    useHighScores.getState().clear();
-  };
+    useHighScores.getState().clear()
+  }
 
   const formatDate = (ts: number): string =>
-    dayjs(ts).format('YYYY-MM-DD HH:mm:ss');
+    dayjs(ts).format('YYYY-MM-DD HH:mm:ss')
 
   const formatVariant = (s: HighScore): string => {
-    const parts: string[] = [];
+    const parts: string[] = []
     if (s.mode === 'count') {
-      parts.push(t('options.questionsCount', { count: s.countTarget }));
+      parts.push(t('options.questionsCount', { count: s.countTarget }))
     } else {
-      const seconds = s.timeLimitMs / 1000;
+      const seconds = s.timeLimitMs / 1000
       parts.push(
         seconds < 60
           ? t('options.timeLimit.seconds', { count: seconds })
           : t('options.timeLimit.minute', { count: seconds / 60 }),
-      );
+      )
     }
-    parts.push(t(`options.letterSystem.${s.letterSystem}`));
+    parts.push(t(`options.letterSystem.${s.letterSystem}`))
     if (s.mirrorX && s.mirrorY) {
-      parts.push(t('records.rotated'));
+      parts.push(t('records.rotated'))
     } else {
-      if (s.mirrorX) parts.push(t('records.mirrorX'));
-      if (s.mirrorY) parts.push(t('records.mirrorY'));
+      if (s.mirrorX) parts.push(t('records.mirrorX'))
+      if (s.mirrorY) parts.push(t('records.mirrorY'))
     }
 
-    return parts.join(', ');
-  };
+    return parts.join(', ')
+  }
 
   const formatOutcome = (s: HighScore): string => {
-    const correct = t('records.correct', { count: s.correct });
-    if (s.mode === 'count') return `${correct}, ${formatElapsed(s.elapsedMs)}`;
+    const correct = t('records.correct', { count: s.correct })
+    if (s.mode === 'count') return `${correct}, ${formatElapsed(s.elapsedMs)}`
 
-    return correct;
-  };
+    return correct
+  }
 
   return (
     <Layout
@@ -144,5 +144,5 @@ export function Records() {
         )}
       </div>
     </Layout>
-  );
+  )
 }

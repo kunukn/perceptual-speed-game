@@ -45,7 +45,7 @@ Vitest is wired up (`vitest.config.ts`, jsdom + Testing Library, setup in `src/v
 - Always run `pnpm format` after edits to keep Prettier-clean (single quotes, semicolons, tailwind class sorting).
 - TypeScript strict mode is on, plus `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch`. Don't leave unused symbols.
 - Prefer existing `components/ui` (shadcn/Radix) over hand-rolling new UI primitives.
-- **Auto-imports are configured** via `unplugin-auto-import` (see `auto-import.config.ts`): React hooks, `react-router` exports, and `Button` are auto-imported — don't add explicit import statements for them.
+- **Auto-imports are configured** via `unplugin-auto-import` (see `auto-import.config.ts`): React hooks, `react-router` exports, and `Button` are auto-imported — don't add explicit import statements for them. The rationale (auto-imports, single quotes, no semicolons) is recorded in [docs/ADR.md](../docs/ADR.md).
 - **Playwright/browser screenshots go in `.temp/`** — never write screenshots (or other scratch artifacts) to the repo root. The `.temp/` folder is gitignored. When using a browser MCP tool, pass an explicit filename targeting `.temp/`, e.g. `.temp/intro.png`.
 
 ## Debug toggles

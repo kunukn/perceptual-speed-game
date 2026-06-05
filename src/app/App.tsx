@@ -1,5 +1,5 @@
-import { RouterProvider } from 'react-router';
-import { router } from './router';
+import { RouterProvider } from 'react-router'
+import { router } from './router'
 
 export default function App() {
   return (
@@ -9,5 +9,5 @@ export default function App() {
     >
       <RouterProvider router={router} />
     </div>
-  );
+  )
 }

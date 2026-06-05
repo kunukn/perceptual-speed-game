@@ -1,15 +1,15 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 type LetterGridProps = {
-  top: string[];
-  bottom: string[];
-  matches?: boolean[]; // which columns are matching pairs; falls back to case-insensitive compare
-  showMatches?: boolean; // color columns where letters match
-  showColumnOutlines?: boolean; // thin outline around each column (intro + review)
-  mirrorX?: boolean; // flip each glyph horizontally
-  mirrorY?: boolean; // flip each glyph vertically
-  className?: string;
-};
+  top: string[]
+  bottom: string[]
+  matches?: boolean[] // which columns are matching pairs; falls back to case-insensitive compare
+  showMatches?: boolean // color columns where letters match
+  showColumnOutlines?: boolean // thin outline around each column (intro + review)
+  mirrorX?: boolean // flip each glyph horizontally
+  mirrorY?: boolean // flip each glyph vertically
+  className?: string
+}
 
 export function LetterGrid({
   top,
@@ -25,21 +25,21 @@ export function LetterGrid({
     !!showMatches &&
     (matches
       ? !!matches[i]
-      : top[i]?.toLowerCase() === bottom[i]?.toLowerCase());
+      : top[i]?.toLowerCase() === bottom[i]?.toLowerCase())
 
   const cellCls = (i: number) =>
     cn(
       'text-center tabular-nums',
       isMatch(i) ? 'text-emerald-600' : 'text-slate-700',
-    );
+    )
 
   const transform =
     [mirrorX && 'scaleX(-1)', mirrorY && 'scaleY(-1)']
       .filter(Boolean)
-      .join(' ') || undefined;
+      .join(' ') || undefined
   const glyphStyle = transform
     ? { transform, display: 'inline-block' as const }
-    : undefined;
+    : undefined
 
   return (
     <div
@@ -71,5 +71,5 @@ export function LetterGrid({
         </div>
       ))}
     </div>
-  );
+  )
 }

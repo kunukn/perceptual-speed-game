@@ -1,14 +1,14 @@
-import { cn } from '@/lib/utils';
-import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils'
+import type { ReactNode } from 'react'
 
 type Props = {
-  header: ReactNode;
-  footer?: ReactNode;
+  header: ReactNode
+  footer?: ReactNode
   /** Absolutely positioned overlay rendered at the layout root (e.g. confetti canvas). Clipped by the outer overflow-hidden. */
-  overlay?: ReactNode;
-  children: ReactNode;
-  className?: string;
-};
+  overlay?: ReactNode
+  children: ReactNode
+  className?: string
+}
 
 export function Layout({
   header,
@@ -41,5 +41,5 @@ export function Layout({
         </footer>
       )}
     </div>
-  );
+  )
 }

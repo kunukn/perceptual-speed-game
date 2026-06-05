@@ -1,45 +1,45 @@
-import { paths } from '@/app/paths';
-import { Layout } from '@/components/layout/Layout';
-import { PuzzleBoard } from '@/features/game/components/PuzzleBoard';
-import { Timer } from '@/features/game/components/Timer';
-import { useGameMachine } from '@/features/game/machine-context';
-import { useGameOptions } from '@/features/game/store/options';
-import { Navigate } from 'react-router';
+import { paths } from '@/app/paths'
+import { Layout } from '@/components/layout/Layout'
+import { PuzzleBoard } from '@/features/game/components/PuzzleBoard'
+import { Timer } from '@/features/game/components/Timer'
+import { useGameMachine } from '@/features/game/machine-context'
+import { useGameOptions } from '@/features/game/store/options'
+import { Navigate } from 'react-router'
 
 function pad2(n: number): string {
-  return String(n).padStart(2, '0');
+  return String(n).padStart(2, '0')
 }
 
 export function Play() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { state, send } = useGameMachine();
-  const mode = useGameOptions((s) => s.mode);
-  const countTarget = useGameOptions((s) => s.countTarget);
-  const showTimer = useGameOptions((s) => s.showTimer);
-  const mirrorX = useGameOptions((s) => s.mirrorX);
-  const mirrorY = useGameOptions((s) => s.mirrorY);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { state, send } = useGameMachine()
+  const mode = useGameOptions((s) => s.mode)
+  const countTarget = useGameOptions((s) => s.countTarget)
+  const showTimer = useGameOptions((s) => s.showTimer)
+  const mirrorX = useGameOptions((s) => s.mirrorX)
+  const mirrorY = useGameOptions((s) => s.mirrorY)
 
   /* Warm the Results route chunk (and its canvas-confetti dependency) in the
    * background so the Play → Results transition isn't blocked on a ~1s
    * network fetch on slower connections. */
   useEffect(() => {
-    void import('@/features/game/pages/Results');
-  }, []);
+    void import('@/features/game/pages/Results')
+  }, [])
 
-  if (state.matches('finished')) return <Navigate to={paths.results} replace />;
+  if (state.matches('finished')) return <Navigate to={paths.results} replace />
 
-  if (!state.matches('playing')) return <Navigate to={paths.home} replace />;
+  if (!state.matches('playing')) return <Navigate to={paths.home} replace />
 
-  const { rounds, current, startedAt } = state.context;
-  const round = rounds[current];
+  const { rounds, current, startedAt } = state.context
+  const round = rounds[current]
 
-  if (!round) return <Navigate to={paths.home} replace />;
+  if (!round) return <Navigate to={paths.home} replace />
 
   const handleAbort = () => {
-    send({ type: 'ABORT' });
-    navigate(paths.home);
-  };
+    send({ type: 'ABORT' })
+    navigate(paths.home)
+  }
 
   return (
     <Layout
@@ -81,5 +81,5 @@ export function Play() {
         onAnswer={(value) => send({ type: 'ANSWER', value })}
       />
     </Layout>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { GameMachineProvider } from '@/features/game/machine-context';
-import { gameRoutes } from '@/features/game/routes';
-import { createHashRouter, Outlet } from 'react-router';
+import { GameMachineProvider } from '@/features/game/machine-context'
+import { gameRoutes } from '@/features/game/routes'
+import { createHashRouter, Outlet } from 'react-router'
 
 /* Pathless Layout Route pattern (React Router): the outer route has no `path`,
  * only an `element` + `children`, so it wraps the tree with shared providers
@@ -18,4 +18,4 @@ export const router = createHashRouter([
     ),
     children: [...gameRoutes],
   },
-]);
+])

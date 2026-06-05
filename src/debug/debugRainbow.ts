@@ -5,12 +5,12 @@
 export function initDebugRainbow(): void {
   // Lazy loaded resource for debugging CSS with rainbow outlines
   if (!document.getElementById('rainbow-debugger')) {
-    const script = document.createElement('script');
-    script.id = 'rainbow-debugger';
-    script.src = import.meta.env.BASE_URL + 'rainbow.js';
+    const script = document.createElement('script')
+    script.id = 'rainbow-debugger'
+    script.src = import.meta.env.BASE_URL + 'rainbow.js'
     script.addEventListener('load', () => {
-      console.debug('*** Rainbow CSS debugging loaded');
-    });
-    document.body.appendChild(script);
+      console.debug('*** Rainbow CSS debugging loaded')
+    })
+    document.body.appendChild(script)
   }
 }

@@ -1,10 +1,10 @@
-import { paths } from '@/app/paths';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Layout } from '@/components/layout/Layout';
+import { paths } from '@/app/paths'
+import { AppHeader } from '@/components/layout/AppHeader'
+import { Layout } from '@/components/layout/Layout'
 
 export function NotFound() {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
     <Layout
@@ -24,5 +24,5 @@ export function NotFound() {
         {t('common.notFound')}
       </p>
     </Layout>
-  );
+  )
 }

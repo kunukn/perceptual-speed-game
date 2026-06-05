@@ -1,31 +1,31 @@
-import type { ReactNode } from 'react';
-import { AnswerButtons } from './AnswerButtons';
-import { LetterGrid } from './LetterGrid';
+import type { ReactNode } from 'react'
+import { AnswerButtons } from './AnswerButtons'
+import { LetterGrid } from './LetterGrid'
 
 type PuzzleBoardProps = {
   /** Optional caption above the grid — used by the intro example. Play and review screens render this in the layout header instead. */
-  label?: ReactNode;
-  top: string[];
-  bottom: string[];
+  label?: ReactNode
+  top: string[]
+  bottom: string[]
   /** Which columns are matching pairs — drives the green highlight. */
-  matches?: boolean[];
+  matches?: boolean[]
   /** Color matching letter columns green — intro example only. */
-  showMatches?: boolean;
+  showMatches?: boolean
   /** Thin outline around each column — intro + review. */
-  showColumnOutlines?: boolean;
+  showColumnOutlines?: boolean
   /** Flip glyphs horizontally (play screen only). */
-  mirrorX?: boolean;
+  mirrorX?: boolean
   /** Flip glyphs vertically (play screen only). */
-  mirrorY?: boolean;
+  mirrorY?: boolean
   /** Click handler for play mode. Omit for a static preview (intro example). */
-  onAnswer?: (n: number) => void;
+  onAnswer?: (n: number) => void
   /** Highlights this choice as the correct answer (green). */
-  highlightIdx?: number;
+  highlightIdx?: number
   /** Highlights this choice as the wrong answer (red). Used by review mode. */
-  wrongIdx?: number;
+  wrongIdx?: number
   /** Caption shown below the answer buttons (intro example only). */
-  caption?: ReactNode;
-};
+  caption?: ReactNode
+}
 
 export function PuzzleBoard({
   label,
@@ -41,7 +41,7 @@ export function PuzzleBoard({
   wrongIdx,
   caption,
 }: PuzzleBoardProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <div className="flex w-full flex-col items-center gap-4 md:gap-8">
       {label && (
@@ -79,5 +79,5 @@ export function PuzzleBoard({
         )}
       </div>
     </div>
-  );
+  )
 }

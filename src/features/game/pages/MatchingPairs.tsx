@@ -1,25 +1,25 @@
-import { paths } from '@/app/paths';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Layout } from '@/components/layout/Layout';
-import { LETTER_SYSTEMS } from '@/features/game/machine';
-import { useGameOptions } from '@/features/game/store/options';
+import { paths } from '@/app/paths'
+import { AppHeader } from '@/components/layout/AppHeader'
+import { Layout } from '@/components/layout/Layout'
+import { LETTER_SYSTEMS } from '@/features/game/machine'
+import { useGameOptions } from '@/features/game/store/options'
 
 export function MatchingPairs() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const letterSystem = useGameOptions((s) => s.letterSystem);
-  const mirrorX = useGameOptions((s) => s.mirrorX);
-  const mirrorY = useGameOptions((s) => s.mirrorY);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const letterSystem = useGameOptions((s) => s.letterSystem)
+  const mirrorX = useGameOptions((s) => s.mirrorX)
+  const mirrorY = useGameOptions((s) => s.mirrorY)
 
-  const pairs = LETTER_SYSTEMS[letterSystem];
+  const pairs = LETTER_SYSTEMS[letterSystem]
 
   const transform =
     [mirrorX && 'scaleX(-1)', mirrorY && 'scaleY(-1)']
       .filter(Boolean)
-      .join(' ') || undefined;
+      .join(' ') || undefined
   const glyphStyle = transform
     ? { transform, display: 'inline-block' as const }
-    : undefined;
+    : undefined
 
   return (
     <Layout
@@ -64,5 +64,5 @@ export function MatchingPairs() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }

@@ -1,29 +1,29 @@
-import { cn } from '@/lib/utils';
-import { css, keyframes } from '@emotion/react';
+import { cn } from '@/lib/utils'
+import { css, keyframes } from '@emotion/react'
 
 const buttonClick = keyframes`
   0%   { transform: scale(1);    background-color: transparent; }
   40%  { transform: scale(0.92); background-color: oklch(0.205 0 0 / 0.12); }
   100% { transform: scale(1);    background-color: transparent; }
-`;
+`
 
 const buttonClickStyle = css`
   &[data-clicked='true'] {
     animation: ${buttonClick} 180ms ease-out;
   }
-`;
+`
 
-const CHOICES = [0, 1, 2, 3, 4];
+const CHOICES = [0, 1, 2, 3, 4]
 
 type AnswerButtonsProps = {
   /** Click handler for play mode. Omit for a static preview (intro example). */
-  onAnswer?: (n: number) => void;
+  onAnswer?: (n: number) => void
   /** Highlights this choice as the correct answer (green). Used by the intro example and review. */
-  highlightIdx?: number;
+  highlightIdx?: number
   /** Highlights this choice as the wrong answer (red). Used by review mode. */
-  wrongIdx?: number;
-  className?: string;
-};
+  wrongIdx?: number
+  className?: string
+}
 
 export function AnswerButtons({
   onAnswer,
@@ -31,8 +31,8 @@ export function AnswerButtons({
   wrongIdx,
   className,
 }: AnswerButtonsProps) {
-  const [clickedIdx, setClickedIdx] = useState<number | null>(null);
-  const isPreview = !onAnswer;
+  const [clickedIdx, setClickedIdx] = useState<number | null>(null)
+  const isPreview = !onAnswer
 
   return (
     <div
@@ -50,8 +50,8 @@ export function AnswerButtons({
           onClick={
             onAnswer
               ? () => {
-                  setClickedIdx(n);
-                  onAnswer(n);
+                  setClickedIdx(n)
+                  onAnswer(n)
                 }
               : undefined
           }
@@ -70,5 +70,5 @@ export function AnswerButtons({
         </Button>
       ))}
     </div>
-  );
+  )
 }

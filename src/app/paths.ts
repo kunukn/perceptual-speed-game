@@ -7,6 +7,6 @@ export const paths = {
   results: '/results',
   review: '/review',
   matchingPairs: '/matching-pairs',
-} as const;
+} as const
 
-export type AppPath = (typeof paths)[keyof typeof paths];
+export type AppPath = (typeof paths)[keyof typeof paths]

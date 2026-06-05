@@ -1,21 +1,21 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import {
   DEFAULT_OPTIONS,
   type GameMode,
   type GameOptions,
   type LetterSystem,
-} from '@/features/game/machine';
+} from '@/features/game/machine'
 
 type GameOptionsStore = GameOptions & {
-  setMode: (mode: GameMode) => void;
-  setCountTarget: (value: number) => void;
-  setTimeLimit: (value: number) => void;
-  setShowTimer: (value: boolean) => void;
-  setMirrorX: (value: boolean) => void;
-  setMirrorY: (value: boolean) => void;
-  setLetterSystem: (value: LetterSystem) => void;
-};
+  setMode: (mode: GameMode) => void
+  setCountTarget: (value: number) => void
+  setTimeLimit: (value: number) => void
+  setShowTimer: (value: boolean) => void
+  setMirrorX: (value: boolean) => void
+  setMirrorY: (value: boolean) => void
+  setLetterSystem: (value: LetterSystem) => void
+}
 
 export const useGameOptions = create<GameOptionsStore>()(
   persist(
@@ -31,4 +31,4 @@ export const useGameOptions = create<GameOptionsStore>()(
     }),
     { name: 'game-options' },
   ),
-);
+)

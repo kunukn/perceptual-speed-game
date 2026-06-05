@@ -1,33 +1,33 @@
-import { paths } from '@/app/paths';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Layout } from '@/components/layout/Layout';
-import { useConfetti } from '@/features/game/components/useConfetti';
-import { formatElapsed } from '@/features/game/machine';
-import { useGameMachine } from '@/features/game/machine-context';
-import { useGameOptions } from '@/features/game/store/options';
-import { Navigate } from 'react-router';
+import { paths } from '@/app/paths'
+import { AppHeader } from '@/components/layout/AppHeader'
+import { Layout } from '@/components/layout/Layout'
+import { useConfetti } from '@/features/game/components/useConfetti'
+import { formatElapsed } from '@/features/game/machine'
+import { useGameMachine } from '@/features/game/machine-context'
+import { useGameOptions } from '@/features/game/store/options'
+import { Navigate } from 'react-router'
 
 export function Results() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { state, send, lastResultTier, consumeConfetti } = useGameMachine();
-  const mode = useGameOptions((s) => s.mode);
-  const countTarget = useGameOptions((s) => s.countTarget);
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { state, send, lastResultTier, consumeConfetti } = useGameMachine()
+  const mode = useGameOptions((s) => s.mode)
+  const countTarget = useGameOptions((s) => s.countTarget)
 
-  const isFinished = state.matches('finished');
-  const { correct, answers, elapsedMs } = state.context;
-  const answered = answers.length;
-  const total = mode === 'time' ? answered : countTarget;
-  const canvasRef = useConfetti(lastResultTier, consumeConfetti);
+  const isFinished = state.matches('finished')
+  const { correct, answers, elapsedMs } = state.context
+  const answered = answers.length
+  const total = mode === 'time' ? answered : countTarget
+  const canvasRef = useConfetti(lastResultTier, consumeConfetti)
 
-  if (state.matches('playing')) return <Navigate to={paths.play} replace />;
+  if (state.matches('playing')) return <Navigate to={paths.play} replace />
 
-  if (!isFinished) return <Navigate to={paths.home} replace />;
+  if (!isFinished) return <Navigate to={paths.home} replace />
 
   const handleRestart = () => {
-    send({ type: 'RESTART' });
-    navigate(paths.home);
-  };
+    send({ type: 'RESTART' })
+    navigate(paths.home)
+  }
 
   return (
     <Layout
@@ -72,5 +72,5 @@ export function Results() {
         </p>
       </div>
     </Layout>
-  );
+  )
 }

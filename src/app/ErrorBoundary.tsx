@@ -1,34 +1,34 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react'
 
 type ErrorBoundaryProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 type ErrorBoundaryState = {
-  hasError: boolean;
-  error: Error | null;
-};
+  hasError: boolean
+  error: Error | null
+}
 
 export default class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
-  state: ErrorBoundaryState = { hasError: false, error: null };
+  state: ErrorBoundaryState = { hasError: false, error: null }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error('ErrorBoundary caught:', error, info);
+    console.error('ErrorBoundary caught:', error, info)
   }
 
   handleRetry = (): void => {
-    document.location.href = import.meta.env.BASE_URL;
-  };
+    document.location.href = import.meta.env.BASE_URL
+  }
 
   render() {
-    if (!this.state.hasError) return this.props.children;
+    if (!this.state.hasError) return this.props.children
 
     return (
       <div
@@ -49,6 +49,6 @@ export default class ErrorBoundary extends Component<
           Retry
         </button>
       </div>
-    );
+    )
   }
 }

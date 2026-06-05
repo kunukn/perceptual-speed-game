@@ -1,20 +1,20 @@
-import { paths } from '@/app/paths';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Layout } from '@/components/layout/Layout';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Switch } from '@/components/ui/switch';
+import { paths } from '@/app/paths'
+import { AppHeader } from '@/components/layout/AppHeader'
+import { Layout } from '@/components/layout/Layout'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Switch } from '@/components/ui/switch'
 import {
   COUNT_TARGETS,
   LETTER_SYSTEMS_LIST,
   TIME_LIMITS_MS,
   type LetterSystem,
-} from '@/features/game/machine';
-import { useGameOptions } from '@/features/game/store/options';
+} from '@/features/game/machine'
+import { useGameOptions } from '@/features/game/store/options'
 
 export function Options() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
   const {
     mode,
     countTarget,
@@ -30,14 +30,14 @@ export function Options() {
     setMirrorX,
     setMirrorY,
     setLetterSystem,
-  } = useGameOptions();
+  } = useGameOptions()
 
   const formatTimeLimit = (ms: number): string => {
-    const seconds = ms / 1000;
-    if (seconds < 60) return t('options.timeLimit.seconds', { count: seconds });
+    const seconds = ms / 1000
+    if (seconds < 60) return t('options.timeLimit.seconds', { count: seconds })
 
-    return t('options.timeLimit.minute', { count: seconds / 60 });
-  };
+    return t('options.timeLimit.minute', { count: seconds / 60 })
+  }
 
   const options = [
     ...TIME_LIMITS_MS.map((ms) => ({
@@ -45,8 +45,8 @@ export function Options() {
       label: formatTimeLimit(ms),
       checked: mode === 'time' && timeLimitMs === ms,
       select: () => {
-        setMode('time');
-        setTimeLimit(ms);
+        setMode('time')
+        setTimeLimit(ms)
       },
     })),
     ...COUNT_TARGETS.map((count) => ({
@@ -54,18 +54,18 @@ export function Options() {
       label: t('options.questionsCount', { count }),
       checked: mode === 'count' && countTarget === count,
       select: () => {
-        setMode('count');
-        setCountTarget(count);
+        setMode('count')
+        setCountTarget(count)
       },
     })),
-  ];
+  ]
 
-  const selectedGameOption = options.find((option) => option.checked)?.key;
+  const selectedGameOption = options.find((option) => option.checked)?.key
 
   const handleGameOptionChange = (value: string) => {
-    const next = options.find((option) => option.key === value);
-    next?.select();
-  };
+    const next = options.find((option) => option.key === value)
+    next?.select()
+  }
 
   return (
     <Layout
@@ -181,5 +181,5 @@ export function Options() {
         </fieldset>
       </div>
     </Layout>
-  );
+  )
 }
