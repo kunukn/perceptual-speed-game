@@ -50,11 +50,16 @@ async function main() {
     const port = await getFreePort();
     const previewUrl = `https://localhost:${port}`;
 
-    // Start the preview server
+    /*
+     * detached: true puts `npx` in its own process group so we can later
+     * signal the whole group. `npx` spawns `vite` as a grandchild; a plain
+     * previewProcess.kill() would only hit the npx wrapper and leave the
+     * vite server orphaned. Killing the group (kill(-pid)) takes both down.
+     */
     console.log('Starting preview server...');
     previewProcess = spawn('npx', ['vite', 'preview', '--port', String(port)], {
       stdio: 'pipe',
-      detached: false,
+      detached: true,
     });
 
     previewProcess.stderr.on('data', (data) => {
@@ -98,8 +103,14 @@ async function main() {
     console.error('❌ FAILURE:', err.message);
     process.exit(1);
   } finally {
-    if (previewProcess) {
-      previewProcess.kill();
+    if (previewProcess?.pid) {
+      try {
+        /* Negative pid signals the whole process group (npx + vite grandchild) */
+        process.kill(-previewProcess.pid, 'SIGTERM');
+      } catch {
+        // Group already gone — fall back to a direct kill
+        previewProcess.kill();
+      }
     }
   }
 }
