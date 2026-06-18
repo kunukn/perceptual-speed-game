@@ -2,6 +2,10 @@
 # Both are skipped (`false`) — the app builds fine without them, matching
 # the long-standing local install. Declaring the decision here prevents
 # ERR_PNPM_IGNORED_BUILDS from failing non-interactive (CI) installs.
+# Supply-chain cooldown: only install package versions published >= 1 day ago.
+# Value is in minutes. Override for a specific package: minimumReleaseAgeExclude.
+minimumReleaseAge: 1440
+
 allowBuilds:
   '@swc/core': false
   msw: false
