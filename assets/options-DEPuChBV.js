@@ -1,0 +1,1 @@
+import{i as e,o as t,r as n}from"./index-DzksIsw4.js";var r=e()(n(e=>({...t,setMode:t=>e({mode:t}),setCountTarget:t=>e({countTarget:t}),setTimeLimit:t=>e({timeLimitMs:t}),setShowTimer:t=>e({showTimer:t}),setMirrorX:t=>e({mirrorX:t}),setMirrorY:t=>e({mirrorY:t}),setLetterSystem:t=>e({letterSystem:t})}),{name:`game-options`}));export{r as t};
