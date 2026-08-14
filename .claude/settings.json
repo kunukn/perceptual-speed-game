@@ -1,15 +1,13 @@
 {
+  "verbose": true,
+  "showThinkingSummaries": true,
   "permissions": {
-    "verbose": true,
-    "showThinkingSummaries": true,
-    "thinkingDisplay": "summarized",
     "allow": [
       "Bash(pnpm build *)",
-      "mcp__playwright__browser_resize",
-      "Bash(echo \"EXIT: $?\")",
+      "Bash(pnpm dev *)",
       "Bash(npm ls *)",
       "Bash(npm view *)",
-      "Bash(pnpm dev *)"
+      "mcp__playwright__browser_resize"
     ]
   }
 }
