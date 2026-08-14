@@ -1,6 +1,7 @@
 {
   "verbose": true,
   "showThinkingSummaries": true,
+  "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
       "Bash(pnpm build *)",
